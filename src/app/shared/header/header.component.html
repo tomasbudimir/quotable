@@ -1,0 +1,27 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title (click)="navigateHome()">
+      <span class="first"><i>qout</i></span>
+      <span class="second"><i>able</i></span>
+    </ion-title>
+    <ng-content>
+      <ng-container *ngIf="isLoggedIn">
+        <ion-label slot="end" class="ion-padding back">Welcome</ion-label>
+        <ion-avatar id="click-trigger" class="small-avatar back" slot="end">
+          <img [src]="photoURL" />
+        </ion-avatar>
+        <ion-popover trigger="click-trigger" triggerAction="click">
+          <ng-template>
+            <ion-content class="ion-padding">{{displayName}}</ion-content>
+          </ng-template>
+        </ion-popover>
+        <ion-button (click)="logout()" slot="end" fill="clear">
+          Logout
+        </ion-button>
+      </ng-container>
+      <ion-button *ngIf="!isLoggedIn" (click)="goToLogin()" slot="end" fill="clear">
+        Login
+      </ion-button>
+    </ng-content>
+  </ion-toolbar>
+</ion-header>

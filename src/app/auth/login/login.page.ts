@@ -1,0 +1,64 @@
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
+import { AuthService } from '../../services/auth.service';
+import { DataService } from '../../services/data.service';
+import { AlertService } from '../../services/alert.service';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.page.html',
+  styleUrls: ['./login.page.scss'],
+  standalone: false
+})
+export class LoginPage {
+  username = '';
+  password = '';
+
+  constructor(private authService: AuthService,
+    private dataService: DataService,
+    private alertService: AlertService,
+    private router: Router,
+    private loadingController: LoadingController
+  ) { }
+
+  async login() {
+    const loading = await this.loadingController.create();
+    await loading.present();
+
+    try {
+      const res = await this.authService.login(this.username, this.password);
+
+      if (!res.user.emailVerified) {
+        await this.authService.logout();
+        this.alertService.show("E-mail not verified yet", "Please verify your e-mail address before you can log in!")
+      } else {
+        this.dataService.setLoggedInDate(res.user.uid);
+        this.router.navigateByUrl('/tabs', { replaceUrl: true });
+      }
+    } catch (error) {
+      this.alertService.show("Error", error.message);
+    } finally {
+      await loading.dismiss();
+    }
+  }
+
+  async googleSignIn() {
+    try {
+      const res = await this.authService.loginWithGoogle();
+
+      this.dataService.setUser(res.user.uid, res.user.email, res.user.displayName);
+      this.dataService.setPhotoURL(res.user.uid, res.user.photoURL);
+      this.dataService.setLoggedInDate(res.user.uid);
+      this.dataService.setDateUserJoined(res.user.uid);
+
+      this.router.navigate(['/tabs']);
+    } catch (error) {
+      this.alertService.show("Error", error.message);
+    }
+  }
+
+  goToRegister() {
+    this.router.navigateByUrl('/register', { replaceUrl: true });
+  }
+}

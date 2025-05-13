@@ -1,0 +1,23 @@
+i {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 1.3em;
+  text-transform: lowercase;
+}
+
+.first {
+  color: darkblue;
+}
+
+.second {
+  color: darkolivegreen;
+}
+
+.small-avatar {
+  width: 30px;
+  height: 30px;
+}
+
+.back {
+  z-index: -1;
+}

@@ -1,0 +1,25 @@
+<app-header>
+  <ion-button (click)="goToLogin()" slot="end" fill="clear">
+    login
+  </ion-button>
+</app-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-content>
+      <ion-input label="Name" labelPlacement="floating" placeholder="Enter name" [(ngModel)]="name"></ion-input>
+      <ion-input label="Email" labelPlacement="floating" placeholder="Enter email address"
+        [(ngModel)]="username"></ion-input>
+      <ion-input label="Password" labelPlacement="floating" type="password" [(ngModel)]="password"></ion-input>
+      <ion-button expand="block" fill="outline" (click)="register()">
+        Create account
+        <ion-icon slot="end" name="person-add-outline"></ion-icon>
+      </ion-button>
+      <div class="center">or</div>
+      <ion-button expand="block" fill="outline" (click)="googleSignIn()">
+        Sign in with Google
+        <ion-icon slot="end" name="logo-google"></ion-icon>
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
