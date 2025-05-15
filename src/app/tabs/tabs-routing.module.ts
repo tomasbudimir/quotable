@@ -13,20 +13,15 @@ const routes: Routes = [
         loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
       },
       {
-        path: 'uploader',
-        loadChildren: () => import('./uploader/uploader.module').then( m => m.UploaderPageModule)
+        path: 'new-quote',
+        loadChildren: () => import('./new-quote/new-quote.module').then( m => m.NewQuotePageModule)
       },
       {
         path: 'profile',
         loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
       },
     ]
-  },
-  {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   }
-
 ];
 
 @NgModule({

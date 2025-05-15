@@ -27,7 +27,7 @@ export class HeaderComponent {
   }
 
   navigateHome() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/tabs/home']);
   }
 
   goToLogin() {
@@ -35,7 +35,7 @@ export class HeaderComponent {
   }
 
   get displayName(): string {
-    return this.authService.user?.displayName;
+    return this.authService.displayName;
   }
 
   get photoURL(): string {

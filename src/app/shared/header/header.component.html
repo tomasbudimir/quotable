@@ -1,20 +1,14 @@
 <ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
-    <ion-title (click)="navigateHome()">
+    <ion-title (click)="navigateHome()" class="link">
       <span class="first"><i>qout</i></span>
       <span class="second"><i>able</i></span>
     </ion-title>
     <ng-content>
       <ng-container *ngIf="isLoggedIn">
-        <ion-label slot="end" class="ion-padding back">Welcome</ion-label>
-        <ion-avatar id="click-trigger" class="small-avatar back" slot="end">
+        <ion-avatar class="small-avatar back" slot="end">
           <img [src]="photoURL" />
         </ion-avatar>
-        <ion-popover trigger="click-trigger" triggerAction="click">
-          <ng-template>
-            <ion-content class="ion-padding">{{displayName}}</ion-content>
-          </ng-template>
-        </ion-popover>
         <ion-button (click)="logout()" slot="end" fill="clear">
           Logout
         </ion-button>

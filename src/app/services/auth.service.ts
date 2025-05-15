@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile, User } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, 
+  signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile, User } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,6 @@ export class AuthService {
       if (user) {
         // User signed in
         console.log("User logged in:", user);
-        
         this.currentUser = user;
       } else {
         // User signed out
@@ -40,14 +40,14 @@ export class AuthService {
   }
 
   updateDisplayName(displayName: string) {
-    if (this.currentUser) {
-      updateProfile(this.currentUser, { displayName });
+    if (this.user) {
+      updateProfile(this.user, { displayName });
     }
   }
 
   updatePhotoURL(photoURL: string) {
-    if (this.currentUser) {
-      updateProfile(this.currentUser, { photoURL });
+    if (this.user) {
+      updateProfile(this.user, { photoURL });
     }
   }
 
@@ -55,9 +55,13 @@ export class AuthService {
     return this.currentUser;
   }
 
+  get displayName(): string {
+    return this.user?.displayName;
+  }
+
   get photoURL(): string {
-    if (this.currentUser?.photoURL && this.currentUser.photoURL.startsWith('http')) {
-      return this.currentUser.photoURL;
+    if (this.user?.photoURL && this.user.photoURL.startsWith('http')) {
+      return this.user.photoURL;
     }
 
     return '/assets/nophoto.svg';

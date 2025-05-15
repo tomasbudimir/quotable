@@ -1,0 +1,10 @@
+<app-header></app-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  page for creating new quote
+  <ion-list *ngIf="imageItems">
+    <ion-item *ngFor="let item of imageItems">
+      <img [src]="item.url">
+    </ion-item>
+  </ion-list>
+</ion-content>

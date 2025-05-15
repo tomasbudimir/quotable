@@ -14,7 +14,13 @@ export const environment = {
   },
   cloudinary: {
     uploadUrl: 'https://api.cloudinary.com/v1_1/detfb6fxd/image/upload', // https://api.cloudinary.com/v1_1/{CloudName}/image/upload
-    uploadPreset: 'images' // Unisigned upload preset created on cloudinary
+    uploadPreset: 'images', // Unisigned upload preset created on cloudinary
+    apiKey: '569997469433219'
+  },
+  imgur: {
+    imgurAPI: 'https://api.imgur.com/3/image',
+    clientID: '0d02ce8e6de8d8b',
+    clientSecret: '7a483ed40bec99feafd023b8bb0323d1f3a64c14'
   }
 };
 

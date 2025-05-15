@@ -1,0 +1,62 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+  justify-content: center;
+}
+
+.quote {
+  width: 550px;
+  height: 367px;
+  background-blend-mode: overlay;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;     /* stack items vertically */
+  justify-content: center;    /* center them vertically */
+  align-items: center;        /* center them horizontally */
+  margin-left: 1px;
+}
+
+@media (max-width: 900px) {
+  .item {
+    flex: 1 1 calc(50% - 32px);
+  }
+}
+
+@media (max-width: 600px) {
+  .item {
+    flex: 1 1 100%;
+  }
+}
+
+.quote-content {
+  margin-top: auto;
+}
+
+.quote-text {
+  margin: 20px;
+  color: gainsboro;
+  font-size: 1.5em;
+}
+
+.quote-author {
+  color: white;
+  font-size: 1.5em;
+  align-self: flex-end;
+  margin-right: 50px;
+}
+
+.button-row {
+  margin-top: auto;
+  align-self: flex-bottom;
+}
+
+.button {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.icon {
+  font-size: 22px;
+}

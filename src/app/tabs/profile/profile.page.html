@@ -1,5 +1,14 @@
 <app-header></app-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
-  Profile
+<ion-content class="ion-padding">
+  <div class="center-content">
+    <input type="file" accept="image/*" #fileInput hidden (change)="onFileSelected($event)"/>
+    <ion-avatar class="center-content larger" (click)="fileInput.click()">
+      <img [src]="photoURL">
+    </ion-avatar>
+    <ion-input label="Display Name" labelPlacement="floating" placeholder="Display Name" [(ngModel)]="displayName" (ngModelChange)="userMadeChange()" />
+    <ion-button expand="block" [disabled]="!saveButtonEnabled" (click)="save()">
+      save changes
+    </ion-button>
+  </div>
 </ion-content>

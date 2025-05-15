@@ -1,7 +1,7 @@
+import { delay, map, Observable, of, take } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
 import { AuthService } from './auth.service';
-import { delay, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,18 +12,19 @@ export class AlreadyLoggedInGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return of(true).pipe(
-      delay(500), // Wait until onAuthStateChanged is done in AuthService
+      delay(500),
       map(() => {
-        const isLoggedIn = this.authService.user != null;
+        const authenticated = this.authService.user != null;
 
-        console.log("isLoggedIn:", isLoggedIn);
+        console.log("User is authenticated:", authenticated);
 
-        if (isLoggedIn) {
+        if (authenticated) {
           this.router.navigate(['']);
           return false;
         }
 
         return true;
-      }));
+      })
+    );
   }
 }

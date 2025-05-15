@@ -1,22 +1,22 @@
+import { SharedModule } from './../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { UploaderPageRoutingModule } from './uploader-routing.module';
+import { NewQuotePageRoutingModule } from './new-quote-routing.module';
 
-import { UploaderPage } from './uploader.page';
-import { SharedModule } from '../../shared/shared.module';
+import { NewQuotePage } from './new-quote.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    UploaderPageRoutingModule,
+    NewQuotePageRoutingModule,
     SharedModule
   ],
-  declarations: [UploaderPage]
+  declarations: [NewQuotePage]
 })
-export class UploaderPageModule {}
+export class NewQuotePageModule {}

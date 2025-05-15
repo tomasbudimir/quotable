@@ -1,24 +1,21 @@
-import { AuthService } from './../../services/auth.service';
-import { AlertService } from 'src/app/services/alert.service';
-import { FileService } from './../../services/file.service';
-import { ImageItem } from './../../models/image-item';
-import { Component } from '@angular/core';
+import { AlertService } from './../../services/alert.service';
 import { LoadingController } from '@ionic/angular';
+import { ImageItem } from './../../models/image-item';
+import { FileService } from './../../services/file.service';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+  selector: 'app-new-quote',
+  templateUrl: './new-quote.page.html',
+  styleUrls: ['./new-quote.page.scss'],
   standalone: false
 })
-export class HomePage {
-
+export class NewQuotePage {
   imageItems: ImageItem[];
 
   constructor(private fileService: FileService,
     private loadingController: LoadingController,
-    private alertService: AlertService,
-    private authService: AuthService
+    private alertService: AlertService
   ) { }
 
   ionViewDidEnter() {
@@ -38,7 +35,4 @@ export class HomePage {
     }
   }
 
-  get isLoggedIn(): boolean {
-    return this.authService.user != null;
-  }
 }
