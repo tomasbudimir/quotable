@@ -1,3 +1,5 @@
+import { ImageItem } from './../../models/image-item';
+import { FileService } from './../../services/file.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
@@ -14,13 +16,32 @@ import { AlertService } from '../../services/alert.service';
 export class LoginPage {
   username = '';
   password = '';
+  randomlySelectedImage: ImageItem = null;
 
   constructor(private authService: AuthService,
     private dataService: DataService,
     private alertService: AlertService,
     private router: Router,
+    private fileService: FileService,
     private loadingController: LoadingController
   ) { }
+
+  ionViewDidEnter() {
+    this.loadImages();
+  }
+
+  async loadImages() {
+    try {
+      const imageItems = await this.fileService.getImageItems();  
+      
+      if (imageItems.length > 0) {
+        const index = Math.floor(Math.random() * imageItems.length);
+        this.randomlySelectedImage = imageItems[index];
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
 
   async login() {
     const loading = await this.loadingController.create();

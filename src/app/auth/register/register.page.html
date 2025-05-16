@@ -6,25 +6,24 @@
 
 <ion-content [fullscreen]="true">
   <ion-card>
+    <img [src]="randomlySelectedImage.url" *ngIf="randomlySelectedImage" />
     <ion-card-content>
       <ion-input label="Name" labelPlacement="floating" placeholder="Enter name" [(ngModel)]="name"></ion-input>
       <ion-input label="Email" labelPlacement="floating" placeholder="Enter email address"
         [(ngModel)]="username"></ion-input>
       <ion-input label="Password" labelPlacement="floating" type="password" [(ngModel)]="password"></ion-input>
       <ion-button expand="block" color="light" (click)="register()">
-        Create account
+        Create quotable account
         <ion-icon slot="end" name="person-add-outline"></ion-icon>
       </ion-button>
-      <div class="center">or</div>
-      <ion-button expand="block" color="warning" (click)="googleSignIn()">
-        Sign in with Google
-        <ion-icon slot="end" name="logo-google"></ion-icon>
-      </ion-button>
-      <div class="center">or</div>
-      <ion-button expand="block" color="primary" (click)="facebookSignIn()">
-        Sign in with Facebook
-        <ion-icon slot="end" name="logo-facebook"></ion-icon>
-      </ion-button>
+      <div class="center top-margin">
+        You already have a quotable account?
+      </div>
+      <div class="center">
+        <ion-button (click)="goToLogin()" fill="clear">
+          login
+        </ion-button>
+      </div>
     </ion-card-content>
   </ion-card>
 </ion-content>

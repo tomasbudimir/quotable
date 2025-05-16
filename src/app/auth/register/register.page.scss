@@ -1,10 +1,23 @@
 ion-card {
-    max-width: 350px;
-    margin: 200px auto;
+    max-width: 400px;
+    margin: 50px auto;
+}
+
+@media (max-width: 500px) {
+  ion-card {
+    margin: 0px auto;
+  }
 }
 
 .center {
     text-align: center;
     color: black;
+}
+
+.big-font {
     font-size: 1.2em;
+}
+
+.top-margin {
+    margin-top: 20px;
 }

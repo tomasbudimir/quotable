@@ -1,3 +1,5 @@
+import { FileService } from './../../services/file.service';
+import { ImageItem } from './../../models/image-item';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
@@ -16,13 +18,32 @@ export class RegisterPage {
   name = '';
   username = '';
   password = '';
-
+  randomlySelectedImage: ImageItem = null;
+  
   constructor(private authService: AuthService, 
     private alertService: AlertService,
     private router: Router,
     private dataService: DataService,
+    private fileService: FileService,
     private loadingController: LoadingController
   ) { }
+
+  ionViewDidEnter() {
+    this.loadImages();
+  }
+
+  async loadImages() {
+    try {
+      const imageItems = await this.fileService.getImageItems();  
+      
+      if (imageItems.length > 0) {
+        const index = Math.floor(Math.random() * imageItems.length);
+        this.randomlySelectedImage = imageItems[index];
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
 
   async register() {
     const loading = await this.loadingController.create();
@@ -43,36 +64,6 @@ export class RegisterPage {
       this.alertService.show("Error", error.message);
     } finally {
       await loading.dismiss();
-    }
-  }
-
-  async googleSignIn() {
-    try {
-      const res = await this.authService.loginWithGoogle();
-
-      this.dataService.setUser(res.user.uid, res.user.email, res.user.displayName);
-      this.dataService.setPhotoURL(res.user.uid, res.user.photoURL);
-      this.dataService.setLoggedInDate(res.user.uid);
-      this.dataService.setDateUserJoined(res.user.uid);
-
-      this.router.navigate(['/tabs']);
-    } catch (error) {
-      this.alertService.show("Error", error.message);
-    }
-  }
-
-  async facebookSignIn() {
-    try {
-      const res = await this.authService.loginWithFacebook();
-
-      this.dataService.setUser(res.user.uid, res.user.email, res.user.displayName);
-      this.dataService.setPhotoURL(res.user.uid, res.user.photoURL);
-      this.dataService.setLoggedInDate(res.user.uid);
-      this.dataService.setDateUserJoined(res.user.uid);
-
-      this.router.navigate(['/tabs']);
-    } catch (error) {
-      this.alertService.show("Error", error.message);
     }
   }
 

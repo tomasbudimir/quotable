@@ -2,12 +2,13 @@
   <ion-button (click)="goToRegister()" slot="end" fill="clear">
     j
     <ion-icon name="heart-outline"></ion-icon>
-    in in
+    in quotable
   </ion-button>
 </app-header>
 
 <ion-content [fullscreen]="true">
   <ion-card>
+    <img [src]="randomlySelectedImage.url" *ngIf="randomlySelectedImage" />
     <ion-card-content>
       <ion-input label="Email" labelPlacement="floating" placeholder="Enter email address"
         [(ngModel)]="username"></ion-input>
@@ -16,16 +17,27 @@
         Login
         <ion-icon slot="end" name="enter-outline"></ion-icon>
       </ion-button>
-      <div class="center">or</div>
+      <div class="center big-font">or</div>
       <ion-button expand="block" color="warning" (click)="googleSignIn()">
         Sign in with Google
         <ion-icon slot="end" name="logo-google"></ion-icon>
       </ion-button>
-      <div class="center">or</div>
+      <div class="center big-font">or</div>
       <ion-button expand="block" color="primary" (click)="facebookSignIn()">
         Sign in with Facebook
         <ion-icon slot="end" name="logo-facebook"></ion-icon>
       </ion-button>
+      <div class="center top-margin">
+        No google or facebook account, but you use e-mail?
+      </div>
+      <div class="center">
+        No problem, you can still join for free.
+      </div>
+      <div class="center">
+        <ion-button (click)="goToRegister()" fill="clear">
+          join quotable
+        </ion-button>
+      </div>
     </ion-card-content>
   </ion-card>
 </ion-content>
