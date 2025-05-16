@@ -7,20 +7,20 @@
         <p class="quote-text">This is the text of the quote This is the text of the quote This is the text of the quote This is the text of the quote</p>
       </div>
       <p class="quote-author">Author</p>
-      <div class="button-row" *ngIf="isLoggedIn">
-        <ion-button color="transparent" size="small" class="button">
+      <div class="button-row">
+        <ion-button color="transparent" size="small" class="button" (click)="likingQuote()">
           <ion-icon name="heart-outline" color="danger" class="icon"></ion-icon>
         </ion-button>
         <ion-button color="transparent" size="small" class="button">
           <ion-icon name="chatbubbles-outline" color="warning" class="icon"></ion-icon>
         </ion-button>
-        <ion-button color="transparent" size="small" class="button">
+        <ion-button color="transparent" size="small" class="button" *ngIf="isFacebookLogin">
           <ion-icon name="logo-facebook" color="tertiary" class="icon"></ion-icon>
         </ion-button>
-        <ion-button color="transparent" size="small" class="button">
+        <ion-button color="transparent" size="small" class="button" *ngIf="isMyPost">
           <ion-icon name="pencil" color="success" class="icon"></ion-icon>
         </ion-button>
-        <ion-button color="transparent" size="small" class="button">
+        <ion-button color="transparent" size="small" class="button" *ngIf="isMyPost">
           <ion-icon name="trash-outline" color="danger" class="icon"></ion-icon>
         </ion-button>
       </div>

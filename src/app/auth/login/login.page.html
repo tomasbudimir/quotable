@@ -12,14 +12,19 @@
       <ion-input label="Email" labelPlacement="floating" placeholder="Enter email address"
         [(ngModel)]="username"></ion-input>
       <ion-input label="Password" labelPlacement="floating" type="password" [(ngModel)]="password"></ion-input>
-      <ion-button expand="block" fill="outline" (click)="login()">
+      <ion-button expand="block" color="light" (click)="login()">
         Login
         <ion-icon slot="end" name="enter-outline"></ion-icon>
       </ion-button>
       <div class="center">or</div>
-      <ion-button expand="block" fill="outline" (click)="googleSignIn()">
+      <ion-button expand="block" color="warning" (click)="googleSignIn()">
         Sign in with Google
         <ion-icon slot="end" name="logo-google"></ion-icon>
+      </ion-button>
+      <div class="center">or</div>
+      <ion-button expand="block" color="primary" (click)="facebookSignIn()">
+        Sign in with Facebook
+        <ion-icon slot="end" name="logo-facebook"></ion-icon>
       </ion-button>
     </ion-card-content>
   </ion-card>

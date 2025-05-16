@@ -58,6 +58,21 @@ export class LoginPage {
     }
   }
 
+  async facebookSignIn() {
+    try {
+      const res = await this.authService.loginWithFacebook();
+
+      this.dataService.setUser(res.user.uid, res.user.email, res.user.displayName);
+      this.dataService.setPhotoURL(res.user.uid, res.user.photoURL);
+      this.dataService.setLoggedInDate(res.user.uid);
+      this.dataService.setDateUserJoined(res.user.uid);
+
+      this.router.navigate(['/tabs']);
+    } catch (error) {
+      this.alertService.show("Error", error.message);
+    }
+  }
+
   goToRegister() {
     this.router.navigateByUrl('/register', { replaceUrl: true });
   }

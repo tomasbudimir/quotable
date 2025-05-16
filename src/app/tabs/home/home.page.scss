@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-wrap: wrap;
-  gap: 50px;
+  gap: 10px;
   justify-content: center;
 }
 
@@ -54,7 +54,7 @@
 }
 
 .button {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .icon {

@@ -41,4 +41,19 @@ export class HomePage {
   get isLoggedIn(): boolean {
     return this.authService.user != null;
   }
+
+  get isFacebookLogin(): boolean {
+    return this.isLoggedIn && this.authService.user.providerData[0].providerId == 'facebook.com';
+  }
+
+  get isMyPost(): boolean {
+    return this.isLoggedIn; // TODO add: && ...
+  }
+
+  likingQuote() {
+    if (this.authService.user == null) {
+      this.alertService.show('Login first', 'You must be logged in to like a quote!');
+      return;
+    }
+  }
 }
