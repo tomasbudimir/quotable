@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <div *ngIf="!imageItemSelected">
+  <div *ngIf="!imageItemSelected && !isPreview">
     <div class="label ion-text-center ion-padding">
       Please select background image for the quote first
     </div>
@@ -11,7 +11,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="imageItemSelected">
+  <div *ngIf="imageItemSelected && !isPreview">
     <div class="container">
       <div class="quote" [ngStyle]="{ 'background-image': 'url(' + imageItemSelected.url + ')' }">
       </div>
@@ -24,10 +24,11 @@
     <div class="quote-input">
       <ion-item>
         <ion-label position="stacked" class="label">Quote</ion-label>
-        <ion-textarea rows="3" class="custom-textarea" [(ngModel)]="quoteText"></ion-textarea>
+        <ion-textarea rows="3" placeholder="The text of the quote" [(ngModel)]="quoteText"></ion-textarea>
       </ion-item>
       <ion-item>
-        <ion-input label="Quoted by" labelPlacement="floating" placeholder="Name of the person the quote is attributed to" [(ngModel)]="quotedBy" />
+        <ion-input label="Quoted by" labelPlacement="floating"
+          placeholder="The name of the person the quote is attributed to" [(ngModel)]="quotedBy" />
       </ion-item>
       <div class="buttons">
         <ion-button (click)="cancel()" color="light">
@@ -37,6 +38,22 @@
           Preview
         </ion-button>
       </div>
+    </div>
+  </div>
+  <div *ngIf="isPreview">
+    <div class="container">
+      <div class="preview-quote" [ngStyle]="{ 'background-image': 'url(' + imageItemSelected.url + ')' }">
+        <p class="quote-text">This is the text of the quote This is the text of the quote This is the text of the quote This is the text of the quote</p>
+        <p class="quote-author">Author</p>
+      </div>
+    </div>
+    <div class="buttons">
+      <ion-button (click)="cancel()" color="light">
+        Cancel
+      </ion-button>
+      <ion-button (click)="publish()">
+        Publish
+      </ion-button>
     </div>
   </div>
 </ion-content>

@@ -22,19 +22,19 @@
 }
 
 @media (max-width: 900px) {
-  .item {
+  .quote {
     flex: 1 1 calc(50% - 32px);
   }
 }
 
 @media (max-width: 600px) {
-  .item {
+  .quote {
     flex: 1 1 100%;
   }
 }
 
 .quote-text {
-  margin: auto 20px 10px 20px;
+  margin: auto 20px;
   color: gainsboro;
 }
 

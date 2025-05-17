@@ -19,6 +19,8 @@ export class QuotePage {
   quoteText: string = null;
   quotedBy: string = null;
 
+  isPreview: boolean = false;
+
   constructor(private fileService: FileService,
     private loadingController: LoadingController,
     private alertService: AlertService,
@@ -30,6 +32,7 @@ export class QuotePage {
     this.quoteId = this.activatedRoute.snapshot.paramMap.get('id');
 
     if (this.quoteId) {
+      // TODO get it from firebase
       this.imageItemSelected = { url: "/assets/images/climb.jpg" } as ImageItem;
     } else {
       this.loadImages();
@@ -65,11 +68,17 @@ export class QuotePage {
     const result = await this.alertService.confirm('Confirm', 'Are you sure you want to cancel?');
 
     if (result) {
+      this.imageItemSelected = null;
+      this.isPreview = false;
       this.router.navigate(['/tabs/home']);
     }
   }
 
   preview() {
+    this.isPreview = true;
+  }
+
+  publish() {
 
   }
 }
