@@ -52,7 +52,7 @@ export class HomePage {
 
   likingQuote() {
     if (this.authService.user == null) {
-      this.alertService.show('Login first', 'You must be logged in to like a quote!');
+      this.alertService.show('Not logged in', 'You must be logged in to like a quote!');
       return;
     }
   }

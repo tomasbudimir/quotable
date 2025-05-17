@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.quote {
+  width: 300px;
+  height: 200px;
+  background-blend-mode: overlay;
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+div.quote:hover {
+  background-color: rgba(0, 0, 0, 0);
+  border: solid 1px white;
+}
+
+.label {
+  font-size: 1.3em;
+}
+
+.quote-input {
+  width: 400px;
+  margin: 0 auto;
+}
+
+.buttons {
+  margin-top: 20px;
+  text-align: center;
+}

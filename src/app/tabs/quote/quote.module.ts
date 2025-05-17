@@ -1,13 +1,13 @@
-import { SharedModule } from './../../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { NewQuotePageRoutingModule } from './new-quote-routing.module';
+import { NewQuotePageRoutingModule } from './quote-routing.module';
 
-import { NewQuotePage } from './new-quote.page';
+import { QuotePage } from './quote.page';
 
 @NgModule({
   imports: [
@@ -17,6 +17,6 @@ import { NewQuotePage } from './new-quote.page';
     NewQuotePageRoutingModule,
     SharedModule
   ],
-  declarations: [NewQuotePage]
+  declarations: [QuotePage]
 })
-export class NewQuotePageModule {}
+export class QuotePageModule {}

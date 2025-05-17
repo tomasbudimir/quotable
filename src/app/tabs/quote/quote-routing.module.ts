@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { NewQuotePage } from './new-quote.page';
+import { QuotePage } from './quote.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: NewQuotePage
+    component: QuotePage
   }
 ];
 

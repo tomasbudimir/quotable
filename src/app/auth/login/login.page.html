@@ -8,7 +8,9 @@
 
 <ion-content [fullscreen]="true">
   <ion-card>
-    <img [src]="randomlySelectedImage.url" *ngIf="randomlySelectedImage" />
+    <div class="top-half">
+      <img [src]="randomlySelectedImage.url" *ngIf="randomlySelectedImage" />
+    </div>
     <ion-card-content>
       <ion-input label="Email" labelPlacement="floating" placeholder="Enter email address"
         [(ngModel)]="username"></ion-input>
@@ -28,7 +30,7 @@
         <ion-icon slot="end" name="logo-facebook"></ion-icon>
       </ion-button>
       <div class="center top-margin">
-        No google or facebook account, but you use e-mail?
+        No google or facebook account, but you have an e-mail account?
       </div>
       <div class="center">
         No problem, you can still join for free.

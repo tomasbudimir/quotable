@@ -1,0 +1,42 @@
+<app-header></app-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div *ngIf="!imageItemSelected">
+    <div class="label ion-text-center ion-padding">
+      Please select background image for the quote first
+    </div>
+    <div class="container">
+      <div class="quote" *ngFor="let item of imageItems" (click)="backgroundSelected(item)"
+        [ngStyle]="{ 'background-image': 'url(' + item.url + ')',}">
+      </div>
+    </div>
+  </div>
+  <div *ngIf="imageItemSelected">
+    <div class="container">
+      <div class="quote" [ngStyle]="{ 'background-image': 'url(' + imageItemSelected.url + ')' }">
+      </div>
+    </div>
+    <div class="label ion-text-center">
+      <ion-button shape="round" fill="clear" (click)="selectBackgroundAgain()">
+        Select a different background
+      </ion-button>
+    </div>
+    <div class="quote-input">
+      <ion-item>
+        <ion-label position="stacked" class="label">Quote</ion-label>
+        <ion-textarea rows="3" class="custom-textarea" [(ngModel)]="quoteText"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Quoted by" labelPlacement="floating" placeholder="Name of the person the quote is attributed to" [(ngModel)]="quotedBy" />
+      </ion-item>
+      <div class="buttons">
+        <ion-button (click)="cancel()" color="light">
+          Cancel
+        </ion-button>
+        <ion-button (click)="preview()">
+          Preview
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>

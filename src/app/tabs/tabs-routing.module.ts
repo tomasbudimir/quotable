@@ -10,15 +10,19 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+        loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
       },
       {
-        path: 'new-quote',
-        loadChildren: () => import('./new-quote/new-quote.module').then( m => m.NewQuotePageModule)
+        path: 'quote',
+        loadChildren: () => import('./quote/quote.module').then(m => m.QuotePageModule)
+      },
+      {
+        path: 'quote/:id',
+        loadChildren: () => import('./quote/quote.module').then(m => m.QuotePageModule)
       },
       {
         path: 'profile',
-        loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+        loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule)
       },
     ]
   }

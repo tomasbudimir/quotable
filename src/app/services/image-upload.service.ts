@@ -16,7 +16,7 @@ export class ImageUploadService {
       const imageData = new FormData();
       imageData.append('file', image);
       imageData.append('upload_preset', environment.cloudinary.uploadPreset);
-      // imageData.append('public_id', imageId);
+      //imageData.append('public_id', imageId);
 
       // Make POST request to Cloudinary
       const res = await firstValueFrom(this.http.post<any>(environment.cloudinary.uploadUrl, imageData));

@@ -1,6 +1,6 @@
 ion-card {
     max-width: 400px;
-    margin: 50px auto;
+    margin: 30px auto;
 }
 
 @media (max-width: 500px) {
@@ -20,4 +20,15 @@ ion-card {
 
 .top-margin {
     margin-top: 20px;
+}
+
+.top-half {
+  height: 200px;
+  overflow: hidden;
+}
+
+.top-half img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
