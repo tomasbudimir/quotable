@@ -3,8 +3,8 @@
 <ion-content>
   <div class="container">
     <div class="quote" *ngFor="let item of imageItems" [ngStyle]="{ 'background-image': 'url(' + item.url + ')',}">
-      <p class="quote-text">This is the text of the quote This is the text of the quote This is the text of the quote This is the text of the quote</p>
-      <p class="quote-author">Author</p>
+      <p class="quote-text" [style.fontSize.px]="fontSize">Text Text Text Text Text Text Text Text Text Text Text Text</p>
+      <p class="quote-author" [style.fontSize.px]="fontSize">Name Surname</p>
       <div class="button-row">
         <ion-button color="transparent" size="small" class="button" (click)="likingQuote()">
           <ion-icon name="heart-outline" color="danger" class="icon"></ion-icon>

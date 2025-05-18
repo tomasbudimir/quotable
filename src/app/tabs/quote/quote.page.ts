@@ -1,3 +1,4 @@
+import { FontSizeService } from './../../services/font-size.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../../services/alert.service';
 import { LoadingController } from '@ionic/angular';
@@ -25,7 +26,8 @@ export class QuotePage {
     private loadingController: LoadingController,
     private alertService: AlertService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private fontSizeService: FontSizeService
   ) { }
 
   ionViewDidEnter() {
@@ -37,6 +39,10 @@ export class QuotePage {
     } else {
       this.loadImages();
     }
+  }
+  
+  get fontSize(): number {
+    return this.fontSizeService.getFontSize(this.quoteText);
   }
 
   async loadImages() {
@@ -76,6 +82,10 @@ export class QuotePage {
 
   preview() {
     this.isPreview = true;
+  }
+
+  goBackFromPreview() {
+    this.isPreview = false;
   }
 
   publish() {

@@ -43,13 +43,16 @@
   <div *ngIf="isPreview">
     <div class="container">
       <div class="preview-quote" [ngStyle]="{ 'background-image': 'url(' + imageItemSelected.url + ')' }">
-        <p class="quote-text">This is the text of the quote This is the text of the quote This is the text of the quote This is the text of the quote</p>
-        <p class="quote-author">Author</p>
+        <p class="quote-text" [style.fontSize.px]="fontSize">{{quoteText}}</p>
+        <p class="quote-author" [style.fontSize.px]="fontSize">{{quotedBy}}</p>
       </div>
     </div>
     <div class="buttons">
       <ion-button (click)="cancel()" color="light">
         Cancel
+      </ion-button>
+      <ion-button (click)="goBackFromPreview()" color="success">
+        Go back
       </ion-button>
       <ion-button (click)="publish()">
         Publish

@@ -1,3 +1,4 @@
+import { FontSizeService } from './../../services/font-size.service';
 import { AuthService } from './../../services/auth.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { FileService } from './../../services/file.service';
@@ -18,11 +19,16 @@ export class HomePage {
   constructor(private fileService: FileService,
     private loadingController: LoadingController,
     private alertService: AlertService,
-    private authService: AuthService
+    private authService: AuthService,
+    private fontSizeService: FontSizeService
   ) { }
 
   ionViewDidEnter() {
     this.loadImages();
+  }
+
+  get fontSize(): number {
+    return this.fontSizeService.getFontSize("Text Text Text"); // TODO data from firebase
   }
 
   async loadImages() {
