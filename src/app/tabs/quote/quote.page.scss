@@ -34,8 +34,8 @@ div.quote:hover {
 }
 
 .preview-quote {
-  width: 550px;
-  height: 367px;
+  width: 490px;
+  height: 327px;
   background-blend-mode: overlay;
   background-color: rgba(0, 0, 0, 0.5);
   background-size: cover;
@@ -47,18 +47,6 @@ div.quote:hover {
   margin-left: 1px;
   font-size: 1.5em;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
-@media (max-width: 900px) {
-  .quote {
-    flex: 1 1 calc(50% - 32px);
-  }
-}
-
-@media (max-width: 600px) {
-  .quote {
-    flex: 1 1 100%;
-  }
 }
 
 .quote-text {
