@@ -1,15 +1,19 @@
-import { doc, Firestore, setDoc, serverTimestamp, getDoc, collection, collectionData, docData } from '@angular/fire/firestore';
+import { AuthService } from './auth.service';
+import { doc, Firestore, setDoc, serverTimestamp, getDoc, collection, collectionData, docData, orderBy, query, addDoc, Timestamp, deleteDoc } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
-import { USERS } from '../models/constants';
+import { QUOTES, USERS } from '../models/constants';
 import { Observable } from 'rxjs';
 import { UserRecord } from '../models/user-record';
+import { QuoteRecord } from '../models/quote-record';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  constructor(private firestore: Firestore) { }
+  constructor(private firestore: Firestore,
+    private authService: AuthService
+  ) { }
 
   setUser(uid: string, email: string, displayName: string) {
     const ref = doc(this.firestore, USERS, uid);
@@ -52,5 +56,41 @@ export class DataService {
   getUser(uid: string) : Observable<UserRecord> {
     const ref = doc(this.firestore, USERS, uid);
     return docData(ref, { idField: 'uid'}) as Observable<UserRecord>;
+  }
+
+  getQuotes(): Observable<QuoteRecord[]> {
+    const ref = collection(this.firestore, QUOTES);
+    const q = query(ref, orderBy('created', 'desc'));
+    return collectionData(ref, { idField: 'id'}) as Observable<QuoteRecord[]>;
+  }
+
+  getQuoteById(id: string): Observable<QuoteRecord> {
+    const ref = doc(this.firestore, QUOTES, id);
+    return docData(ref, { idField: 'id'}) as Observable<QuoteRecord>;
+  }
+
+  async createQuote(quoteText: string, quotedBy: string, url: string) {
+    const ref = collection(this.firestore, QUOTES);
+
+    const quote = {
+      uid: this.authService?.user?.uid,
+      displayName: this.authService.displayName,
+      quoteText,
+      quotedBy, 
+      created: Timestamp.now(),
+      url
+    } as QuoteRecord;
+
+    await addDoc(ref, quote);
+  }
+
+  async updateQuote(id: string, quoteText: string, quotedBy: string, url: string) {
+    const ref = doc(this.firestore, QUOTES, id);
+    await setDoc(ref, { quoteText, quotedBy, url }, { merge: true });
+  }
+
+  async deleteQuote(id: string) {
+    const ref = doc(this.firestore, QUOTES, id);
+    await deleteDoc(ref);
   }
 }

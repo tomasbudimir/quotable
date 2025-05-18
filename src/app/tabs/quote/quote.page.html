@@ -2,7 +2,7 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <div *ngIf="!imageItemSelected && !isPreview">
-    <div class="label ion-text-center ion-padding">
+    <div class="label ion-text-center">
       Please select background image for the quote first
     </div>
     <div class="container">
@@ -13,7 +13,7 @@
   </div>
   <div *ngIf="imageItemSelected && !isPreview">
     <div class="container">
-      <div class="quote" [ngStyle]="{ 'background-image': 'url(' + imageItemSelected.url + ')' }">
+      <div class="edit-quote" [ngStyle]="{ 'background-image': 'url(' + imageItemSelected.url + ')' }">
       </div>
     </div>
     <div class="label ion-text-center">

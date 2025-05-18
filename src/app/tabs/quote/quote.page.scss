@@ -5,13 +5,22 @@
 }
 
 .quote {
+  width: 270px;
+  height: 180px;
+  background-blend-mode: overlay;
+  background-size: cover;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.edit-quote {
   width: 375px;
   height: 250px;
   background-blend-mode: overlay;
   background-size: cover;
   background-position: center;
   background-color: rgba(0, 0, 0, 0.3);
-  cursor: pointer;
 }
 
 div.quote:hover {
@@ -58,24 +67,4 @@ div.quote:hover {
   align-self: flex-end;
   margin-right: 50px;
   margin-bottom: auto;
-}
-
-.fontSize20 {
-  font-size: 20pt;
-}
-
-.fontSize18 {
-  font-size: 18pt;
-}
-
-.fontSize16 {
-  font-size: 16pt;
-}
-
-.fontSize14 {
-  font-size: 14pt;
-}
-
-.fontSize12 {
-  font-size: 12pt;
 }

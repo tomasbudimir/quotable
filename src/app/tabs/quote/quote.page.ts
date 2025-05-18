@@ -1,3 +1,5 @@
+import { AuthService } from './../../services/auth.service';
+import { DataService } from './../../services/data.service';
 import { FontSizeService } from './../../services/font-size.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../../services/alert.service';
@@ -27,6 +29,8 @@ export class QuotePage {
     private alertService: AlertService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private dataService: DataService,
+    private authService: AuthService,
     private fontSizeService: FontSizeService
   ) { }
 
@@ -34,8 +38,15 @@ export class QuotePage {
     this.quoteId = this.activatedRoute.snapshot.paramMap.get('id');
 
     if (this.quoteId) {
-      // TODO get it from firebase
-      this.imageItemSelected = { url: "/assets/images/climb.jpg" } as ImageItem;
+      this.dataService.getQuoteById(this.quoteId).subscribe(res => {
+        if (res) {
+          this.imageItemSelected = { url: res.url } as ImageItem;
+          this.quoteText = res.quoteText;
+          this.quotedBy = res.quotedBy;
+        } else {
+          this.loadImages();
+        }
+      });
     } else {
       this.loadImages();
     }
@@ -50,7 +61,8 @@ export class QuotePage {
     await loading.present();
 
     try {
-      this.imageItems = await this.fileService.getImageItems();  
+      this.imageItems = await this.fileService.getImageItems(); 
+      this.resetInput(); 
     } catch (error) {
       this.alertService.show("Error", error.message);
     } finally {
@@ -74,21 +86,57 @@ export class QuotePage {
     const result = await this.alertService.confirm('Confirm', 'Are you sure you want to cancel?');
 
     if (result) {
-      this.imageItemSelected = null;
-      this.isPreview = false;
+      this.resetInput();
       this.router.navigate(['/tabs/home']);
     }
   }
 
   preview() {
+    if(!this.quoteText?.trim().length) {
+      this.alertService.show('Info', 'Please specify the text of the quote first!');
+      return;
+    }
+
     this.isPreview = true;
+
+    if (!this.quotedBy) {
+      // If User did not attribute the quote to anyone
+      this.quotedBy = this.authService.displayName;
+    }
   }
 
   goBackFromPreview() {
     this.isPreview = false;
   }
 
-  publish() {
+  async publish() {
+    const loading = await this.loadingController.create();
+    await loading.present();
 
+    try {
+      if (this.quoteId) {
+        // Updating existing quote
+        await this.dataService.updateQuote(this.quoteId, this.quoteText.trim(), this.quotedBy.trim(), this.imageItemSelected.url);
+      } else {
+        // Creating a new quote
+        await this.dataService.createQuote(this.quoteText.trim(), this.quotedBy.trim(), this.imageItemSelected.url);  
+      }
+
+      this.resetInput();
+      
+      this.router.navigate(['/tabs', 'home']);
+    } catch (error) {
+      this.alertService.show("Error", error.message);
+    } finally {
+      await loading.dismiss();
+    }
+  }
+
+  resetInput() {
+    this.imageItemSelected = null;
+    this.isPreview = false;
+    this.quoteId = null;
+    this.quoteText = null;
+    this.quotedBy = null;
   }
 }
