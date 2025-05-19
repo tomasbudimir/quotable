@@ -51,7 +51,8 @@ export class HomePage {
   likingQuote() {
     if (this.authService.user == null) {
       this.alertService.show('Not logged in', 'You must be logged in to like a quote!');
-      return;
+    } else {
+      this.alertService.show('Not ready', 'Sorry, this feature has not been developed yet')
     }
   }
 
