@@ -1,5 +1,5 @@
 import { AuthService } from './auth.service';
-import { doc, Firestore, setDoc, serverTimestamp, getDoc, collection, collectionData, docData, orderBy, query, addDoc, Timestamp, deleteDoc } from '@angular/fire/firestore';
+import { doc, Firestore, setDoc, serverTimestamp, getDoc, collection, collectionData, docData, orderBy, query, addDoc, deleteDoc } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { QUOTES, USERS } from '../models/constants';
 import { Observable } from 'rxjs';
@@ -61,7 +61,7 @@ export class DataService {
   getQuotes(): Observable<QuoteRecord[]> {
     const ref = collection(this.firestore, QUOTES);
     const q = query(ref, orderBy('created', 'desc'));
-    return collectionData(ref, { idField: 'id'}) as Observable<QuoteRecord[]>;
+    return collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>;
   }
 
   getQuoteById(id: string): Observable<QuoteRecord> {
@@ -77,7 +77,7 @@ export class DataService {
       displayName: this.authService.displayName,
       quoteText,
       quotedBy, 
-      created: Timestamp.now(),
+      created: serverTimestamp(),
       url
     } as QuoteRecord;
 
