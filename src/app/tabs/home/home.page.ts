@@ -52,7 +52,7 @@ export class HomePage {
     if (this.authService.user == null) {
       this.alertService.show('Not logged in', 'You must be logged in to like a quote!');
     } else {
-      this.alertService.show('Not ready', 'Sorry, this feature has not been developed yet')
+      this.alertService.show('Not ready', 'Sorry, liking a quote has not been developed yet!')
     }
   }
 
