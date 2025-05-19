@@ -2,7 +2,7 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <div *ngIf="!imageItemSelected && !isPreview">
-    <div class="label ion-text-center">
+    <div class="label ion-text-center bottom-margin">
       Please select background image for the quote first
     </div>
     <div class="container">
@@ -24,7 +24,7 @@
     <div class="quote-input">
       <ion-item>
         <ion-label position="stacked" class="label">Quote</ion-label>
-        <ion-textarea rows="3" placeholder="The text of the quote" [(ngModel)]="quoteText"></ion-textarea>
+        <ion-textarea rows="3" autoGrow="true" placeholder="The text of the quote" [(ngModel)]="quoteText"></ion-textarea>
       </ion-item>
       <ion-item>
         <ion-input label="Quoted by" labelPlacement="floating"

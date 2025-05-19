@@ -3,9 +3,9 @@ import { FontSizeService } from './../../services/font-size.service';
 import { AuthService } from './../../services/auth.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { FileService } from './../../services/file.service';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { QuoteRecord } from 'src/app/models/quote-record';
 
 @Component({

@@ -2,7 +2,8 @@
 
 <ion-content>
   <div class="container">
-    <div class="quote" *ngFor="let quote of quotes | async" [ngStyle]="{ 'background-image': 'url(' + quote?.url + ')',}">
+    <div class="quote" *ngFor="let quote of quotes | async"
+      [ngStyle]="{ 'background-image': 'url(' + quote?.url + ')',}">
       <p class="quote-text" [style.fontSize.px]="getFontSize(quote?.quoteText)">{{ quote?.quoteText }}</p>
       <p class="quote-author" [style.fontSize.px]="getFontSize(quote?.quoteText)">{{ quote?.quotedBy }}</p>
       <div class="button-row">
@@ -15,7 +16,8 @@
         <ion-button color="transparent" size="small" class="button" *ngIf="isFacebookLogin(quote)">
           <ion-icon name="logo-facebook" color="tertiary" class="icon"></ion-icon>
         </ion-button>
-        <ion-button color="transparent" size="small" class="button" *ngIf="isMyPost(quote)" [routerLink]="['/tabs', 'quote', quote.id]">
+        <ion-button color="transparent" size="small" class="button" *ngIf="isMyPost(quote)"
+          [routerLink]="['/tabs', 'quote', quote.id]">
           <ion-icon name="pencil" color="success" class="icon"></ion-icon>
         </ion-button>
         <ion-button color="transparent" size="small" class="button" *ngIf="isMyPost(quote)" (click)="delete(quote)">
