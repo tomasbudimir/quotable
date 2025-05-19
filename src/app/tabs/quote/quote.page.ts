@@ -62,7 +62,6 @@ export class QuotePage {
 
     try {
       this.imageItems = await this.fileService.getImageItems(); 
-      this.resetInput(); 
     } catch (error) {
       this.alertService.show("Error", error.message);
     } finally {
