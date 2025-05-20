@@ -11,8 +11,11 @@
     <ion-button size="small" shape="round" [fill]="postedByMeFill" color="secondary" class="thin-border" (click)="showQuotesPostedByMe()" *ngIf="isLoggedIn">
       quotes posted by me
     </ion-button>
-    <ion-button size="small" shape="round" [fill]="myOwbnQuotesFill" color="secondary" class="thin-border" (click)="showMyOwnQuotes()" *ngIf="isLoggedIn">
+    <ion-button size="small" shape="round" [fill]="myOwnQuotesFill" color="secondary" class="thin-border" (click)="showMyOwnQuotes()" *ngIf="isLoggedIn">
       my own quotes
+    </ion-button>
+    <ion-button size="small" shape="round" [fill]="privateQuotesFill" color="secondary" class="thin-border" (click)="showPrivateQuotes()" *ngIf="isLoggedIn">
+      my non-public quotes
     </ion-button>
   </div>
   <div class="container">

@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 9px;
   justify-content: center;
 }
 
@@ -16,7 +16,6 @@
   flex-direction: column;     /* stack items vertically */
   justify-content: center;    /* center them vertically */
   align-items: center;        /* center them horizontally */
-  margin-left: 1px;
   font-size: 1.4em;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }

@@ -60,9 +60,10 @@ export class DataService {
 
   getQuotes(): Observable<QuoteRecord[]> {
     const ref = collection(this.firestore, QUOTES);
-    const q = query(ref, 
-      orderBy('created', 'desc'));
-    return collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>;
+    const q = query(ref, orderBy('created', 'desc'));
+    return (collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>).pipe(
+      map(items => items.filter(item => !item.isPrivate))
+    );
   }
 
   getQuotesPostedByMe(): Observable<QuoteRecord[]> {
@@ -77,18 +78,26 @@ export class DataService {
     const ref = collection(this.firestore, QUOTES);
     const q = query(ref, 
       where('uid', '==',  this.authService.user.uid), 
-      where('isMyQuote', '==',  true), 
+      where('isMyQuote', '==',  true),
       orderBy('created', 'desc'));
     return (collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>);
   }
   
+  getPrivateQuotes(): Observable<QuoteRecord[]> {
+    const ref = collection(this.firestore, QUOTES);
+    const q = query(ref, 
+      where('uid', '==',  this.authService.user.uid), 
+      where('isPrivate', '==',  true), 
+      orderBy('created', 'desc'));
+    return (collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>);
+  }
 
   getQuoteById(id: string): Observable<QuoteRecord> {
     const ref = doc(this.firestore, QUOTES, id);
     return docData(ref, { idField: 'id'}) as Observable<QuoteRecord>;
   }
 
-  async createQuote(quoteText: string, quotedBy: string, url: string) {
+  async createQuote(quoteText: string, quotedBy: string, url: string, isPrivate: boolean) {
     const ref = collection(this.firestore, QUOTES);
 
     const isMyQuote = quotedBy == this.authService.displayName;
@@ -100,17 +109,18 @@ export class DataService {
       quotedBy, 
       created: serverTimestamp(),
       url,
-      isMyQuote
+      isMyQuote,
+      isPrivate
     } as QuoteRecord;
 
     await addDoc(ref, quote);
   }
 
-  async updateQuote(id: string, quoteText: string, quotedBy: string, url: string) {
+  async updateQuote(id: string, quoteText: string, quotedBy: string, url: string, isPrivate: boolean) {
     const isMyQuote = quotedBy == this.authService.displayName;
 
     const ref = doc(this.firestore, QUOTES, id);
-    await setDoc(ref, { quoteText, quotedBy, url, isMyQuote }, { merge: true });
+    await setDoc(ref, { quoteText, quotedBy, url, isMyQuote, isPrivate }, { merge: true });
   }
 
   async deleteQuote(id: string) {

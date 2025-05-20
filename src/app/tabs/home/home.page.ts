@@ -12,7 +12,8 @@ enum CurrentQuery {
   Newest,
   TopLikes,
   PostedByMe,
-  MyOwnQuotes
+  MyOwnQuotes,
+  PrivateQuotes
 }
 
 @Component({
@@ -37,8 +38,12 @@ export class HomePage {
     return this.currentQuery == CurrentQuery.PostedByMe ? 'outline' : 'fill';
   }
 
-  get myOwbnQuotesFill(): string {
+  get myOwnQuotesFill(): string {
     return this.currentQuery == CurrentQuery.MyOwnQuotes ? 'outline' : 'fill';
+  }
+
+  get privateQuotesFill(): string {
+    return this.currentQuery == CurrentQuery.PrivateQuotes ? 'outline' : 'fill';
   }
 
   constructor(private fileService: FileService,
@@ -60,7 +65,7 @@ export class HomePage {
   }
 
   showTopQuotes() {
-    // TODO change once like is implemented
+    // TODO change this once like is implemented
     this.currentQuery = CurrentQuery.TopLikes;
     this.quotes = this.dataService.getQuotes();
   }
@@ -73,6 +78,11 @@ export class HomePage {
   showMyOwnQuotes() { 
     this.currentQuery = CurrentQuery.MyOwnQuotes;
     this.quotes = this.dataService.getMyOwnQuotes();
+  }
+
+  showPrivateQuotes() {
+    this.currentQuery = CurrentQuery.PrivateQuotes;
+    this.quotes = this.dataService.getPrivateQuotes();
   }
 
   getFontSize(quoteText: string): number {

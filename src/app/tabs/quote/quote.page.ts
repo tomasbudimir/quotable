@@ -21,6 +21,7 @@ export class QuotePage {
   quoteId: string = null;
   quoteText: string = null;
   quotedBy: string = null;
+  isPrivate: boolean = false;
 
   isPreview: boolean = false;
 
@@ -43,6 +44,7 @@ export class QuotePage {
           this.imageItemSelected = { url: res.url } as ImageItem;
           this.quoteText = res.quoteText;
           this.quotedBy = res.quotedBy;
+          this.isPrivate = res?.isPrivate;
         } else {
           this.loadImages();
         }
@@ -115,10 +117,10 @@ export class QuotePage {
     try {
       if (this.quoteId) {
         // Updating existing quote
-        await this.dataService.updateQuote(this.quoteId, this.quoteText.trim(), this.quotedBy.trim(), this.imageItemSelected.url);
+        await this.dataService.updateQuote(this.quoteId, this.quoteText.trim(), this.quotedBy.trim(), this.imageItemSelected.url, this.isPrivate);
       } else {
         // Creating a new quote
-        await this.dataService.createQuote(this.quoteText.trim(), this.quotedBy.trim(), this.imageItemSelected.url);  
+        await this.dataService.createQuote(this.quoteText.trim(), this.quotedBy.trim(), this.imageItemSelected.url, this.isPrivate);  
       }
 
       this.resetInput();

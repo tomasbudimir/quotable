@@ -9,4 +9,5 @@ export interface QuoteRecord {
     created: Timestamp;         // when was quote crested
     url: string;                // background image url behind the quote
     isMyQuote: boolean;         // the person the quote is attributed to is me
+    isPrivate: boolean;         // the quote attributed to me visible on the web site by me only
 }
