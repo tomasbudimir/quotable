@@ -1,8 +1,8 @@
 import { AuthService } from './auth.service';
-import { doc, Firestore, setDoc, serverTimestamp, getDoc, collection, collectionData, docData, orderBy, query, addDoc, deleteDoc } from '@angular/fire/firestore';
+import { doc, Firestore, setDoc, serverTimestamp, getDoc, collection, collectionData, docData, orderBy, query, addDoc, deleteDoc, where } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { QUOTES, USERS } from '../models/constants';
-import { Observable } from 'rxjs';
+import { filter, map, Observable } from 'rxjs';
 import { UserRecord } from '../models/user-record';
 import { QuoteRecord } from '../models/quote-record';
 
@@ -10,7 +10,7 @@ import { QuoteRecord } from '../models/quote-record';
   providedIn: 'root'
 })
 export class DataService {
-
+  
   constructor(private firestore: Firestore,
     private authService: AuthService
   ) { }
@@ -60,9 +60,28 @@ export class DataService {
 
   getQuotes(): Observable<QuoteRecord[]> {
     const ref = collection(this.firestore, QUOTES);
-    const q = query(ref, orderBy('created', 'desc'));
+    const q = query(ref, 
+      orderBy('created', 'desc'));
     return collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>;
   }
+
+  getQuotesPostedByMe(): Observable<QuoteRecord[]> {
+    const ref = collection(this.firestore, QUOTES);
+    const q = query(ref, 
+      where('uid', '==',  this.authService.user.uid), 
+      orderBy('created', 'desc'));
+    return collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>;
+  }
+
+  getMyOwnQuotes(): Observable<QuoteRecord[]> {
+    const ref = collection(this.firestore, QUOTES);
+    const q = query(ref, 
+      where('uid', '==',  this.authService.user.uid), 
+      where('isMyQuote', '==',  true), 
+      orderBy('created', 'desc'));
+    return (collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>);
+  }
+  
 
   getQuoteById(id: string): Observable<QuoteRecord> {
     const ref = doc(this.firestore, QUOTES, id);
@@ -72,21 +91,26 @@ export class DataService {
   async createQuote(quoteText: string, quotedBy: string, url: string) {
     const ref = collection(this.firestore, QUOTES);
 
+    const isMyQuote = quotedBy == this.authService.displayName;
+
     const quote = {
       uid: this.authService?.user?.uid,
       displayName: this.authService.displayName,
       quoteText,
       quotedBy, 
       created: serverTimestamp(),
-      url
+      url,
+      isMyQuote
     } as QuoteRecord;
 
     await addDoc(ref, quote);
   }
 
   async updateQuote(id: string, quoteText: string, quotedBy: string, url: string) {
+    const isMyQuote = quotedBy == this.authService.displayName;
+
     const ref = doc(this.firestore, QUOTES, id);
-    await setDoc(ref, { quoteText, quotedBy, url }, { merge: true });
+    await setDoc(ref, { quoteText, quotedBy, url, isMyQuote }, { merge: true });
   }
 
   async deleteQuote(id: string) {

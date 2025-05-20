@@ -8,6 +8,13 @@ import { LoadingController } from '@ionic/angular';
 import { Observable, Subscription } from 'rxjs';
 import { QuoteRecord } from 'src/app/models/quote-record';
 
+enum CurrentQuery {
+  Newest,
+  TopLikes,
+  PostedByMe,
+  MyOwnQuotes
+}
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -15,8 +22,24 @@ import { QuoteRecord } from 'src/app/models/quote-record';
   standalone: false
 })
 export class HomePage {
-
   quotes: Observable<QuoteRecord[]>;
+  currentQuery: CurrentQuery;
+
+  get newestFill(): string {
+    return this.currentQuery == CurrentQuery.Newest ? 'outline' : 'fill';
+  }
+
+  get topLikesFill(): string {
+    return this.currentQuery == CurrentQuery.TopLikes ? 'outline' : 'fill';
+  }
+
+  get postedByMeFill(): string {
+    return this.currentQuery == CurrentQuery.PostedByMe ? 'outline' : 'fill';
+  }
+
+  get myOwbnQuotesFill(): string {
+    return this.currentQuery == CurrentQuery.MyOwnQuotes ? 'outline' : 'fill';
+  }
 
   constructor(private fileService: FileService,
     private loadingController: LoadingController,
@@ -27,7 +50,29 @@ export class HomePage {
   ) { }
 
   ionViewDidEnter() {
+    this.currentQuery = CurrentQuery.Newest;
     this.quotes = this.dataService.getQuotes();
+  }
+
+  showNewestQuotes() {
+    this.currentQuery = CurrentQuery.Newest;
+    this.quotes = this.dataService.getQuotes();
+  }
+
+  showTopQuotes() {
+    // TODO change once like is implemented
+    this.currentQuery = CurrentQuery.TopLikes;
+    this.quotes = this.dataService.getQuotes();
+  }
+
+  showQuotesPostedByMe() {
+    this.currentQuery = CurrentQuery.PostedByMe;
+    this.quotes = this.dataService.getQuotesPostedByMe();
+  }
+
+  showMyOwnQuotes() { 
+    this.currentQuery = CurrentQuery.MyOwnQuotes;
+    this.quotes = this.dataService.getMyOwnQuotes();
   }
 
   getFontSize(quoteText: string): number {

@@ -1,6 +1,20 @@
 <app-header></app-header>
 
 <ion-content>
+  <div class="queries">
+    <ion-button size="small" shape="round" [fill]="newestFill" color="secondary" class="thin-border" (click)="showNewestQuotes()">
+      sort by newest
+    </ion-button>
+    <ion-button size="small" shape="round" [fill]="topLikesFill" color="secondary" class="thin-border" (click)="showTopQuotes()">
+      sort by most likes given
+    </ion-button>
+    <ion-button size="small" shape="round" [fill]="postedByMeFill" color="secondary" class="thin-border" (click)="showQuotesPostedByMe()" *ngIf="isLoggedIn">
+      quotes posted by me
+    </ion-button>
+    <ion-button size="small" shape="round" [fill]="myOwbnQuotesFill" color="secondary" class="thin-border" (click)="showMyOwnQuotes()" *ngIf="isLoggedIn">
+      my own quotes
+    </ion-button>
+  </div>
   <div class="container">
     <div class="quote" *ngFor="let quote of quotes | async"
       [ngStyle]="{ 'background-image': 'url(' + quote?.url + ')',}">

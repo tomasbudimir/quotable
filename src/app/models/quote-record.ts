@@ -8,4 +8,5 @@ export interface QuoteRecord {
     quotedBy: string;           // name of the person the quote is attributed to
     created: Timestamp;         // when was quote crested
     url: string;                // background image url behind the quote
+    isMyQuote: boolean;         // the person the quote is attributed to is me
 }
