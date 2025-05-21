@@ -44,7 +44,7 @@ export class QuotePage {
           this.imageItemSelected = { url: res.url } as ImageItem;
           this.quoteText = res.quoteText;
           this.quotedBy = res.quotedBy;
-          this.isPrivate = res?.isPrivate;
+          this.isPrivate = res?.isPrivate ?? false;
         } else {
           this.loadImages();
         }
