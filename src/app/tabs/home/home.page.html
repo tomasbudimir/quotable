@@ -27,20 +27,20 @@
         posted by {{quote.displayName}} on {{quote.created?.toDate()| date:'MMM d, y, h:mm:ss a'}}
       </div>
       <div class="button-row">
-        <ion-button color="transparent" size="small" class="button" (click)="likingQuote(quote)" *ngIf="isLoggedIn">
+        <ion-button color="light" size="small" class="button" shape="round" (click)="likingQuote(quote)" *ngIf="isLoggedIn">
           <ion-icon [name]="getLikeIconName(quote)" color="danger" class="icon"></ion-icon>
         </ion-button>
-        <!-- <ion-button color="transparent" size="small" class="button">
+        <!-- <ion-button color="light" size="small" class="button" shape="round">
           <ion-icon name="chatbubbles-outline" color="secondary" class="icon"></ion-icon>
         </ion-button> -->
-        <ion-button color="transparent" size="small" class="button" *ngIf="isFacebookLogin(quote)">
+        <ion-button color="light" size="small" class="button" shape="round" *ngIf="isFacebookLogin(quote)">
           <ion-icon name="logo-facebook" color="tertiary" class="icon"></ion-icon>
         </ion-button>
-        <ion-button color="transparent" size="small" class="button" *ngIf="isMyPost(quote)"
+        <ion-button color="light" size="small" class="button" shape="round" *ngIf="isMyPost(quote)"
           [routerLink]="['/tabs', 'quote', quote.id]">
           <ion-icon name="pencil" color="tertiary" class="icon"></ion-icon>
         </ion-button>
-        <ion-button color="transparent" size="small" class="button" *ngIf="isMyPost(quote)" (click)="delete(quote)">
+        <ion-button color="light" size="small" class="button" shape="round" *ngIf="isMyPost(quote)" (click)="delete(quote)">
           <ion-icon name="trash-outline" color="danger" class="icon"></ion-icon>
         </ion-button>
       </div>

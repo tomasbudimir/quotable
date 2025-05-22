@@ -65,9 +65,8 @@ export class HomePage {
   }
 
   showTopQuotes() {
-    // TODO change this once like is implemented
     this.currentQuery = CurrentQuery.TopLikes;
-    this.quotes = this.dataService.getQuotes();
+    this.quotes = this.dataService.getQuotesSortedByLikesCount();
   }
 
   showQuotesPostedByMe() {

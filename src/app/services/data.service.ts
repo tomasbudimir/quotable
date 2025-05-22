@@ -1,5 +1,5 @@
 import { AuthService } from './auth.service';
-import { doc, Firestore, setDoc, serverTimestamp, getDoc, collection, collectionData, docData, orderBy, query, addDoc, deleteDoc, where, arrayUnion, arrayRemove } from '@angular/fire/firestore';
+import { doc, Firestore, setDoc, serverTimestamp, getDoc, collection, collectionData, docData, orderBy, query, addDoc, deleteDoc, where, arrayUnion, arrayRemove, DocumentData, DocumentReference } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { QUOTES, USERS } from '../models/constants';
 import { filter, map, Observable } from 'rxjs';
@@ -66,6 +66,16 @@ export class DataService {
     );
   }
 
+  getQuotesSortedByLikesCount(): Observable<QuoteRecord[]> {
+    const ref = collection(this.firestore, QUOTES);
+    const q = query(ref, 
+      orderBy('likesCount', 'desc'),
+      orderBy('created', 'desc'));
+    return (collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>).pipe(
+      map(items => items.filter(item => !item.isPrivate))
+    );
+  }
+
   getQuotesPostedByMe(): Observable<QuoteRecord[]> {
     const ref = collection(this.firestore, QUOTES);
     const q = query(ref, 
@@ -110,7 +120,8 @@ export class DataService {
       created: serverTimestamp(),
       url,
       isMyQuote,
-      isPrivate
+      isPrivate,
+      likesCount: 0
     } as QuoteRecord;
 
     await addDoc(ref, quote);
@@ -121,6 +132,8 @@ export class DataService {
 
     const ref = doc(this.firestore, QUOTES, id);
     await setDoc(ref, { quoteText, quotedBy, url, isMyQuote, isPrivate }, { merge: true });
+
+    await this.updateLikesCount(ref);
   }
 
   async deleteQuote(id: string) {
@@ -128,13 +141,25 @@ export class DataService {
     await deleteDoc(ref);
   }
 
-  likeTheQuote(quote: QuoteRecord) {
+  async likeTheQuote(quote: QuoteRecord) {
     const ref = doc(this.firestore, QUOTES, quote.id);
-    return setDoc(ref, { likes: arrayUnion(this.authService.user.uid) }, { merge: true });
+    await setDoc(ref, { likes: arrayUnion(this.authService.user.uid) }, { merge: true });
+
+    await this.updateLikesCount(ref);
   }
 
-  unlikeTheQuote(quote: QuoteRecord) {
+  async unlikeTheQuote(quote: QuoteRecord) {
     const ref = doc(this.firestore, QUOTES, quote.id);
-    return setDoc(ref, { likes: arrayRemove(this.authService.user.uid) }, { merge: true });
+    await setDoc(ref, { likes: arrayRemove(this.authService.user.uid) }, { merge: true });
+
+    await this.updateLikesCount(ref);
+  }
+
+  private async updateLikesCount(ref: DocumentReference<DocumentData, DocumentData>) {
+    const document = await getDoc(ref);
+    const record = document.data() as QuoteRecord;
+    const count = record.likes == null ? 0 : record.likes.length;
+
+    await setDoc(ref, { likesCount: count }, { merge: true });
   }
 }
