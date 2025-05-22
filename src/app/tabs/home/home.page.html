@@ -23,13 +23,16 @@
       [ngStyle]="{ 'background-image': 'url(' + quote?.url + ')',}">
       <p class="quote-text" [style.fontSize.px]="getFontSize(quote?.quoteText)">{{ quote?.quoteText }}</p>
       <p class="quote-author" [style.fontSize.px]="getFontSize(quote?.quoteText)">{{ quote?.quotedBy }}</p>
+      <div class="author-row">
+        posted by {{quote.displayName}} on {{quote.created?.toDate()| date:'MMM d, y, h:mm:ss a'}}
+      </div>
       <div class="button-row">
-        <ion-button color="transparent" size="small" class="button" (click)="likingQuote(quote)">
+        <ion-button color="transparent" size="small" class="button" (click)="likingQuote(quote)" *ngIf="isLoggedIn">
           <ion-icon [name]="getLikeIconName(quote)" color="danger" class="icon"></ion-icon>
         </ion-button>
-        <ion-button color="transparent" size="small" class="button">
+        <!-- <ion-button color="transparent" size="small" class="button">
           <ion-icon name="chatbubbles-outline" color="secondary" class="icon"></ion-icon>
-        </ion-button>
+        </ion-button> -->
         <ion-button color="transparent" size="small" class="button" *ngIf="isFacebookLogin(quote)">
           <ion-icon name="logo-facebook" color="tertiary" class="icon"></ion-icon>
         </ion-button>
@@ -40,9 +43,6 @@
         <ion-button color="transparent" size="small" class="button" *ngIf="isMyPost(quote)" (click)="delete(quote)">
           <ion-icon name="trash-outline" color="danger" class="icon"></ion-icon>
         </ion-button>
-      </div>
-      <div class="author-row">
-        posted by {{quote.displayName}} on {{quote.created?.toDate()| date:'MMM d, y, h:mm:ss a'}}
       </div>
     </div>
   </div>
