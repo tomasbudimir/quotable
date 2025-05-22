@@ -27,8 +27,9 @@
         posted by {{quote.displayName}} on {{quote.created?.toDate()| date:'MMM d, y, h:mm:ss a'}}
       </div>
       <div class="button-row">
-        <ion-button color="light" size="small" class="button" shape="round" (click)="likingQuote(quote)" *ngIf="isLoggedIn">
+        <ion-button color="light" size="small" class="button icon-button-with-badge" shape="round" (click)="likingQuote(quote)" *ngIf="isLoggedIn">
           <ion-icon [name]="getLikeIconName(quote)" color="danger" class="icon"></ion-icon>
+          <ion-badge color="light" slot="end">{{quote.likesCount}}</ion-badge>
         </ion-button>
         <!-- <ion-button color="light" size="small" class="button" shape="round">
           <ion-icon name="chatbubbles-outline" color="secondary" class="icon"></ion-icon>
