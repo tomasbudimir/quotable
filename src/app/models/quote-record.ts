@@ -10,4 +10,5 @@ export interface QuoteRecord {
     url: string;                // background image url behind the quote
     isMyQuote: boolean;         // the person the quote is attributed to is me
     isPrivate: boolean;         // the quote attributed to me visible on the web site by me only
+    likes: string[];            // list of uids of users who liked this quote
 }

@@ -1,5 +1,5 @@
 import { AuthService } from './auth.service';
-import { doc, Firestore, setDoc, serverTimestamp, getDoc, collection, collectionData, docData, orderBy, query, addDoc, deleteDoc, where } from '@angular/fire/firestore';
+import { doc, Firestore, setDoc, serverTimestamp, getDoc, collection, collectionData, docData, orderBy, query, addDoc, deleteDoc, where, arrayUnion, arrayRemove } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { QUOTES, USERS } from '../models/constants';
 import { filter, map, Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import { QuoteRecord } from '../models/quote-record';
   providedIn: 'root'
 })
 export class DataService {
-  
+
   constructor(private firestore: Firestore,
     private authService: AuthService
   ) { }
@@ -126,5 +126,15 @@ export class DataService {
   async deleteQuote(id: string) {
     const ref = doc(this.firestore, QUOTES, id);
     await deleteDoc(ref);
+  }
+
+  likeTheQuote(quote: QuoteRecord) {
+    const ref = doc(this.firestore, QUOTES, quote.id);
+    return setDoc(ref, { likes: arrayUnion(this.authService.user.uid) }, { merge: true });
+  }
+
+  unlikeTheQuote(quote: QuoteRecord) {
+    const ref = doc(this.firestore, QUOTES, quote.id);
+    return setDoc(ref, { likes: arrayRemove(this.authService.user.uid) }, { merge: true });
   }
 }

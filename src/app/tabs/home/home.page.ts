@@ -89,6 +89,23 @@ export class HomePage {
     return this.fontSizeService.getFontSize(quoteText);
   }
 
+  isQuoteLikedByCurrentUser(quote: QuoteRecord): boolean {
+    if (quote?.likes?.includes(this.authService?.user?.uid)) {
+      return true;
+    }
+
+    return false;
+  }
+  
+  getLikeIconName(quote: QuoteRecord): string {
+    if (this.isQuoteLikedByCurrentUser(quote)) {
+      return 'heart';
+    }
+
+    return 'heart-outline';
+  }
+
+
   get isLoggedIn(): boolean {
     return this.authService.user != null;
   }
@@ -103,11 +120,15 @@ export class HomePage {
       && this.authService.user?.uid == quote.uid;
   }
 
-  likingQuote() {
+  likingQuote(quote: QuoteRecord) {
     if (this.authService.user == null) {
       this.alertService.show('Not logged in', 'You must be logged in to like a quote!');
     } else {
-      this.alertService.show('Not ready', 'Sorry, liking a quote has not been developed yet!')
+      if (this.isQuoteLikedByCurrentUser(quote)) {
+        this.dataService.unlikeTheQuote(quote);  
+      } else {
+        this.dataService.likeTheQuote(quote);
+      }
     }
   }
 
