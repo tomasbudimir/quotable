@@ -102,6 +102,16 @@ export class DataService {
     return (collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>);
   }
 
+  getQuotesByDisplayName(quotedBy: string): Observable<QuoteRecord[]> {
+    const ref = collection(this.firestore, QUOTES);
+    const q = query(ref, 
+      where('quotedBy', '==', quotedBy),
+      orderBy('created', 'desc'));
+    return (collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>).pipe(
+      map(items => items.filter(item => !item.isPrivate))
+    );
+  }
+
   getQuoteById(id: string): Observable<QuoteRecord> {
     const ref = doc(this.firestore, QUOTES, id);
     return docData(ref, { idField: 'id'}) as Observable<QuoteRecord>;

@@ -84,6 +84,10 @@ export class HomePage {
     this.quotes = this.dataService.getPrivateQuotes();
   }
 
+  showQuotesByName(quotedBy: string) {
+    this.quotes = this.dataService.getQuotesByDisplayName(quotedBy);
+  }
+
   getFontSize(quoteText: string): number {
     return this.fontSizeService.getFontSize(quoteText);
   }
