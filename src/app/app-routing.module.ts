@@ -27,6 +27,10 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule),
   },
   {
+    path: 'one-quote/:id',
+    loadChildren: () => import('./one-quote/one-quote.module').then(m => m.OneQuotePageModule)
+  },
+  {
     path: '**',
     redirectTo: 'tabs',
     pathMatch: 'full'

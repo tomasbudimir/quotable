@@ -2,19 +2,24 @@
 
 <ion-content>
   <div class="queries">
-    <ion-button size="small" shape="round" [fill]="newestFill" color="secondary" class="thin-border" (click)="showNewestQuotes()">
+    <ion-button size="small" shape="round" [fill]="newestFill" color="secondary" class="thin-border"
+      (click)="showNewestQuotes()">
       sort by newest
     </ion-button>
-    <ion-button size="small" shape="round" [fill]="topLikesFill" color="secondary" class="thin-border" (click)="showTopQuotes()">
+    <ion-button size="small" shape="round" [fill]="topLikesFill" color="secondary" class="thin-border"
+      (click)="showTopQuotes()">
       sort by most liked
     </ion-button>
-    <ion-button size="small" shape="round" [fill]="postedByMeFill" color="secondary" class="thin-border" (click)="showQuotesPostedByMe()" *ngIf="isLoggedIn">
+    <ion-button size="small" shape="round" [fill]="postedByMeFill" color="secondary" class="thin-border"
+      (click)="showQuotesPostedByMe()" *ngIf="isLoggedIn">
       quotes posted by me
     </ion-button>
-    <ion-button size="small" shape="round" [fill]="myOwnQuotesFill" color="secondary" class="thin-border" (click)="showMyOwnQuotes()" *ngIf="isLoggedIn">
+    <ion-button size="small" shape="round" [fill]="myOwnQuotesFill" color="secondary" class="thin-border"
+      (click)="showMyOwnQuotes()" *ngIf="isLoggedIn">
       my own quotes
     </ion-button>
-    <ion-button size="small" shape="round" [fill]="privateQuotesFill" color="secondary" class="thin-border" (click)="showPrivateQuotes()" *ngIf="isLoggedIn">
+    <ion-button size="small" shape="round" [fill]="privateQuotesFill" color="secondary" class="thin-border"
+      (click)="showPrivateQuotes()" *ngIf="isLoggedIn">
       my non-public quotes
     </ion-button>
   </div>
@@ -22,16 +27,18 @@
     <div class="quote" *ngFor="let quote of quotes | async"
       [ngStyle]="{ 'background-image': 'url(' + quote?.url + ')',}">
       <p class="quote-text" [style.fontSize.px]="getFontSize(quote?.quoteText)">{{ quote?.quoteText }}</p>
-      <p class="quote-author link" [style.fontSize.px]="getFontSize(quote?.quoteText)" (click)="showQuotesByQuotedBy(quote?.quotedBy)">{{ quote?.quotedBy }}</p>
+      <p class="quote-author link" [style.fontSize.px]="getFontSize(quote?.quoteText)"
+        (click)="showQuotesByQuotedBy(quote?.quotedBy)">{{ quote?.quotedBy }}</p>
       <div class="author-row">
         posted by {{quote.displayName}} on {{quote.created?.toDate()| date:'MMM d, y, h:mm:ss a'}}
       </div>
       <div class="button-row">
-        <ion-button color="light" size="small" class="button icon-button-with-badge" shape="round" (click)="likingQuote(quote)">
+        <ion-button color="light" size="small" class="button icon-button-with-badge" shape="round"
+          (click)="likingQuote(quote)">
           <ion-icon [name]="getLikeIconName(quote)" color="danger" class="icon"></ion-icon>
           <ion-badge color="light" slot="end">{{quote.likesCount}}</ion-badge>
         </ion-button>
-        <!-- <ion-button color="light" size="small" class="button" shape="round">
+        <!-- <ion-button color="light" size="small" class="button" shape="round" (click)="navigateToOneQuote(quote.id)">
           <ion-icon name="chatbubbles-outline" color="secondary" class="icon"></ion-icon>
         </ion-button> -->
         <!-- <ion-button color="light" size="small" class="button" shape="round" *ngIf="isFacebookLogin(quote)">
@@ -41,8 +48,12 @@
           [routerLink]="['/tabs', 'quote', quote.id]">
           <ion-icon name="pencil" color="tertiary" class="icon"></ion-icon>
         </ion-button>
-        <ion-button color="light" size="small" class="button" shape="round" *ngIf="isMyPost(quote)" (click)="delete(quote)">
+        <ion-button color="light" size="small" class="button" shape="round" *ngIf="isMyPost(quote)"
+          (click)="delete(quote)">
           <ion-icon name="trash-outline" color="danger" class="icon"></ion-icon>
+        </ion-button>
+        <ion-button color="light" size="small" class="button" shape="round" (click)="navigateToOneQuote(quote.id)">
+          <ion-icon name="ellipsis-horizontal-outline" class="icon"></ion-icon>
         </ion-button>
       </div>
     </div>

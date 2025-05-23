@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ModalLoginPage } from './../../auth/modal-login/modal-login.page';
 import { QuoteRecord } from './../../models/quote-record';
 import { DataService } from './../../services/data.service';
@@ -51,6 +52,7 @@ export class HomePage {
     private alertService: AlertService,
     private authService: AuthService,
     private dataService: DataService,
+    private router: Router,
     private modalController: ModalController,
     private fontSizeService: FontSizeService
   ) { }
@@ -110,7 +112,6 @@ export class HomePage {
     return 'heart-outline';
   }
 
-
   get isLoggedIn(): boolean {
     return this.authService.user != null;
   }
@@ -127,7 +128,7 @@ export class HomePage {
 
   async likingQuote(quote: QuoteRecord) {
     if (this.authService.user == null) {
-      const result = await this.alertService.confirm('Sign in so you can like a quote', 'Do you want to sign in now?');
+      const result = await this.alertService.confirm('Liking a quote requires sign-in', 'Do you want to sign in for free?');
 
       if (result) {
         const modal = await this.modalController.create({
@@ -153,5 +154,9 @@ export class HomePage {
     if (result) {
       await this.dataService.deleteQuote(quote.id);
     }
+  }
+
+  navigateToOneQuote(id: string) {
+    this.router.navigate(['/one-quote', id]);
   }
 }

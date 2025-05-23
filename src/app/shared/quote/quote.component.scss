@@ -1,0 +1,44 @@
+.quote {
+  width: 490px;
+  height: 327px;
+  background-blend-mode: overlay;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;     /* stack items vertically */
+  justify-content: center;    /* center them vertically */
+  align-items: center;        /* center them horizontally */
+  font-size: 1.4em;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.quote-text {
+  margin: 77px 20px 10px 20px;
+  color: gainsboro;
+}
+
+.quote-author {
+  color: white;
+  align-self: flex-end;
+  margin-right: 50px;
+}
+
+.button-row {
+  align-self: flex-bottom;
+  background-color: rgba(255, 255, 255, 0.2);
+  text-align: center;
+  width: 100%;
+  margin-top: 1px;
+}
+
+.author-row {
+  margin-top: auto;
+  align-self: flex-bottom;
+  font-size: 10px;
+  color: white;
+}
+
+.icon {
+  font-size: 22px;
+}

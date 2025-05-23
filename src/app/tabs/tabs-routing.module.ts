@@ -25,7 +25,12 @@ const routes: Routes = [
         loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule)
       },
     ]
+  },
+  {
+    path: 'one-quote',
+    loadChildren: () => import('../one-quote/one-quote.module').then( m => m.OneQuotePageModule)
   }
+
 ];
 
 @NgModule({
