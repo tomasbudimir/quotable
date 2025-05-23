@@ -27,6 +27,6 @@ import { environment } from 'src/environments/environment';
     provideFirestore(() => getFirestore()),
     provideHttpClient(withInterceptorsFromDi())
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

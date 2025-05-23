@@ -1,12 +1,13 @@
+import { ModalLoginPage } from './../../auth/modal-login/modal-login.page';
+import { QuoteRecord } from './../../models/quote-record';
 import { DataService } from './../../services/data.service';
 import { FontSizeService } from './../../services/font-size.service';
 import { AuthService } from './../../services/auth.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { FileService } from './../../services/file.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
-import { Observable, Subscription } from 'rxjs';
-import { QuoteRecord } from 'src/app/models/quote-record';
+import { Component} from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { Observable } from 'rxjs';
 
 enum CurrentQuery {
   Newest,
@@ -47,10 +48,10 @@ export class HomePage {
   }
 
   constructor(private fileService: FileService,
-    private loadingController: LoadingController,
     private alertService: AlertService,
     private authService: AuthService,
     private dataService: DataService,
+    private modalController: ModalController,
     private fontSizeService: FontSizeService
   ) { }
 
@@ -84,8 +85,9 @@ export class HomePage {
     this.quotes = this.dataService.getPrivateQuotes();
   }
 
-  showQuotesByName(quotedBy: string) {
-    this.quotes = this.dataService.getQuotesByDisplayName(quotedBy);
+  showQuotesByQuotedBy(quotedBy: string) {
+    this.currentQuery = CurrentQuery.Newest;
+    this.quotes = this.dataService.getQuotesByQuotedBy(quotedBy);
   }
 
   getFontSize(quoteText: string): number {
@@ -123,9 +125,19 @@ export class HomePage {
       && this.authService.user?.uid == quote.uid;
   }
 
-  likingQuote(quote: QuoteRecord) {
+  async likingQuote(quote: QuoteRecord) {
     if (this.authService.user == null) {
-      this.alertService.show('Not logged in', 'You must be logged in to like a quote!');
+      const result = await this.alertService.confirm('Sign in so you can like a quote', 'Do you want to sign in now?');
+
+      if (result) {
+        const modal = await this.modalController.create({
+          component: ModalLoginPage,
+          breakpoints: [0, 0.5, 0.8],
+          initialBreakpoint: 0.5
+        });
+
+        modal.present();
+      }
     } else {
       if (this.isQuoteLikedByCurrentUser(quote)) {
         this.dataService.unlikeTheQuote(quote);  

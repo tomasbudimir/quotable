@@ -1,0 +1,25 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar class="ion-text-center">
+    <ion-title>
+      <span class="first"><i>qout</i></span>
+      <span class="second"><i>able</i></span>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-text-center">
+  <ion-button color="warning" (click)="googleSignIn()">
+    Sign in with Google
+    <ion-icon slot="end" name="logo-google"></ion-icon>
+  </ion-button>
+  <div class="big-font">or</div>
+  <ion-button color="primary" (click)="facebookSignIn()">
+    Sign in with Facebook
+    <ion-icon slot="end" name="logo-facebook"></ion-icon>
+  </ion-button>
+  <div class="big-font">or</div>
+  <ion-button fill="outline" class="thin-border" (click)="signInByEmail()">
+    Sign in by e-mail
+    <ion-icon slot="end" name="mail-outline"></ion-icon>
+  </ion-button>
+</ion-content>

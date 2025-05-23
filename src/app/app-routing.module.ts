@@ -14,6 +14,10 @@ const routes: Routes = [
     canActivate: [AlreadyLoggedInGuard]
   },
   {
+    path: 'modal-login',
+    loadChildren: () => import('./auth/modal-login/modal-login.module').then( m => m.ModalLoginPageModule)
+  },
+  {
     path: 'register',
     loadChildren: () => import('./auth/register/register.module').then( m => m.RegisterPageModule),
     canActivate: [AlreadyLoggedInGuard]

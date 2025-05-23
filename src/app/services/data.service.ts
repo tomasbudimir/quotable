@@ -102,7 +102,7 @@ export class DataService {
     return (collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>);
   }
 
-  getQuotesByDisplayName(quotedBy: string): Observable<QuoteRecord[]> {
+  getQuotesByQuotedBy(quotedBy: string): Observable<QuoteRecord[]> {
     const ref = collection(this.firestore, QUOTES);
     const q = query(ref, 
       where('quotedBy', '==', quotedBy),
