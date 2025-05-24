@@ -38,12 +38,10 @@
           <ion-icon [name]="getLikeIconName(quote)" color="danger" class="icon"></ion-icon>
           <ion-badge color="light" slot="end">{{quote.likesCount}}</ion-badge>
         </ion-button>
-        <!-- <ion-button color="light" size="small" class="button" shape="round" (click)="navigateToOneQuote(quote.id)">
-          <ion-icon name="chatbubbles-outline" color="secondary" class="icon"></ion-icon>
-        </ion-button> -->
-        <!-- <ion-button color="light" size="small" class="button" shape="round" *ngIf="isFacebookLogin(quote)">
+        <ion-button color="light" size="small" class="button" shape="round" *ngIf="isFacebookLogin(quote)"
+          [href]="getFacebookShareUrl(quote.id)" target="_blank" rel="noopener">
           <ion-icon name="logo-facebook" color="tertiary" class="icon"></ion-icon>
-        </ion-button> -->
+        </ion-button>
         <ion-button color="light" size="small" class="button" shape="round" *ngIf="isMyPost(quote)"
           [routerLink]="['/tabs', 'quote', quote.id]">
           <ion-icon name="pencil" color="tertiary" class="icon"></ion-icon>

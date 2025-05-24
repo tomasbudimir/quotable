@@ -18,10 +18,12 @@ export class AlertService {
     await alert.present();
   }
 
-  async showToast(message: string) {
+  async showToast(message: string, icon: string = 'checkmark-circle', color: string = 'success') {
     const alert = await this.toastController.create({
       message,
-      duration: 2000,
+      icon,
+      color,
+      duration: 5000,
       position: 'top'
     });
   

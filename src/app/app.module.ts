@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { provideAnalytics, getAnalytics } from '@angular/fire/analytics';
 import { environment } from 'src/environments/environment';
 
 @NgModule({
@@ -25,6 +26,7 @@ import { environment } from 'src/environments/environment';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    provideAnalytics(() => getAnalytics()),
     provideHttpClient(withInterceptorsFromDi())
   ],
   bootstrap: [AppComponent]

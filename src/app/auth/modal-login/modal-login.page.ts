@@ -29,6 +29,7 @@ export class ModalLoginPage {
       this.dataService.setDateUserJoined(res.user.uid);
 
       this.modalController.dismiss();
+      this.afterSignIn();
     } catch (error) {
       this.alertService.show("Error", error.message);
     }
@@ -44,6 +45,7 @@ export class ModalLoginPage {
       this.dataService.setDateUserJoined(res.user.uid);
 
       this.modalController.dismiss();
+      this.afterSignIn();
     } catch (error) {
       this.alertService.show("Error", error.message);
     }
@@ -52,5 +54,10 @@ export class ModalLoginPage {
   signInByEmail() {
     this.modalController.dismiss();
     this.router.navigateByUrl('/login');
+  }
+
+  afterSignIn() {
+    this.alertService.showToast('Great! You can like or post quotes now.', 'thumbs-up-outline');
+    this.router.navigate(['/tabs']);
   }
 }

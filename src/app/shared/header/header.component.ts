@@ -1,3 +1,5 @@
+import { ModalLoginPage } from './../../auth/modal-login/modal-login.page';
+import { ModalController } from '@ionic/angular';
 import { AuthService } from './../../services/auth.service';
 import { AlertService } from './../../services/alert.service';
 
@@ -15,6 +17,7 @@ export class HeaderComponent {
 
   constructor(private authService: AuthService,
     private router: Router,
+    private modalController: ModalController,
     private alertService: AlertService
   ) { }
 
@@ -44,5 +47,23 @@ export class HeaderComponent {
 
   get isLoggedIn(): boolean {
     return this.authService.user != null;
+  }
+
+  async post() {
+    if (this.authService.user == null) {
+      const result = await this.alertService.confirm('Posting a quote requires sign-in', 'Do you want to sign in for free?');
+
+      if (result) {
+        const modal = await this.modalController.create({
+          component: ModalLoginPage,
+          breakpoints: [0, 0.5, 0.8],
+          initialBreakpoint: 0.5
+        });
+
+        modal.present();
+      }
+    } else {
+      this.router.navigate(['/tabs', 'quote']);
+    }
   }
 }
