@@ -5,6 +5,7 @@ import { AlertService } from './../../services/alert.service';
 
 import { Router } from '@angular/router';
 import { Component, Input } from '@angular/core';
+import { AnalyticsService } from 'src/app/services/analytics.service';
 
 @Component({
   selector: 'app-header',
@@ -18,8 +19,15 @@ export class HeaderComponent {
   constructor(private authService: AuthService,
     private router: Router,
     private modalController: ModalController,
-    private alertService: AlertService
-  ) { }
+    private alertService: AlertService,
+    private analytics: AnalyticsService
+  ) { 
+    this.analytics.sendEvent('visited_site', {
+      category: 'User Interaction',
+      label: 'Visited site',
+      value: 1
+    });
+  }
 
   logout() {
     this.authService.logout().then(() => {
@@ -30,6 +38,12 @@ export class HeaderComponent {
   }
 
   navigateHome() {
+    this.analytics.sendEvent('navigate_home_click', {
+      category: 'User Interaction',
+      label: 'Navigate home',
+      value: 1
+    });
+
     this.router.navigate(['/tabs/home']);
   }
 
@@ -50,6 +64,12 @@ export class HeaderComponent {
   }
 
   async post() {
+    this.analytics.sendEvent('post_a_quote_click', {
+      category: 'User Interaction',
+      label: 'Post a quote',
+      value: 1
+    });
+
     if (this.authService.user == null) {
       const result = await this.alertService.confirm('Posting a quote requires sign-in', 'Do you want to sign in for free?');
 
