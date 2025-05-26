@@ -6,7 +6,6 @@ import { Auth, createUserWithEmailAndPassword, FacebookAuthProvider, GoogleAuthP
   providedIn: 'root'
 })
 export class AuthService {
-
   private currentUser: User;
 
   constructor(private auth: Auth) { 
