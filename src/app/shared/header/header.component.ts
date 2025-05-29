@@ -14,6 +14,7 @@ import { Component, Input } from '@angular/core';
 })
 export class HeaderComponent {
   @Input() title!: string;
+  @Input() isPostQuoteDisplayed: boolean = true;
 
   constructor(private authService: AuthService,
     private router: Router,

@@ -6,7 +6,7 @@
       <span class="first"><i>qout</i></span>
       <span class="second"><i>able</i></span>
     </ion-title>
-    <ion-button (click)="post()" slot="end" fill="clear">
+    <ion-button (click)="post()" slot="end" fill="clear" *ngIf="isPostQuoteDisplayed">
       Post a quote
     </ion-button>
     <ng-content>
