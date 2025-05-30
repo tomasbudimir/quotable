@@ -7,7 +7,7 @@
       <span class="second"><i>able</i></span>
     </ion-title>
     <ion-button (click)="post()" slot="end" fill="clear" *ngIf="isPostQuoteDisplayed">
-      Post a quote
+      <ion-icon name="add" class="align"></ion-icon>
     </ion-button>
     <ng-content>
       <ng-container *ngIf="isLoggedIn">
