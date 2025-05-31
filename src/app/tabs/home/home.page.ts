@@ -96,11 +96,6 @@ export class HomePage {
     return this.fontSizeService.getFontSize(quoteText);
   }
 
-  getFacebookShareUrl(quoteId: string) {
-    const url = 'https://quotablee.web.app/one-quote/' + quoteId;
-    return `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-  }
-
   isQuoteLikedByCurrentUser(quote: QuoteRecord): boolean {
     if (quote?.likes?.includes(this.authService?.user?.uid)) {
       return true;

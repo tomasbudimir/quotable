@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { QuoteRecord } from '../models/quote-record';
@@ -7,6 +7,7 @@ import { AlertService } from '../services/alert.service';
 import { FontSizeService } from '../services/font-size.service';
 import { ModalController } from '@ionic/angular';
 import { ModalLoginPage } from '../auth/modal-login/modal-login.page';
+import { Share } from '@capacitor/share';
 
 @Component({
   selector: 'app-one-quote',
@@ -15,6 +16,7 @@ import { ModalLoginPage } from '../auth/modal-login/modal-login.page';
   standalone: false
 })
 export class OneQuotePage {
+  @ViewChild('myCanvas', { static: false }) myCanvas!: ElementRef<HTMLCanvasElement>;
   quote: QuoteRecord = null;
 
   constructor(private router: Router,
@@ -58,11 +60,6 @@ export class OneQuotePage {
     return 'heart-outline';
   }
 
-  isFacebookLogin(quote: QuoteRecord): boolean {
-    return this.isMyPost(quote)
-      && this.authService.user?.providerData[0].providerId == 'facebook.com';
-  }
-
   isMyPost(quote: QuoteRecord): boolean {
     return this.isLoggedIn 
       && this.authService.user?.uid == quote.uid;
@@ -70,7 +67,8 @@ export class OneQuotePage {
 
   async likingQuote(quote: QuoteRecord) {
     if (this.authService.user == null) {
-      const result = await this.alertService.confirm('Liking a quote requires sign-in', 'Do you want to sign in for free?');
+      const result = await this.alertService.confirm('Liking a quote requires sign-in', 
+        'Do you want to sign in for free?');
 
       if (result) {
         const modal = await this.modalController.create({
@@ -96,5 +94,13 @@ export class OneQuotePage {
     }
 
     return false;
+  }
+
+  async share(quote: QuoteRecord) {
+    await Share.share({
+      title: quote.quotedBy,
+      text: quote.quoteText,
+      url: 'https://quotablee.web.app/one-quote/' + quote.id
+    });
   }
 }
