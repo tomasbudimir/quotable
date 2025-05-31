@@ -17,7 +17,8 @@ export const environment = {
     uploadUrl: 'https://api.cloudinary.com/v1_1/detfb6fxd/image/upload', // https://api.cloudinary.com/v1_1/{CloudName}/image/upload
     uploadPreset: 'images', // Unisigned upload preset created on cloudinary
     apiKey: '569997469433219'
-  }
+  },
+  siteUrl: 'https://quotablee.web.app'
 };
 
 /*

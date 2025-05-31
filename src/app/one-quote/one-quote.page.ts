@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../services/data.service';
@@ -100,7 +101,7 @@ export class OneQuotePage {
     await Share.share({
       title: quote.quotedBy,
       text: quote.quoteText,
-      url: 'https://quotablee.web.app/one-quote/' + quote.id
+      url: environment.siteUrl + '/one-quote/' + quote.id
     });
   }
 }

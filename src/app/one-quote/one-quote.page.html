@@ -14,8 +14,7 @@
           <ion-icon [name]="getLikeIconName(quote)" color="danger" class="icon"></ion-icon>
           <ion-badge color="light" slot="end">{{quote.likesCount}}</ion-badge>
         </ion-button>
-        <ion-button color="light" size="small" class="button" shape="round"
-          (click)="share(quote)" target="_blank" rel="noopener">
+        <ion-button color="light" size="small" class="button" shape="round" (click)="share(quote)">
           <ion-icon name="share-social-outline" color="tertiary" class="icon"></ion-icon>
         </ion-button>
       </div>

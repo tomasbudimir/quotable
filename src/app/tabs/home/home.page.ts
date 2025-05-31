@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { ModalLoginPage } from './../../auth/modal-login/modal-login.page';
 import { QuoteRecord } from './../../models/quote-record';
@@ -9,6 +10,7 @@ import { FileService } from './../../services/file.service';
 import { Component} from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Observable } from 'rxjs';
+import { Share } from '@capacitor/share';
 
 enum CurrentQuery {
   Newest,
@@ -159,5 +161,13 @@ export class HomePage {
 
   navigateToOneQuote(id: string) {
     this.router.navigate(['/one-quote', id]);
+  }
+
+  async share(quote: QuoteRecord) {
+    await Share.share({
+      title: quote.quotedBy,
+      text: quote.quoteText,
+      url: environment.siteUrl + '/one-quote/' + quote.id
+    });
   }
 }
