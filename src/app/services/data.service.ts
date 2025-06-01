@@ -1,8 +1,8 @@
 import { AuthService } from './auth.service';
-import { doc, Firestore, setDoc, serverTimestamp, getDoc, collection, collectionData, docData, orderBy, query, addDoc, deleteDoc, where, arrayUnion, arrayRemove, DocumentData, DocumentReference } from '@angular/fire/firestore';
+import { doc, Firestore, setDoc, serverTimestamp, getDoc, collection, collectionData, docData, orderBy, query, addDoc, deleteDoc, where, arrayUnion, arrayRemove, DocumentData, DocumentReference, limit } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { QUOTES, USERS } from '../models/constants';
-import { filter, map, Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { UserRecord } from '../models/user-record';
 import { QuoteRecord } from '../models/quote-record';
 
@@ -58,9 +58,14 @@ export class DataService {
     return docData(ref, { idField: 'uid'}) as Observable<UserRecord>;
   }
 
-  getQuotes(): Observable<QuoteRecord[]> {
+  getQuotes(top?: number): Observable<QuoteRecord[]> {
     const ref = collection(this.firestore, QUOTES);
-    const q = query(ref, orderBy('created', 'desc'));
+    let q = query(ref, orderBy('created', 'desc'));
+
+    if (top) {
+      q = query(ref, orderBy('created', 'desc'), limit(top));
+    }
+
     return (collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>).pipe(
       map(items => items.filter(item => !item.isPrivate))
     );

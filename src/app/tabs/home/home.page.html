@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<ion-content>
+<ion-content #content>
   <div class="queries">
     <ion-button size="small" shape="round" [fill]="newestFill" color="secondary" class="thin-border"
       (click)="showNewestQuotes()">
@@ -54,5 +54,10 @@
         </ion-button>
       </div>
     </div>
+  </div>
+  <div class="container" *ngIf="isShowMoreVisible">
+    <ion-button class="top-margin" shape="round" fill="clear" (click)="showAll()">
+      Load more quotes
+    </ion-button>
   </div>
 </ion-content>
