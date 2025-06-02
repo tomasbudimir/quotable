@@ -7,9 +7,9 @@ import { FontSizeService } from './../../services/font-size.service';
 import { AuthService } from './../../services/auth.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { FileService } from './../../services/file.service';
-import { Component, ViewChild} from '@angular/core';
-import { IonContent, ModalController } from '@ionic/angular';
-import { Observable } from 'rxjs';
+import { Component } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import { Share } from '@capacitor/share';
 
 enum CurrentQuery {
@@ -27,12 +27,10 @@ enum CurrentQuery {
   standalone: false
 })
 export class HomePage {
-  @ViewChild('content') content!: IonContent;
-  private savedScrollTop = 0;
-  
-  quotes: Observable<QuoteRecord[]>;
+  quotes: QuoteRecord[];
   currentQuery: CurrentQuery;
   isShowMoreVisible: boolean;
+  sub: Subscription;
 
   get newestFill(): string {
     return this.currentQuery == CurrentQuery.Newest ? 'outline' : 'fill';
@@ -63,18 +61,19 @@ export class HomePage {
     private fontSizeService: FontSizeService
   ) { }
 
-  ionViewDidEnter() {
+  async ionViewDidEnter() {
     this.currentQuery = CurrentQuery.Newest;
-    this.quotes = this.dataService.getQuotes(9);
-    this.isShowMoreVisible = true;
+    this.sub = this.dataService.getQuotes(9).subscribe(res => {
+      this.quotes = res;
+      this.isShowMoreVisible = true;
+    });
+  }
+
+  ionViewDidLeave() {
+    this.sub?.unsubscribe();
   }
 
   async showAll() {
-    // Save scroll position
-    const scroller = await this.content.getScrollElement();
-    this.savedScrollTop = scroller.scrollTop;
-
-    // Do something that might affect scroll
     switch (this.currentQuery) {
       case CurrentQuery.Newest:
         this.showNewestQuotes();
@@ -92,43 +91,53 @@ export class HomePage {
         this.showPrivateQuotes();
         break;
     }
-
-    this.content.scrollToPoint(0, this.savedScrollTop + 400, 2000);
   }
 
   showNewestQuotes() {
     this.currentQuery = CurrentQuery.Newest;
-    this.quotes = this.dataService.getQuotes();
+    this.sub = this.dataService.getQuotes().subscribe(res => {
+      this.quotes = res;
+    });
     this.isShowMoreVisible = false;
   }
 
   showTopQuotes() {
     this.currentQuery = CurrentQuery.TopLikes;
-    this.quotes = this.dataService.getQuotesSortedByLikesCount();
+    this.sub = this.dataService.getQuotesSortedByLikesCount().subscribe(res => {
+      this.quotes = res;
+    });
     this.isShowMoreVisible = false;
   }
 
   showQuotesPostedByMe() {
     this.currentQuery = CurrentQuery.PostedByMe;
-    this.quotes = this.dataService.getQuotesPostedByMe();
+    this.sub = this.dataService.getQuotesPostedByMe().subscribe(res => {
+      this.quotes = res;
+    });
     this.isShowMoreVisible = false;    
   }
 
   showMyOwnQuotes() { 
     this.currentQuery = CurrentQuery.MyOwnQuotes;
-    this.quotes = this.dataService.getMyOwnQuotes();
+    this.sub = this.dataService.getMyOwnQuotes().subscribe(res => {
+      this.quotes = res;
+    });
     this.isShowMoreVisible = false;
   }
 
   showPrivateQuotes() {
     this.currentQuery = CurrentQuery.PrivateQuotes;
-    this.quotes = this.dataService.getPrivateQuotes();
+    this.sub = this.dataService.getPrivateQuotes().subscribe(res => {
+      this.quotes = res;
+    });
     this.isShowMoreVisible = false;
   }
 
   showQuotesByQuotedBy(quotedBy: string) {
     this.currentQuery = CurrentQuery.Newest;
-    this.quotes = this.dataService.getQuotesByQuotedBy(quotedBy);
+    this.sub= this.dataService.getQuotesByQuotedBy(quotedBy).subscribe(res => {
+      this.quotes = res;
+    });
     this.isShowMoreVisible = false;
   }
 

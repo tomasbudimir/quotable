@@ -24,7 +24,7 @@
     </ion-button>
   </div>
   <div class="container">
-    <div class="quote" *ngFor="let quote of quotes | async"
+    <div class="quote" *ngFor="let quote of quotes"
       [ngStyle]="{ 'background-image': 'url(' + quote?.url + ')',}">
       <p class="quote-text" [style.fontSize.px]="getFontSize(quote?.quoteText)">{{ quote?.quoteText }}</p>
       <p class="quote-author link" [style.fontSize.px]="getFontSize(quote?.quoteText)"
