@@ -60,25 +60,21 @@ export class DataService {
 
   getQuotes(top?: number): Observable<QuoteRecord[]> {
     const ref = collection(this.firestore, QUOTES);
-    let q = query(ref, orderBy('created', 'desc'));
+    let q = query(ref, where('isPrivate', '==',  false), orderBy('created', 'desc'));
 
     if (top) {
-      q = query(ref, orderBy('created', 'desc'), limit(top));
+      q = query(ref, where('isPrivate', '==',  false), orderBy('created', 'desc'), limit(top));
     }
 
-    return (collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>).pipe(
-      map(items => items.filter(item => !item.isPrivate))
-    );
+    return collectionData(q, { idField: 'id' }) as Observable<QuoteRecord[]>
   }
 
   getQuotesSortedByLikesCount(): Observable<QuoteRecord[]> {
     const ref = collection(this.firestore, QUOTES);
-    const q = query(ref, 
+    const q = query(ref, where('isPrivate', '==',  false),
       orderBy('likesCount', 'desc'),
       orderBy('created', 'desc'));
-    return (collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>).pipe(
-      map(items => items.filter(item => !item.isPrivate))
-    );
+    return collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>;
   }
 
   getQuotesPostedByMe(): Observable<QuoteRecord[]> {

@@ -4,15 +4,15 @@
   <div class="queries">
     <ion-button size="small" shape="round" [fill]="newestFill" color="secondary" class="thin-border"
       (click)="showNewestQuotes()">
-      sort by newest
+      newest
     </ion-button>
     <ion-button size="small" shape="round" [fill]="topLikesFill" color="secondary" class="thin-border"
       (click)="showTopQuotes()">
-      sort by most liked
+      most liked
     </ion-button>
     <ion-button size="small" shape="round" [fill]="postedByMeFill" color="secondary" class="thin-border"
       (click)="showQuotesPostedByMe()" *ngIf="isLoggedIn">
-      quotes posted by me
+      posted by me
     </ion-button>
     <ion-button size="small" shape="round" [fill]="myOwnQuotesFill" color="secondary" class="thin-border"
       (click)="showMyOwnQuotes()" *ngIf="isLoggedIn">
