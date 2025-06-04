@@ -197,7 +197,7 @@ export class HomePage {
 
     if (result) {
       await this.dataService.deleteQuote(quote.id);
-      this.alertService.showToast('Quote successfully deleted.', 'close-outline', 'warning');
+      this.alertService.showToast('Quote successfully deleted.', 'trash-outline', 'warning');
     }
   }
 
