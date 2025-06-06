@@ -32,4 +32,8 @@ export class FontSizeService {
 
     return 9;
   }
+
+  getBiggerFontSize(quote: string): number {
+    return this.getFontSize(quote) + 4;
+  }
 }

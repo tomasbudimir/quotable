@@ -20,7 +20,7 @@
 }
 
 .quote-text {
-  margin: 130px 20px 10px 20px;
+  margin: 130px 20px auto 20px;
   color: white;
 }
 
@@ -28,11 +28,10 @@
   color: gainsboro;
   align-self: flex-end;
   margin-right: 50px;
+  margin-bottom: auto;
 }
 
 .button-row {
-  align-self: flex-bottom;
-  background-color: rgba(255, 255, 255, 0.2);
   text-align: center;
   width: 100%;
   margin-top: 1px;
@@ -40,9 +39,8 @@
 
 .author-row {
   margin-top: auto;
-  align-self: flex-bottom;
-  font-size: 10px;
-  color: white;
+  font-size: 12px;
+  color: black;
 }
 
 .icon {
