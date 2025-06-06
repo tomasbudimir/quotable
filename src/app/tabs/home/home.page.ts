@@ -1,3 +1,4 @@
+import { TimeService } from './../../services/time.service';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { ModalLoginPage } from './../../auth/modal-login/modal-login.page';
@@ -58,7 +59,8 @@ export class HomePage {
     private dataService: DataService,
     private router: Router,
     private modalController: ModalController,
-    private fontSizeService: FontSizeService
+    private fontSizeService: FontSizeService,
+    private timeService: TimeService,
   ) { }
 
   async ionViewDidEnter() {
@@ -107,6 +109,15 @@ export class HomePage {
       this.quotes = res;
     });
     this.isShowMoreVisible = false;
+  }
+
+  quoteOfTheDay() {
+    this.sub = this.dataService.getQuotes().subscribe(res => {
+      const dayOfYear = this.timeService.getDayOfYear();
+      const quoteOfTheDay = res[dayOfYear % res.length];
+
+      this.navigateToOneQuote(quoteOfTheDay.id);
+    });
   }
 
   showQuotesPostedByMe() {

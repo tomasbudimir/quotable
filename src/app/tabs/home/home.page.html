@@ -10,6 +10,10 @@
       (click)="showTopQuotes()">
       most liked
     </ion-button>
+    <ion-button size="small" shape="round" [fill]="topLikesFill" color="secondary" class="thin-border"
+      (click)="quoteOfTheDay()">
+      quote of the day
+    </ion-button>
     <ion-button size="small" shape="round" [fill]="postedByMeFill" color="secondary" class="thin-border"
       (click)="showQuotesPostedByMe()" *ngIf="isLoggedIn">
       posted by me
