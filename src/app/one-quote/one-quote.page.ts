@@ -9,6 +9,7 @@ import { FontSizeService } from '../services/font-size.service';
 import { ModalController } from '@ionic/angular';
 import { ModalLoginPage } from '../auth/modal-login/modal-login.page';
 import { Share } from '@capacitor/share';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-one-quote',
@@ -103,5 +104,38 @@ export class OneQuotePage {
       text: quote.quoteText,
       url: environment.siteUrl + '/one-quote/' + quote.id
     });
+  }
+
+  
+  async downloadImage(quote: QuoteRecord) {
+    const element = document.getElementById(quote.id);
+    if (!element) return;
+
+    await this.captureTopPart(element).then((canvas) => {
+      const image = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = image;
+      link.download = 'captured-image.png';
+      link.click();
+    });
+  }
+
+  async captureTopPart(element: HTMLElement): Promise<HTMLCanvasElement> {
+    const fullCanvas = await html2canvas(element);
+
+    const croppedHeight = fullCanvas.height - 62; // Remove toolbar from image
+    const croppedWidth = fullCanvas.width;
+
+    // Create a new canvas to hold cropped image
+    const croppedCanvas = document.createElement('canvas');
+    croppedCanvas.width = croppedWidth;
+    croppedCanvas.height = croppedHeight;
+
+    const ctx = croppedCanvas.getContext('2d');
+    if (!ctx) throw new Error('Cannot get canvas context');
+
+    ctx.drawImage(fullCanvas, 0, 0, croppedWidth, croppedHeight, 0, 0, croppedWidth, croppedHeight);
+
+    return croppedCanvas;
   }
 }

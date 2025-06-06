@@ -31,6 +31,7 @@
     "@cloudinary/ng": "^2.1.2",
     "@cloudinary/url-gen": "^1.21.0",
     "@ionic/angular": "^8.0.0",
+    "html2canvas": "^1.4.1",
     "ionicons": "^7.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
