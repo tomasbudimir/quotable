@@ -106,7 +106,6 @@ export class OneQuotePage {
     });
   }
 
-  
   async downloadImage(quote: QuoteRecord) {
     const element = document.getElementById(quote.id);
     if (!element) return;
@@ -115,7 +114,7 @@ export class OneQuotePage {
       const image = canvas.toDataURL('image/png');
       const link = document.createElement('a');
       link.href = image;
-      link.download = 'captured-image.png';
+      link.download = quote.quoteText.substring(0, 20) + '.png';
       link.click();
     });
   }
