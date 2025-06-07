@@ -111,15 +111,6 @@ export class HomePage {
     this.isShowMoreVisible = false;
   }
 
-  quoteOfTheDay() {
-    this.sub = this.dataService.getQuotes().subscribe(res => {
-      const dayOfYear = this.timeService.getDayOfYear();
-      const quoteOfTheDay = res[dayOfYear % res.length];
-
-      this.navigateToOneQuote(quoteOfTheDay.id);
-    });
-  }
-
   showQuotesPostedByMe() {
     this.currentQuery = CurrentQuery.PostedByMe;
     this.sub = this.dataService.getQuotesPostedByMe().subscribe(res => {

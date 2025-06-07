@@ -8,9 +8,6 @@
     </div>
   </div>
   <div class="container" *ngIf="quote">
-    <div class="author-row">
-      posted by {{quote.displayName}} on {{quote.created?.toDate()| date:'MMM d, y, h:mm:ss a'}}
-    </div>
     <div class="button-row">
       <ion-button color="light" size="small" class="button icon-button-with-badge" shape="round"
         (click)="likingQuote(quote)">

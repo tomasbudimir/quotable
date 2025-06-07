@@ -1,5 +1,5 @@
 import { AuthService } from './auth.service';
-import { doc, Firestore, setDoc, serverTimestamp, getDoc, collection, collectionData, docData, orderBy, query, addDoc, deleteDoc, where, arrayUnion, arrayRemove, DocumentData, DocumentReference, limit } from '@angular/fire/firestore';
+import { doc, Firestore, setDoc, serverTimestamp, getDoc, collection, collectionData, docData, orderBy, query, addDoc, deleteDoc, where, arrayUnion, arrayRemove, DocumentData, DocumentReference, limit, getCountFromServer } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { QUOTES, USERS } from '../models/constants';
 import { map, Observable } from 'rxjs';
@@ -58,9 +58,15 @@ export class DataService {
     return docData(ref, { idField: 'uid'}) as Observable<UserRecord>;
   }
 
+  async getQuoteCount() {
+    const ref = collection(this.firestore, QUOTES);
+    const snapshot = await getCountFromServer(ref);
+    return snapshot.data().count;
+  }
+
   getQuotes(top?: number): Observable<QuoteRecord[]> {
     const ref = collection(this.firestore, QUOTES);
-    let q = query(ref, where('isPrivate', '==',  false), orderBy('created', 'desc'));
+    let q = query(ref, where('isPrivate', '==', false), orderBy('created', 'desc'));
 
     if (top) {
       q = query(ref, where('isPrivate', '==',  false), orderBy('created', 'desc'), limit(top));
