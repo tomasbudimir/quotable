@@ -58,7 +58,7 @@ export class DataService {
     return docData(ref, { idField: 'uid'}) as Observable<UserRecord>;
   }
 
-  async getQuoteCount() {
+  async getQuoteCount(): Promise<number> {
     const ref = collection(this.firestore, QUOTES);
     const snapshot = await getCountFromServer(ref);
     return snapshot.data().count;

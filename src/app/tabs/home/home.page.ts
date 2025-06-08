@@ -59,8 +59,7 @@ export class HomePage {
     private dataService: DataService,
     private router: Router,
     private modalController: ModalController,
-    private fontSizeService: FontSizeService,
-    private timeService: TimeService,
+    private fontSizeService: FontSizeService
   ) { }
 
   async ionViewDidEnter() {

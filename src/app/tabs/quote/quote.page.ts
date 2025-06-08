@@ -120,7 +120,10 @@ export class QuotePage {
         await this.dataService.updateQuote(this.quoteId, this.quoteText.trim(), this.quotedBy.trim(), this.imageItemSelected.url, this.isPrivate);
       } else {
         // Creating a new quote
-        await this.dataService.createQuote(this.quoteText.trim(), this.quotedBy.trim(), this.imageItemSelected.url, this.isPrivate);  
+        await this.dataService.createQuote(this.quoteText.trim(), this.quotedBy.trim(), this.imageItemSelected.url, this.isPrivate);
+        
+        const count = await this.dataService.getQuoteCount();
+        await this.alertService.showToast(count + '. quote created!');
       }
 
       this.resetInput();
@@ -140,4 +143,4 @@ export class QuotePage {
     this.quoteText = null;
     this.quotedBy = null;
   }
-}
+};
