@@ -32,6 +32,7 @@ export class HomePage {
   currentQuery: CurrentQuery;
   isShowMoreVisible: boolean;
   sub: Subscription;
+  quoteCount: number = 0;
 
   get newestFill(): string {
     return this.currentQuery == CurrentQuery.Newest ? 'outline' : 'fill';
@@ -68,6 +69,7 @@ export class HomePage {
       this.quotes = res;
       this.isShowMoreVisible = true;
     });
+    this.quoteCount = await this.dataService.getQuoteCount();
   }
 
   ionViewDidLeave() {
