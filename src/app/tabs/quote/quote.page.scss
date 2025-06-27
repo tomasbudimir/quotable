@@ -12,6 +12,8 @@
   background-position: center;
   background-color: rgba(0, 0, 0, 0.3);
   cursor: pointer;
+  border-right: solid 1px white;
+  border-bottom: solid 1px white;
 }
 
 .edit-quote {
@@ -25,7 +27,6 @@
 
 div.quote:hover {
   background-color: rgba(0, 0, 0, 0);
-  border: solid 1px white;
 }
 
 .label {

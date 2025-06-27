@@ -16,6 +16,7 @@ import { Share } from '@capacitor/share';
 enum CurrentQuery {
   Newest,
   TopLikes,
+  TopLikesByMe,
   PostedByMe,
   MyOwnQuotes,
   PrivateQuotes
@@ -40,6 +41,10 @@ export class HomePage {
 
   get topLikesFill(): string {
     return this.currentQuery == CurrentQuery.TopLikes ? 'outline' : 'fill';
+  }
+
+  get topLikesByMeFill(): string {
+    return this.currentQuery == CurrentQuery.TopLikesByMe ? 'outline' : 'fill';
   }
 
   get postedByMeFill(): string {
@@ -84,6 +89,9 @@ export class HomePage {
       case CurrentQuery.TopLikes:
         this.showTopQuotes();
         break;
+      case CurrentQuery.TopLikesByMe:
+        this.showTopQuotes();
+        break;
       case CurrentQuery.PostedByMe:
         this.showQuotesPostedByMe();
         break;
@@ -106,7 +114,15 @@ export class HomePage {
 
   showTopQuotes() {
     this.currentQuery = CurrentQuery.TopLikes;
-    this.sub = this.dataService.getQuotesSortedByLikesCount().subscribe(res => {
+    this.sub = this.dataService.getQuotesSortedByLikes().subscribe(res => {
+      this.quotes = res;
+    });
+    this.isShowMoreVisible = false;
+  }
+
+  showTopQuotesILiked() {
+    this.currentQuery = CurrentQuery.TopLikesByMe;
+    this.sub = this.dataService.getQuotesILiked().subscribe(res => {
       this.quotes = res;
     });
     this.isShowMoreVisible = false;
