@@ -13,6 +13,10 @@ const routes: Routes = [
         loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
       },
       {
+        path: 'one-quote',
+        loadChildren: () => import('./one-quote/one-quote.module').then(m => m.OneQuotePageModule)
+      },
+      {
         path: 'quote',
         loadChildren: () => import('./quote/quote.module').then(m => m.QuotePageModule)
       },
@@ -30,7 +34,6 @@ const routes: Routes = [
     path: 'one-quote',
     loadChildren: () => import('../one-quote/one-quote.module').then( m => m.OneQuotePageModule)
   }
-
 ];
 
 @NgModule({

@@ -1,5 +1,5 @@
 import { AuthService } from './../services/auth.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonTabs } from '@ionic/angular';
 
 @Component({
@@ -12,10 +12,6 @@ export class TabsPage {
   @ViewChild('tabs') tabs: IonTabs;
 
   constructor(private authService: AuthService) { }
-
-  ionViewWillEnter() {
-    this.tabs.select('home');
-  }
 
   get isLoggedIn(): boolean {
     return this.authService.user != null;
