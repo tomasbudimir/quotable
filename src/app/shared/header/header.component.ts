@@ -52,7 +52,7 @@ export class HeaderComponent {
 
   async post() {
     if (this.authService.user == null) {
-      const result = await this.alertService.confirm('Posting a quote requires sign-in', 'Do you want to sign in for free?');
+      const result = await this.alertService.confirm('Posting a quote requires sign-in', 'Do you want to sign in? It is free.');
 
       if (result) {
         const modal = await this.modalController.create({
