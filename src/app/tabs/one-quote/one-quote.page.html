@@ -8,10 +8,8 @@
     </div>
   </div>
   <div class="container" *ngIf="quote">
-    <div class="button-row">
-      <ion-button color="light" size="small" class="button" shape="round" (click)="downloadImage(quote)">
-        <ion-icon name="cloud-download-outline" color="primary" class="icon"></ion-icon>
-      </ion-button>
-    </div>
+    <ion-button class="top-margin" shape="round" fill="clear" (click)="showAnother()">
+      Show another one
+    </ion-button>
   </div>
 </ion-content>
