@@ -37,24 +37,24 @@
         posted by {{quote.displayName}} on {{quote.created?.toDate()| date:'MMM d, y, h:mm:ss a'}}
       </div>
       <div class="button-row">
-        <ion-button color="light" size="small" class="button icon-button-with-badge" shape="round"
+        <ion-button color="transparent" size="small" class="button icon-button-with-badge" shape="round"
           (click)="likingQuote(quote)">
-          <ion-icon [name]="getLikeIconName(quote)" color="danger" class="icon"></ion-icon>
-          <ion-badge color="light" slot="end">{{quote.likesCount}}</ion-badge>
+          <ion-icon [name]="getLikeIconName(quote)" color="light" class="icon"></ion-icon>
+          <ion-badge color="transparent" slot="end">{{quote.likesCount}}</ion-badge>
         </ion-button>
-        <ion-button color="light" size="small" class="button" shape="round" *ngIf="isMyPost(quote)"
+        <ion-button color="transparent" size="small" class="button" shape="round" *ngIf="isMyPost(quote)"
           [routerLink]="['/tabs', 'quote', quote.id]">
-          <ion-icon name="pencil" color="tertiary" class="icon"></ion-icon>
+          <ion-icon name="pencil" color="light" class="icon"></ion-icon>
         </ion-button>
-        <ion-button color="light" size="small" class="button" shape="round" *ngIf="isMyPost(quote)"
+        <ion-button color="transparent" size="small" class="button" shape="round" *ngIf="isMyPost(quote)"
           (click)="delete(quote)">
-          <ion-icon name="trash-outline" color="danger" class="icon"></ion-icon>
+          <ion-icon name="trash-outline" color="light" class="icon"></ion-icon>
         </ion-button>
-        <ion-button color="light" size="small" class="button" shape="round" (click)="navigateToOneQuote(quote.id)">
+        <ion-button color="transparent" size="small" class="button" shape="round" (click)="navigateToOneQuote(quote.id)">
           <ion-icon name="expand-outline" class="icon"></ion-icon>
         </ion-button>
-        <ion-button color="light" size="small" class="button" shape="round" (click)="share(quote)">
-          <ion-icon name="share-social-outline" color="secondary" class="icon"></ion-icon>
+        <ion-button color="transparent" size="small" class="button" shape="round" (click)="share(quote)">
+          <ion-icon name="share-social-outline" color="light" class="icon"></ion-icon>
         </ion-button>
       </div>
     </div>

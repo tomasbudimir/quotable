@@ -26,9 +26,7 @@ export class OneQuotePage {
     this.dataService.getQuotes().subscribe(res => {
       if (res) {
         this.quotes = res;
-
-        const index = this.getIndex(res.length);
-        this.quote = this.quotes[index];
+        this.showAnother();
       } else {
         this.router.navigate(['/tabs']);
       }
@@ -44,7 +42,7 @@ export class OneQuotePage {
   }
 
   showAnother() {
-      const index = this.getIndex(this.quotes.length);
-      this.quote = this.quotes[index];
+    const index = this.getIndex(this.quotes.length);
+    this.quote = this.quotes[index];
   }
 }
