@@ -2,7 +2,7 @@ import { AuthService } from './auth.service';
 import { doc, Firestore, setDoc, serverTimestamp, getDoc, collection, collectionData, docData, orderBy, query, addDoc, deleteDoc, where, arrayUnion, arrayRemove, DocumentData, DocumentReference, limit, getCountFromServer } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { QUOTES, USERS } from '../models/constants';
-import { map, Observable } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 import { UserRecord } from '../models/user-record';
 import { QuoteRecord } from '../models/quote-record';
 
@@ -62,6 +62,13 @@ export class DataService {
     const ref = collection(this.firestore, QUOTES);
     const snapshot = await getCountFromServer(ref);
     return snapshot.data().count;
+  }
+
+  getUnsortedQuotes(): Observable<QuoteRecord[]> {
+    const ref = collection(this.firestore, QUOTES);
+    let q = query(ref, where('isPrivate', '==', false));
+
+    return collectionData(q) as Observable<QuoteRecord[]>;
   }
 
   getQuotes(top?: number): Observable<QuoteRecord[]> {

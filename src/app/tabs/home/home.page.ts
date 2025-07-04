@@ -12,6 +12,7 @@ import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Share } from '@capacitor/share';
+import { LikeService } from 'src/app/services/like.service';
 
 enum CurrentQuery {
   Newest,
@@ -64,6 +65,7 @@ export class HomePage {
     private authService: AuthService,
     private dataService: DataService,
     private router: Router,
+    private likeService: LikeService,
     private modalController: ModalController,
     private fontSizeService: FontSizeService
   ) { }
@@ -163,21 +165,9 @@ export class HomePage {
   getFontSize(quoteText: string): number {
     return this.fontSizeService.getFontSize(quoteText);
   }
-
-  isQuoteLikedByCurrentUser(quote: QuoteRecord): boolean {
-    if (quote?.likes?.includes(this.authService?.user?.uid)) {
-      return true;
-    }
-
-    return false;
-  }
   
   getLikeIconName(quote: QuoteRecord): string {
-    if (this.isQuoteLikedByCurrentUser(quote)) {
-      return 'heart';
-    }
-
-    return 'heart-outline';
+    return this.likeService.getLikeIconName(quote);
   }
 
   get isLoggedIn(): boolean {
@@ -203,7 +193,7 @@ export class HomePage {
         modal.present();
       }
     } else {
-      if (this.isQuoteLikedByCurrentUser(quote)) {
+      if (this.likeService.isQuoteLikedByCurrentUser(quote)) {
         this.dataService.unlikeTheQuote(quote);  
       } else {
         this.dataService.likeTheQuote(quote);

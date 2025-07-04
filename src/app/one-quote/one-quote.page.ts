@@ -10,6 +10,7 @@ import { ModalController } from '@ionic/angular';
 import { ModalLoginPage } from '../auth/modal-login/modal-login.page';
 import { Share } from '@capacitor/share';
 import html2canvas from 'html2canvas';
+import { LikeService } from '../services/like.service';
 
 @Component({
   selector: 'app-one-quote',
@@ -27,7 +28,8 @@ export class OneQuotePage {
     private dataService: DataService,
     private alertService: AlertService,
     private fontSizeService: FontSizeService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private likeService: LikeService
   ) { }
 
   ionViewDidEnter() {
@@ -55,11 +57,7 @@ export class OneQuotePage {
   }
 
   getLikeIconName(quote: QuoteRecord): string {
-    if (this.isQuoteLikedByCurrentUser(quote)) {
-      return 'heart';
-    }
-
-    return 'heart-outline';
+    return this.likeService.getLikeIconName(quote);
   }
 
   isMyPost(quote: QuoteRecord): boolean {

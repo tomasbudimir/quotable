@@ -2,7 +2,6 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { QuoteRecord } from '../../models/quote-record';
-import { AuthService } from '../../services/auth.service';
 import { FontSizeService } from '../../services/font-size.service';
 
 @Component({
@@ -17,13 +16,17 @@ export class OneQuotePage {
   quote: QuoteRecord = null;
 
   constructor(private router: Router,
-    private authService: AuthService,
     private dataService: DataService,
     private fontSizeService: FontSizeService
   ) { }
 
+  ionViewWillEnter() {
+    this.quote = null;
+  }
+
   ionViewDidEnter() {
-    this.dataService.getQuotes().subscribe(res => {
+    let i = 0;
+    this.dataService.getUnsortedQuotes().subscribe(res => {
       if (res) {
         this.quotes = res;
         this.showAnother();
@@ -42,7 +45,9 @@ export class OneQuotePage {
   }
 
   showAnother() {
-    const index = this.getIndex(this.quotes.length);
-    this.quote = this.quotes[index];
+    if (this.quotes && this.quotes.length > 9) {
+      const index = this.getIndex(this.quotes.length);
+      this.quote = this.quotes[index];
+    }
   }
 }
