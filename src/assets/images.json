@@ -91,6 +91,8 @@
   { "url": "/assets/images/heart-lock.jpg" },
   { "url": "/assets/images/heart-sun.jpg" },
   { "url": "/assets/images/mountains-fog.jpg" },
+  { "url": "/assets/images/sisters.jpg" },
+  { "url": "/assets/images/heart-arms.jpg" },
   { "url": "/assets/images/heart.jpg" },
   { "url": "/assets/images/hearts.jpg" },
   { "url": "/assets/images/be-smart.jpg" },
@@ -262,5 +264,14 @@
   { "url": "/assets/images/kaputze.jpg" },
   { "url": "/assets/images/laptop-ios.jpg" },
   { "url": "/assets/images/laptop.jpg" },
-  { "url": "/assets/images/women-wall.jpg" }
+  { "url": "/assets/images/women-wall.jpg" },
+  { "url": "/assets/images/laugh.jpg" },
+  { "url": "/assets/images/people-together.jpg" },
+  { "url": "/assets/images/team.jpg" },
+  { "url": "/assets/images/friendship.jpg" },
+  { "url": "/assets/images/cap.jpg" },
+  { "url": "/assets/images/children-sisters.jpg" },
+  { "url": "/assets/images/kids.jpg" },
+  { "url": "/assets/images/happy-boy.jpg" },
+  { "url": "/assets/images/happy.jpg" }
 ]
