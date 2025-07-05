@@ -11,7 +11,7 @@
     </ion-button>
     <ng-content>
       <ng-container *ngIf="isLoggedIn">
-        <ion-avatar class="small-avatar back" slot="end">
+        <ion-avatar class="small-avatar back" slot="end" (click)="getToProfile()">
           <img [src]="photoURL" />
         </ion-avatar>
         <ion-button (click)="logout()" slot="end" fill="clear">

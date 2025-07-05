@@ -67,4 +67,8 @@ export class HeaderComponent {
       this.router.navigate(['/tabs', 'quote']);
     }
   }
+
+  getToProfile() {
+    this.router.navigate(['tabs', 'profile']);
+  }
 }
