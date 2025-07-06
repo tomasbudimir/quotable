@@ -8,7 +8,7 @@
       <ion-label>Random quote</ion-label>
       <ion-icon name="shuffle-outline"></ion-icon>
     </ion-tab-button>
-    <ion-tab-button tab="quote" *ngIf="isLoggedIn">
+    <ion-tab-button *ngIf="isLoggedIn" routerLink="quote">
       <ion-label>New quote</ion-label>
       <ion-icon name="add"></ion-icon>
     </ion-tab-button>
