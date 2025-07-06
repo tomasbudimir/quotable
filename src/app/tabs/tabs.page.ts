@@ -16,7 +16,8 @@ export class TabsPage {
     private router: Router) { }
 
   ionViewWillEnter() {
-    if (this.router.url.toLowerCase().endsWith('tabs')) {
+    if (this.router.url.toLowerCase().endsWith('tabs')
+      || this.router.url.toLowerCase().indexOf('tabs?') >= 0) {
       this.tabs.select('home');
     }
   }
