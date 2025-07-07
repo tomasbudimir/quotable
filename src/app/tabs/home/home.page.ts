@@ -1,6 +1,5 @@
-import { TimeService } from './../../services/time.service';
 import { environment } from 'src/environments/environment';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalLoginPage } from './../../auth/modal-login/modal-login.page';
 import { QuoteRecord } from './../../models/quote-record';
 import { DataService } from './../../services/data.service';
@@ -13,15 +12,7 @@ import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Share } from '@capacitor/share';
 import { LikeService } from 'src/app/services/like.service';
-
-enum CurrentQuery {
-  Newest,
-  TopLikes,
-  TopLikesByMe,
-  PostedByMe,
-  MyOwnQuotes,
-  PrivateQuotes
-}
+import { CurrentQuery } from 'src/app/models/current-query';
 
 @Component({
   selector: 'app-home',
@@ -36,35 +27,12 @@ export class HomePage {
   sub: Subscription;
   quoteCount: number = 0;
 
-  get newestFill(): string {
-    return this.currentQuery == CurrentQuery.Newest ? 'outline' : 'fill';
-  }
-
-  get topLikesFill(): string {
-    return this.currentQuery == CurrentQuery.TopLikes ? 'outline' : 'fill';
-  }
-
-  get topLikesByMeFill(): string {
-    return this.currentQuery == CurrentQuery.TopLikesByMe ? 'outline' : 'fill';
-  }
-
-  get postedByMeFill(): string {
-    return this.currentQuery == CurrentQuery.PostedByMe ? 'outline' : 'fill';
-  }
-
-  get myOwnQuotesFill(): string {
-    return this.currentQuery == CurrentQuery.MyOwnQuotes ? 'outline' : 'fill';
-  }
-
-  get privateQuotesFill(): string {
-    return this.currentQuery == CurrentQuery.PrivateQuotes ? 'outline' : 'fill';
-  }
-
   constructor(private fileService: FileService,
     private alertService: AlertService,
     private authService: AuthService,
     private dataService: DataService,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private likeService: LikeService,
     private modalController: ModalController,
     private fontSizeService: FontSizeService
@@ -72,6 +40,33 @@ export class HomePage {
 
   async ionViewDidEnter() {
     this.currentQuery = CurrentQuery.Newest;
+
+    try {
+      const quotedBy = this.activatedRoute.snapshot.queryParams['quotedBy'];
+
+      if (quotedBy) {
+        this.showQuotesByQuotedBy(quotedBy);
+        return;
+      }
+
+      const view = this.activatedRoute.snapshot.paramMap.get('view');
+
+      if (view && +view <= Number(CurrentQuery.PrivateQuotes)) {
+        this.currentQuery = +view as CurrentQuery;
+        this.showCurrent();
+      } else {
+        this.loadDefaultHome();
+      }
+    } catch {
+      this.loadDefaultHome();
+    }
+  }
+
+  ionViewDidLeave() {
+    this.sub?.unsubscribe();
+  }
+
+  async loadDefaultHome() {
     this.sub = this.dataService.getQuotes(9).subscribe(res => {
       this.quotes = res;
       this.isShowMoreVisible = true;
@@ -79,11 +74,7 @@ export class HomePage {
     this.quoteCount = await this.dataService.getQuoteCount();
   }
 
-  ionViewDidLeave() {
-    this.sub?.unsubscribe();
-  }
-
-  async showAll() {
+  async showCurrent() {
     switch (this.currentQuery) {
       case CurrentQuery.Newest:
         this.showNewestQuotes();
@@ -92,7 +83,7 @@ export class HomePage {
         this.showTopQuotes();
         break;
       case CurrentQuery.TopLikesByMe:
-        this.showTopQuotes();
+        this.showTopQuotesILiked();
         break;
       case CurrentQuery.PostedByMe:
         this.showQuotesPostedByMe();
@@ -152,6 +143,13 @@ export class HomePage {
       this.quotes = res;
     });
     this.isShowMoreVisible = false;
+  }
+
+  navigateByQuotedBy(quotedBy: string) {
+    this.router.navigate(['tabs', 'home'], {
+      queryParams: { quotedBy }
+    });
+    this.showQuotesByQuotedBy(quotedBy);
   }
 
   showQuotesByQuotedBy(quotedBy: string) {

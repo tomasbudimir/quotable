@@ -36,6 +36,12 @@ export class OneQuotePage {
     });
   }
 
+  navigateByQuotedBy(quotedBy: string) {
+    this.router.navigate(['tabs', 'home'], {
+      queryParams: { quotedBy }
+    });
+  }
+
   getFontSize(quoteText: string): number {
     return this.fontSizeService.getBiggerFontSize(quoteText);
   }

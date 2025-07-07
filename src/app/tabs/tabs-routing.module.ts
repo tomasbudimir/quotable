@@ -13,6 +13,10 @@ const routes: Routes = [
         loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
       },
       {
+        path: 'home/:view',
+        loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+      },
+      {
         path: 'one-quote',
         loadChildren: () => import('./one-quote/one-quote.module').then(m => m.OneQuotePageModule)
       },

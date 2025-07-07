@@ -1,37 +1,12 @@
 <app-header></app-header>
 
 <ion-content #content>
-  <div class="queries">
-    <ion-button size="small" shape="round" [fill]="newestFill" color="secondary" class="thin-border"
-      (click)="showNewestQuotes()">
-      newest
-    </ion-button>
-    <ion-button size="small" shape="round" [fill]="topLikesFill" color="secondary" class="thin-border"
-      (click)="showTopQuotes()">
-      most liked
-    </ion-button>
-    <ion-button size="small" shape="round" [fill]="topLikesByMeFill" color="secondary" class="thin-border"
-      (click)="showTopQuotesILiked()" *ngIf="isLoggedIn">
-      liked by me
-    </ion-button>
-    <ion-button size="small" shape="round" [fill]="postedByMeFill" color="secondary" class="thin-border"
-      (click)="showQuotesPostedByMe()" *ngIf="isLoggedIn">
-      posted by me
-    </ion-button>
-    <ion-button size="small" shape="round" [fill]="myOwnQuotesFill" color="secondary" class="thin-border"
-      (click)="showMyOwnQuotes()" *ngIf="isLoggedIn">
-      my own quotes
-    </ion-button>
-    <ion-button size="small" shape="round" [fill]="privateQuotesFill" color="secondary" class="thin-border"
-      (click)="showPrivateQuotes()" *ngIf="isLoggedIn">
-      my non-public quotes
-    </ion-button>
-  </div>
+  <app-filter [currentQuery]="currentQuery"></app-filter>
   <div class="container">
     <div class="quote" *ngFor="let quote of quotes" [ngStyle]="{ 'background-image': 'url(' + quote?.url + ')' }">
       <p class="quote-text" [style.fontSize.px]="getFontSize(quote?.quoteText)">{{ quote?.quoteText }}</p>
       <p class="quote-author link" [style.fontSize.px]="getFontSize(quote?.quoteText)"
-        (click)="showQuotesByQuotedBy(quote?.quotedBy)">{{ quote?.quotedBy }}</p>
+        (click)="navigateByQuotedBy(quote?.quotedBy)">{{ quote?.quotedBy }}</p>
       <div class="author-row">
         posted by {{quote.displayName}} on {{quote.created?.toDate()| date:'MMM d, y, h:mm:ss a'}}
       </div>
@@ -60,7 +35,7 @@
     </div>
   </div>
   <div class="container" *ngIf="isShowMoreVisible">
-    <ion-button class="top-margin" shape="round" fill="clear" (click)="showAll()">
+    <ion-button class="top-margin" shape="round" fill="clear" (click)="showCurrent()">
       See all {{quoteCount}} quotes
     </ion-button>
   </div>
