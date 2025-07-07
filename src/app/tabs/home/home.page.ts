@@ -42,21 +42,25 @@ export class HomePage {
     this.currentQuery = CurrentQuery.Newest;
 
     try {
-      const quotedBy = this.activatedRoute.snapshot.queryParams['quotedBy'];
+      this.activatedRoute.queryParams.subscribe(params => {
+        const quotedBy = params['quotedBy'];
 
-      if (quotedBy) {
-        this.showQuotesByQuotedBy(quotedBy);
-        return;
-      }
+        console.log(quotedBy);
+        
+        if (quotedBy) {
+          this.showQuotesByQuotedBy(quotedBy);
+          return;
+        } else {
+          const view = this.activatedRoute.snapshot.paramMap.get('view');
 
-      const view = this.activatedRoute.snapshot.paramMap.get('view');
-
-      if (view && +view <= Number(CurrentQuery.PrivateQuotes)) {
-        this.currentQuery = +view as CurrentQuery;
-        this.showCurrent();
-      } else {
-        this.loadDefaultHome();
-      }
+          if (view && +view <= Number(CurrentQuery.PrivateQuotes)) {
+            this.currentQuery = +view as CurrentQuery;
+            this.showCurrent();
+          } else {
+            this.loadDefaultHome();
+          }
+        }
+      });
     } catch {
       this.loadDefaultHome();
     }
