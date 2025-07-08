@@ -1,0 +1,9 @@
+<app-header [isPostQuoteDisplayed]="false"></app-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <ul *ngIf="authors">
+      <li class="link" *ngFor="let person of authors | async" (click)="navigateByQuotedBy(person)">{{ person }}</li>
+    </ul>
+  </div>
+</ion-content>

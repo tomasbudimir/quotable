@@ -10,25 +10,29 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./auth/login/login.module').then( m => m.LoginPageModule),
+    loadChildren: () => import('./auth/login/login.module').then(m => m.LoginPageModule),
     canActivate: [AlreadyLoggedInGuard]
   },
   {
     path: 'modal-login',
-    loadChildren: () => import('./auth/modal-login/modal-login.module').then( m => m.ModalLoginPageModule)
+    loadChildren: () => import('./auth/modal-login/modal-login.module').then(m => m.ModalLoginPageModule)
   },
   {
     path: 'register',
-    loadChildren: () => import('./auth/register/register.module').then( m => m.RegisterPageModule),
+    loadChildren: () => import('./auth/register/register.module').then(m => m.RegisterPageModule),
     canActivate: [AlreadyLoggedInGuard]
   },
   {
     path: 'tabs',
-    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule),
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
   },
   {
     path: 'one-quote/:id',
     loadChildren: () => import('./one-quote/one-quote.module').then(m => m.OneQuotePageModule)
+  },
+  {
+    path: 'authors',
+    loadChildren: () => import('./authors/authors.module').then(m => m.AuthorsPageModule)
   },
   {
     path: '**',

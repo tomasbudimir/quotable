@@ -139,6 +139,16 @@ export class DataService {
     return docData(ref, { idField: 'id'}) as Observable<QuoteRecord>;
   }
 
+  getAuthors(): Observable<string[]> {
+    const ref = collection(this.firestore, QUOTES);
+    return collectionData(ref).pipe(
+      map(quotes => {
+        const authors = quotes.map((quote: QuoteRecord) => quote.quotedBy);
+        return [... new Set(authors)].sort();
+      })
+    );
+  }
+
   async createQuote(quoteText: string, quotedBy: string, url: string, isPrivate: boolean) {
     const ref = collection(this.firestore, QUOTES);
 
