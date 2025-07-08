@@ -119,34 +119,54 @@ export class HomePage {
 
   showTopQuotesILiked() {
     this.currentQuery = CurrentQuery.TopLikesByMe;
-    this.sub = this.dataService.getQuotesILiked().subscribe(res => {
-      this.quotes = res;
-    });
-    this.isShowMoreVisible = false;
+
+    if (this.authService?.user) {
+      this.sub = this.dataService.getQuotesILiked().subscribe(res => {
+        this.quotes = res;
+      });
+      this.isShowMoreVisible = false;
+    } else {
+      this.showNewestQuotes();
+    }
   }
 
   showQuotesPostedByMe() {
     this.currentQuery = CurrentQuery.PostedByMe;
-    this.sub = this.dataService.getQuotesPostedByMe().subscribe(res => {
-      this.quotes = res;
-    });
-    this.isShowMoreVisible = false;    
+
+    if (this.authService?.user) {
+      this.sub = this.dataService.getQuotesPostedByMe().subscribe(res => {
+        this.quotes = res;
+      });
+      this.isShowMoreVisible = false;
+    } else {
+      this.showNewestQuotes();
+    }   
   }
 
   showMyOwnQuotes() { 
     this.currentQuery = CurrentQuery.MyOwnQuotes;
-    this.sub = this.dataService.getMyOwnQuotes().subscribe(res => {
-      this.quotes = res;
-    });
-    this.isShowMoreVisible = false;
+
+    if (this.authService?.user) {
+      this.sub = this.dataService.getMyOwnQuotes().subscribe(res => {
+        this.quotes = res;
+      });
+      this.isShowMoreVisible = false;
+    } else {
+      this.showNewestQuotes();
+    }   
   }
 
   showPrivateQuotes() {
     this.currentQuery = CurrentQuery.PrivateQuotes;
-    this.sub = this.dataService.getPrivateQuotes().subscribe(res => {
-      this.quotes = res;
-    });
-    this.isShowMoreVisible = false;
+
+    if (this.authService?.user) {
+      this.sub = this.dataService.getPrivateQuotes().subscribe(res => {
+        this.quotes = res;
+      });
+      this.isShowMoreVisible = false;
+    } else {
+      this.showNewestQuotes();
+    }  
   }
 
   navigateByQuotedBy(quotedBy: string) {
