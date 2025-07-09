@@ -2,8 +2,8 @@
 
 <ion-content [fullscreen]="true">
   <div class="container">
-    <ul *ngIf="authors">
-      <li class="link" *ngFor="let person of authors | async" (click)="navigateByQuotedBy(person)">{{ person }}</li>
-    </ul>
+    <ion-list>
+      <ion-item class="link" *ngFor="let person of authors | async" (click)="navigateByQuotedBy(person)">{{ person }}</ion-item>
+    </ion-list>
   </div>
 </ion-content>

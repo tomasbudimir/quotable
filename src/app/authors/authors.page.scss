@@ -1,15 +1,19 @@
 .container {
   margin: 0;
-  height: 100vh;
   display: flex;
   justify-content: center;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-  text-align: left;
+ion-content, ion-list {
+  height: 100%;
+  overflow: auto;
 }
+
+// ul {
+//   list-style: none;
+//   padding: 0;
+//   text-align: left;
+// }
 
 .link {
   cursor: pointer;
