@@ -8,7 +8,7 @@ import { AuthService } from './../../services/auth.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { FileService } from './../../services/file.service';
 import { Component } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Share } from '@capacitor/share';
 import { LikeService } from 'src/app/services/like.service';
@@ -26,6 +26,7 @@ export class HomePage {
   isShowMoreVisible: boolean;
   sub: Subscription;
   quoteCount: number = 0;
+  visibles: boolean[] = [];
 
   constructor(private fileService: FileService,
     private alertService: AlertService,
@@ -35,8 +36,17 @@ export class HomePage {
     private activatedRoute: ActivatedRoute,
     private likeService: LikeService,
     private modalController: ModalController,
-    private fontSizeService: FontSizeService
+    private fontSizeService: FontSizeService,
+    private platform: Platform
   ) { }
+
+  isVisible(index: number): boolean {
+    if (!this.platform.is('desktop')) {
+      return true;
+    }
+
+    return this.visibles[index];
+  }
 
   async ionViewDidEnter() {
     this.currentQuery = CurrentQuery.Newest;
@@ -44,8 +54,6 @@ export class HomePage {
     try {
       this.activatedRoute.queryParams.subscribe(params => {
         const quotedBy = params['quotedBy'];
-
-        console.log(quotedBy);
         
         if (quotedBy) {
           this.showQuotesByQuotedBy(quotedBy);
@@ -68,6 +76,17 @@ export class HomePage {
 
   ionViewDidLeave() {
     this.sub?.unsubscribe();
+  }
+
+  checkBrowser() {
+    window.addEventListener('load', () => {
+      if (this.platform.is('desktop')) {
+        console.log('Page fully loaded on desktop browser');
+        // Your desktop-specific logic here
+      } else {
+        console.log('Page loaded on mobile device or non-desktop browser');
+      }
+    });
   }
 
   async loadDefaultHome() {
