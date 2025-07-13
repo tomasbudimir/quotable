@@ -60,6 +60,7 @@
 
 .show-it {
   opacity: 1;
+  transition: opacity 1s ease-in;
 }
 
 .hide-it {
