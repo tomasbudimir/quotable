@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { Observable } from 'rxjs';
+import { NameCount } from '../models/name-count';
+import { SortBy } from '../models/sort-by';
 
 @Component({
   selector: 'app-authors',
@@ -10,14 +12,22 @@ import { Observable } from 'rxjs';
   standalone: false
 })
 export class AuthorsPage {
-  authors: Observable<{ name: string, count: number }[]>;
+  authors: Observable<NameCount[]>;
 
   constructor(private router: Router,
     private dataService: DataService
   ) { }
 
   ionViewDidEnter() {
-    this.authors = this.dataService.getAuthors();
+    this.authors = this.dataService.getAuthors(SortBy.Name);
+  }
+
+  sortByName() {
+    this.authors = this.dataService.getAuthors(SortBy.Name);
+  }
+
+  sortByCount() {
+    this.authors = this.dataService.getAuthors(SortBy.Count);
   }
 
   navigateByQuotedBy(person: string) {

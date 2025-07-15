@@ -2,6 +2,14 @@
 
 <ion-content class="ion-padding">
   <div>
+    <div class="flex-container ion-padding">
+      <ion-button color="transparent" size="small" (click)="sortByName()">
+        <ion-icon name="filter-outline" color="primary"></ion-icon>
+      </ion-button>
+      <ion-button color="transparent" size="small" (click)="sortByCount()">
+        <ion-icon name="filter-outline" color="primary"></ion-icon>
+      </ion-button>
+    </div>
     <ion-list>
       <ion-item class="link" *ngFor="let person of authors | async" (click)="navigateByQuotedBy(person.name)">
         <div class="flex-container">

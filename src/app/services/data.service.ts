@@ -5,6 +5,8 @@ import { QUOTES, USERS } from '../models/constants';
 import { map, Observable, switchMap } from 'rxjs';
 import { UserRecord } from '../models/user-record';
 import { QuoteRecord } from '../models/quote-record';
+import { NameCount } from '../models/name-count';
+import { SortBy } from '../models/sort-by';
 
 @Injectable({
   providedIn: 'root'
@@ -139,7 +141,7 @@ export class DataService {
     return docData(ref, { idField: 'id'}) as Observable<QuoteRecord>;
   }
 
-  getAuthors(): Observable<{name: string, count: number}[]> {
+  getAuthors(sortBy: SortBy): Observable<NameCount[]> {
     const ref = collection(this.firestore, QUOTES);
     return collectionData(ref).pipe(
       map((quotes: QuoteRecord[]) => {
@@ -150,10 +152,13 @@ export class DataService {
           counts[name] = (counts[name] || 0) + 1;
         }
 
-        return Object.entries(counts) 
-          .map(([name, count]) => ({ name, count }))
-          //.sort((a, b) => b.count - a.count); // Sort descending by count
-          .sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
+        let entries = Object.entries(counts).map(([name, count]) => ({ name, count }));
+
+        if (sortBy == SortBy.Count) {
+          return entries.sort((a, b) => b.count - a.count); // Sort descending by count
+        } else {
+          return entries.sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
+        }
       })
     );
   }
