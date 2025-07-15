@@ -141,7 +141,7 @@ export class DataService {
     return docData(ref, { idField: 'id'}) as Observable<QuoteRecord>;
   }
 
-  getAuthors(sortBy: SortBy): Observable<NameCount[]> {
+  getAuthors(sortBy: SortBy, sortAscending: boolean): Observable<NameCount[]> {
     const ref = collection(this.firestore, QUOTES);
     return collectionData(ref).pipe(
       map((quotes: QuoteRecord[]) => {
@@ -155,9 +155,17 @@ export class DataService {
         let entries = Object.entries(counts).map(([name, count]) => ({ name, count }));
 
         if (sortBy == SortBy.Count) {
-          return entries.sort((a, b) => b.count - a.count); // Sort descending by count
+          if (sortAscending) {
+            return entries.sort((a, b) => a.count - b.count); // Sort ascending by count
+          } else {
+            return entries.sort((a, b) => b.count - a.count); // Sort descending by count
+          }
         } else {
-          return entries.sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
+          if (sortAscending) {
+            return entries.sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
+          } else {
+            return entries.sort((a, b) => b.name.localeCompare(a.name)); // Sort alphabetically descending
+          }
         }
       })
     );

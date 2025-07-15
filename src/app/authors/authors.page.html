@@ -2,12 +2,12 @@
 
 <ion-content class="ion-padding">
   <div>
-    <div class="flex-container ion-padding">
-      <ion-button color="transparent" size="small" (click)="sortByName()">
-        <ion-icon name="filter-outline" color="primary"></ion-icon>
+    <div class="flex-container">
+      <ion-button color="transparent" fill="clear" size="small" (click)="sortByNameCommand()">
+        Quoted By<ion-icon color="primary" [name]="sortByNameIcon"></ion-icon>
       </ion-button>
-      <ion-button color="transparent" size="small" (click)="sortByCount()">
-        <ion-icon name="filter-outline" color="primary"></ion-icon>
+      <ion-button color="transparent" fill="clear" size="small" (click)="sortByCountCommand()">
+        Number of Quotes<ion-icon color="primary" [name]="sortByCountIcon"></ion-icon>
       </ion-button>
     </div>
     <ion-list>

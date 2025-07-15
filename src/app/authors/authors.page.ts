@@ -12,22 +12,46 @@ import { SortBy } from '../models/sort-by';
   standalone: false
 })
 export class AuthorsPage {
+  sortBy = SortBy.Name;
+  sortAscendingByName = true;
+  sortAscendingByCount = true;
+
   authors: Observable<NameCount[]>;
 
   constructor(private router: Router,
     private dataService: DataService
   ) { }
 
+  get sortByNameIcon(): string {
+    return this.sortAscendingByName ? 'chevron-up-outline' : 'chevron-down-outline';
+  }
+  
+  get sortByCountIcon(): string {
+    return this.sortAscendingByCount ? 'chevron-up-outline' : 'chevron-down-outline';
+  }
+
   ionViewDidEnter() {
-    this.authors = this.dataService.getAuthors(SortBy.Name);
+    this.sortByName();
+  }
+
+  sortByNameCommand() {
+    this.sortAscendingByName = !this.sortAscendingByName;
+    this.sortByName();
   }
 
   sortByName() {
-    this.authors = this.dataService.getAuthors(SortBy.Name);
+    this.sortBy = SortBy.Name;
+    this.authors = this.dataService.getAuthors(this.sortBy, this.sortAscendingByName);
+  }
+
+  sortByCountCommand() {
+    this.sortAscendingByCount = !this.sortAscendingByCount;
+    this.sortByCount();
   }
 
   sortByCount() {
-    this.authors = this.dataService.getAuthors(SortBy.Count);
+    this.sortBy = SortBy.Count;
+    this.authors = this.dataService.getAuthors(this.sortBy, this.sortAscendingByCount);
   }
 
   navigateByQuotedBy(person: string) {
