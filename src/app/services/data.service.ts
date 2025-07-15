@@ -139,12 +139,21 @@ export class DataService {
     return docData(ref, { idField: 'id'}) as Observable<QuoteRecord>;
   }
 
-  getAuthors(): Observable<string[]> {
+  getAuthors(): Observable<{name: string, count: number}[]> {
     const ref = collection(this.firestore, QUOTES);
     return collectionData(ref).pipe(
-      map(quotes => {
-        const authors = quotes.map((quote: QuoteRecord) => quote.quotedBy);
-        return [... new Set(authors)].sort();
+      map((quotes: QuoteRecord[]) => {
+        const counts: Record<string, number> = {};
+
+        for (const quote of quotes) {
+          const name = quote.quotedBy;
+          counts[name] = (counts[name] || 0) + 1;
+        }
+
+        return Object.entries(counts) 
+          .map(([name, count]) => ({ name, count }))
+          //.sort((a, b) => b.count - a.count); // Sort descending by count
+          .sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
       })
     );
   }

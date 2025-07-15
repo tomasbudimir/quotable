@@ -1,9 +1,14 @@
 <app-header [isPostQuoteDisplayed]="false"></app-header>
 
-<ion-content [fullscreen]="true">
-  <div class="container">
+<ion-content class="ion-padding">
+  <div>
     <ion-list>
-      <ion-item class="link" *ngFor="let person of authors | async" (click)="navigateByQuotedBy(person)">{{ person }}</ion-item>
+      <ion-item class="link" *ngFor="let person of authors | async" (click)="navigateByQuotedBy(person.name)">
+        <div class="flex-container">
+          <div>{{ person.name }}</div>
+          <div>{{ person.count }}</div>
+        </div>
+      </ion-item>
     </ion-list>
   </div>
 </ion-content>

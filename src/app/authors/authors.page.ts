@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   standalone: false
 })
 export class AuthorsPage {
-  authors: Observable<string[]>;
+  authors: Observable<{ name: string, count: number }[]>;
 
   constructor(private router: Router,
     private dataService: DataService
