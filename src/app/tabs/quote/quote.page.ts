@@ -21,8 +21,9 @@ export class QuotePage {
   quoteId: string = null;
   quoteText: string = null;
   quotedBy: string = null;
-  isPrivate: boolean = false;
 
+  isSelect: boolean = false;
+  isPrivate: boolean = false;
   isPreview: boolean = false;
 
   constructor(private fileService: FileService,
@@ -34,6 +35,10 @@ export class QuotePage {
     private authService: AuthService,
     private fontSizeService: FontSizeService
   ) { }
+
+  get fontSize(): number {
+    return this.fontSizeService.getFontSize(this.quoteText);
+  }
 
   ionViewDidEnter() {
     this.quoteId = this.activatedRoute.snapshot.paramMap.get('id');
@@ -53,9 +58,13 @@ export class QuotePage {
       this.loadImages();
     }
   }
-  
-  get fontSize(): number {
-    return this.fontSizeService.getFontSize(this.quoteText);
+
+  async selectBackgroundAgain() {
+    if (!this.imageItems) {
+      await this.loadImages();
+    }
+    
+    this.imageItemSelected = null;
   }
 
   async loadImages() {
@@ -64,6 +73,11 @@ export class QuotePage {
 
     try {
       this.imageItems = await this.fileService.getImageItems(); 
+
+      if (!this.isSelect) {
+        this.doRandomImageSelect();
+      }
+      
     } catch (error) {
       this.alertService.show("Error", error.message);
     } finally {
@@ -71,16 +85,15 @@ export class QuotePage {
     }
   }
 
-  backgroundSelected(imageItem: ImageItem) {
-    this.imageItemSelected = imageItem;
+  doRandomImageSelect() {
+    if (this.imageItems) {
+      const index = Math.floor(Math.random() * this.imageItems.length);
+      this.backgroundSelected(this.imageItems[index]);
+    }
   }
 
-  async selectBackgroundAgain() {
-    if (!this.imageItems) {
-      await this.loadImages();
-    }
-    
-    this.imageItemSelected = null;
+  backgroundSelected(imageItem: ImageItem) {
+    this.imageItemSelected = imageItem;
   }
 
   async cancel() {

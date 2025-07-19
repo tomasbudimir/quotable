@@ -3,7 +3,7 @@
 <ion-content [fullscreen]="true" class="ion-padding">
   <div *ngIf="!imageItemSelected && !isPreview">
     <div class="label ion-text-center bottom-margin">
-      Please select background image for the quote first
+      Please select background image for the quote
     </div>
     <div class="container">
       <div class="quote" *ngFor="let item of imageItems" (click)="backgroundSelected(item)"
