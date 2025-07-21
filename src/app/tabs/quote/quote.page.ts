@@ -22,7 +22,6 @@ export class QuotePage {
   quoteText: string = null;
   quotedBy: string = null;
 
-  isSelect: boolean = false;
   isPrivate: boolean = false;
   isPreview: boolean = false;
 
@@ -73,11 +72,7 @@ export class QuotePage {
 
     try {
       this.imageItems = await this.fileService.getImageItems(); 
-
-      if (!this.isSelect) {
-        this.doRandomImageSelect();
-      }
-      
+      this.doRandomImageSelect();
     } catch (error) {
       this.alertService.show("Error", error.message);
     } finally {
