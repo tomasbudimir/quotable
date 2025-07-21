@@ -90,7 +90,7 @@ export class HomePage {
   }
 
   async loadDefaultHome() {
-    this.sub = this.dataService.getQuotes(9).subscribe(res => {
+    this.sub = this.dataService.getQuotes(12).subscribe(res => {
       this.quotes = res;
       this.isShowMoreVisible = true;
     });
