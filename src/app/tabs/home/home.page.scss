@@ -20,6 +20,13 @@
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+@media (max-width: 1680px) {
+  .quote {
+    width: 490px;
+    height: 327px;
+  }
+}
+
 .quote-text {
   margin: 77px 20px 10px 20px;
   color: gainsboro;
