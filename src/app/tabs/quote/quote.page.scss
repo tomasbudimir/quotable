@@ -58,6 +58,13 @@ div.quote:hover {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+@media (min-width: 1680px) {
+  .preview-quote {
+    width: 466px;
+    height: 311px;
+  }
+}
+
 .quote-text {
   margin: 77px 20px 10px 20px;
   color: gainsboro;
