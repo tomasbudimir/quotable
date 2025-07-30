@@ -80,11 +80,13 @@ export class QuotePage {
     }
   }
 
-  doRandomImageSelect() {
-    if (this.imageItems) {
-      const index = Math.floor(Math.random() * this.imageItems.length);
-      this.backgroundSelected(this.imageItems[index]);
+  async doRandomImageSelect() {
+    if (!this.imageItems) {
+      await this.loadImages();
     }
+
+    const index = Math.floor(Math.random() * this.imageItems.length);
+    this.backgroundSelected(this.imageItems[index]);
   }
 
   backgroundSelected(imageItem: ImageItem) {
