@@ -3,8 +3,9 @@
 <ion-content #content>
   <app-filter [currentQuery]="currentQuery"></app-filter>
   <div class="container">
-    <div class="quote" *ngFor="let quote of quotes; let i = index" [ngStyle]="{ 'background-image': 'url(' + quote?.url + ')' }"
-      (mouseover)="visibles[i] = true" (mouseleave)="visibles[i] = false">
+    <div class="quote" *ngFor="let quote of quotes; let i = index"
+      [ngStyle]="{ 'background-image': 'url(' + quote?.url + ')' }" (mouseover)="visibles[i] = true"
+      (mouseleave)="visibles[i] = false">
       <p class="quote-text" [style.fontSize.px]="getFontSize(quote?.quoteText)">{{ quote?.quoteText }}</p>
       <p class="quote-author link" [style.fontSize.px]="getFontSize(quote?.quoteText)"
         (click)="navigateByQuotedBy(quote?.quotedBy)">{{ quote?.quotedBy }}</p>
@@ -35,9 +36,7 @@
       </div>
     </div>
   </div>
-  <div class="container" *ngIf="isShowMoreVisible">
-    <ion-button class="top-margin" shape="round" fill="clear" (click)="showCurrent()">
-      See all {{quoteCount}} quotes
-    </ion-button>
-  </div>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

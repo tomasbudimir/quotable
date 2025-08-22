@@ -27,6 +27,7 @@ export class HomePage {
   sub: Subscription;
   quoteCount: number = 0;
   visibles: boolean[] = [];
+  loadCount: number = 24;
 
   constructor(private fileService: FileService,
     private alertService: AlertService,
@@ -78,6 +79,14 @@ export class HomePage {
     this.sub?.unsubscribe();
   }
 
+  loadMore(event: any) {
+    setTimeout(() => {
+      this.loadCount += 24;
+      this.loadDefaultHome();
+      event.target.complete();
+    }, 1000);
+  }
+
   checkBrowser() {
     window.addEventListener('load', () => {
       if (this.platform.is('desktop')) {
@@ -90,11 +99,11 @@ export class HomePage {
   }
 
   async loadDefaultHome() {
-    this.sub = this.dataService.getQuotes(24).subscribe(res => {
+    this.sub = this.dataService.getQuotes(this.loadCount).subscribe(res => {
       this.quotes = res;
       this.isShowMoreVisible = true;
     });
-    this.quoteCount = await this.dataService.getQuoteCount();
+    //this.quoteCount = await this.dataService.getQuoteCount();
   }
 
   async showCurrent() {
