@@ -25,9 +25,9 @@ export class HomePage {
   currentQuery: CurrentQuery;
   isShowMoreVisible: boolean;
   sub: Subscription;
-  quoteCount: number = 0;
   visibles: boolean[] = [];
   loadCount: number = 24;
+  isScrollActive: boolean = false;
 
   constructor(private fileService: FileService,
     private alertService: AlertService,
@@ -58,6 +58,7 @@ export class HomePage {
         
         if (quotedBy) {
           this.showQuotesByQuotedBy(quotedBy);
+          this.isScrollActive = false;
           return;
         } else {
           const view = this.activatedRoute.snapshot.paramMap.get('view');
@@ -99,14 +100,17 @@ export class HomePage {
   }
 
   async loadDefaultHome() {
+    this.isScrollActive = true;
+
     this.sub = this.dataService.getQuotes(this.loadCount).subscribe(res => {
       this.quotes = res;
       this.isShowMoreVisible = true;
     });
-    //this.quoteCount = await this.dataService.getQuoteCount();
   }
 
   async showCurrent() {
+    this.isScrollActive = false;
+
     switch (this.currentQuery) {
       case CurrentQuery.Newest:
         this.showNewestQuotes();
