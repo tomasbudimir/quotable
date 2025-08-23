@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 import { Share } from '@capacitor/share';
 import { LikeService } from 'src/app/services/like.service';
 import { CurrentQuery } from 'src/app/models/current-query';
+import { NotificationService } from './../../services/notification.service';
 
 @Component({
   selector: 'app-home',
@@ -38,7 +39,8 @@ export class HomePage {
     private likeService: LikeService,
     private modalController: ModalController,
     private fontSizeService: FontSizeService,
-    private platform: Platform
+    private platform: Platform,
+    private notificationService: NotificationService
   ) { }
 
   isVisible(index: number): boolean {
@@ -260,6 +262,8 @@ export class HomePage {
 
     if (result) {
       await this.dataService.deleteQuote(quote.id);
+      const count = await this.dataService.getQuoteCount();
+      this.notificationService.send(count);
       this.alertService.showToast('Quote successfully deleted.', 'trash-outline', 'warning');
     }
   }
