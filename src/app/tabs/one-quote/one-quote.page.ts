@@ -16,6 +16,7 @@ export class OneQuotePage {
   quote: QuoteRecord = null;
   displayedQuote: string;
   displayedAuthor: string;
+  isClickable: boolean;
 
   constructor(private router: Router,
     private dataService: DataService,
@@ -31,6 +32,7 @@ export class OneQuotePage {
     this.dataService.getUnsortedQuotes().subscribe(res => {
       if (res) {
         this.quotes = res;
+        this.isClickable = true;
         this.showAnother();
       } else {
         this.router.navigate(['/tabs']);
@@ -53,9 +55,12 @@ export class OneQuotePage {
   }
 
   showAnother() {
-    if (this.quotes && this.quotes.length > 9) {
+    if (this.quotes && this.quotes.length > 9 && this.isClickable) {
+      this.isClickable = false;
+
       const index = this.getIndex(this.quotes.length);
       this.quote = this.quotes[index];
+
       this.displayedQuote = '';
       this.displayedAuthor = '';
       this.typeQuote();
@@ -76,5 +81,7 @@ export class OneQuotePage {
       this.displayedAuthor += this.quote.quotedBy.charAt(i);
       setTimeout(() => this.typeAuthor(i + 1), 50);
     }
+
+    this.isClickable = true;
   }
 }
