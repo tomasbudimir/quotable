@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { QuoteRecord } from '../../models/quote-record';
@@ -23,21 +23,23 @@ export class OneQuotePage {
     private fontSizeService: FontSizeService
   ) { }
 
-  ionViewWillEnter() {
-    this.quote = null;
-  }
-
-  ionViewDidEnter() {
+  ionViewDidEnter() {    
+    this.isClickable = true;
     let i = 0;
     this.dataService.getUnsortedQuotes().subscribe(res => {
       if (res) {
         this.quotes = res;
-        this.isClickable = true;
         this.showAnother();
       } else {
         this.router.navigate(['/tabs']);
       }
     });
+  }
+
+  ionViewDidLeave() {
+    this.displayedQuote = '';
+    this.displayedAuthor = '';
+    this.quote = null;
   }
 
   navigateByQuotedBy(quotedBy: string) {
@@ -55,7 +57,7 @@ export class OneQuotePage {
   }
 
   showAnother() {
-    if (this.quotes && this.quotes.length > 9 && this.isClickable) {
+    if (this.isClickable && this.quotes) {
       this.isClickable = false;
 
       const index = this.getIndex(this.quotes.length);
@@ -63,6 +65,7 @@ export class OneQuotePage {
 
       this.displayedQuote = '';
       this.displayedAuthor = '';
+
       this.typeQuote();
     }
   }
