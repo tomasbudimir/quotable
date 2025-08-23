@@ -15,7 +15,7 @@ export class OneQuotePage {
   quotes: QuoteRecord[] = [];
   quote: QuoteRecord = null;
   displayedQuote: string;
-  displayedAuthor: string = '';
+  displayedAuthor: string;
 
   constructor(private router: Router,
     private dataService: DataService,
@@ -57,6 +57,7 @@ export class OneQuotePage {
       const index = this.getIndex(this.quotes.length);
       this.quote = this.quotes[index];
       this.displayedQuote = '';
+      this.displayedAuthor = '';
       this.typeQuote();
     }
   }
