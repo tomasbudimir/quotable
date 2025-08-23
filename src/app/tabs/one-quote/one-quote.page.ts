@@ -14,6 +14,8 @@ export class OneQuotePage {
   @ViewChild('myCanvas', { static: false }) myCanvas!: ElementRef<HTMLCanvasElement>;
   quotes: QuoteRecord[] = [];
   quote: QuoteRecord = null;
+  displayedQuote: string;
+  displayedAuthor: string = '';
 
   constructor(private router: Router,
     private dataService: DataService,
@@ -54,6 +56,24 @@ export class OneQuotePage {
     if (this.quotes && this.quotes.length > 9) {
       const index = this.getIndex(this.quotes.length);
       this.quote = this.quotes[index];
+      this.displayedQuote = '';
+      this.typeQuote();
+    }
+  }
+
+  typeQuote(i: number = 0) {
+    if (i < this.quote.quoteText.length) {
+      this.displayedQuote += this.quote.quoteText.charAt(i);
+      setTimeout(() => this.typeQuote(i + 1), 50);
+    } else {
+      this.typeAuthor();
+    }
+  }
+
+  typeAuthor(i: number = 0) {
+    if (i < this.quote.quotedBy.length) {
+      this.displayedAuthor += this.quote.quotedBy.charAt(i);
+      setTimeout(() => this.typeAuthor(i + 1), 50);
     }
   }
 }

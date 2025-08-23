@@ -3,9 +3,9 @@
 <ion-content [fullscreen]="true">
   <div class="container" *ngIf="quote">
     <div class="quote" [id]="quote.id" [ngStyle]="{ 'background-image': 'url(' + quote?.url + ')' }" (click)="showAnother()">
-      <p class="quote-text" [style.fontSize.px]="getFontSize(quote?.quoteText)">{{ quote?.quoteText }}</p>
+      <p class="quote-text" [style.fontSize.px]="getFontSize(quote?.quoteText)">{{ displayedQuote }}</p>
       <p class="quote-author link" [style.fontSize.px]="getFontSize(quote?.quoteText)"
-        (click)="navigateByQuotedBy(quote?.quotedBy)">{{ quote?.quotedBy }}</p>
+        (click)="navigateByQuotedBy(quote?.quotedBy)">{{ displayedAuthor }}</p>
     </div>
   </div>
   <div class="container" *ngIf="quote">
