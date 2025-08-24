@@ -7,7 +7,6 @@ import { LoadingController } from '@ionic/angular';
 import { ImageItem } from '../../models/image-item';
 import { FileService } from '../../services/file.service';
 import { Component } from '@angular/core';
-import { NotificationService } from './../../services/notification.service';
 
 @Component({
   selector: 'app-quote',
@@ -33,8 +32,7 @@ export class QuotePage {
     private router: Router,
     private dataService: DataService,
     private authService: AuthService,
-    private fontSizeService: FontSizeService,
-    private notificationService: NotificationService
+    private fontSizeService: FontSizeService
   ) { }
 
   get fontSize(): number {
@@ -133,10 +131,6 @@ export class QuotePage {
       } else {
         // Creating a new quote
         await this.dataService.createQuote(this.quoteText.trim(), this.quotedBy.trim(), this.imageItemSelected.url, this.isPrivate);
-        
-        const count = await this.dataService.getQuoteCount();
-        this.notificationService.send(count);
-        await this.alertService.showToast(count + '. quote created!');
       }
 
       this.resetInput();
