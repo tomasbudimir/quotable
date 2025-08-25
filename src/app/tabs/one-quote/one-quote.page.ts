@@ -57,7 +57,7 @@ export class OneQuotePage {
   }
 
   showAnother() {
-    if (this.isClickable && this.quotes) {
+    if (this.isClickable && this.quotes && this.quotes.length) {
       this.isClickable = false;
 
       const index = this.getIndex(this.quotes.length);
