@@ -17,6 +17,7 @@
   align-items: center;        /* center them horizontally */
   font-size: 1.4em;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  transition: background-image 1s ease;
 }
 
 .quote-text {
