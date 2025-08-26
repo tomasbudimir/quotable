@@ -9,7 +9,13 @@
     </div>
   </div>
   <div class="container" *ngIf="quote">
-    <ion-button class="top-margin" shape="round" fill="clear" (click)="showAnother()">
+    <ion-button class="top-margin" fill="clear" (click)="playPause()">
+      <ion-icon name="play-circle-outline" size="large" *ngIf="!isPlaying"></ion-icon>
+      <ion-icon name="pause-circle-outline" size="large" *ngIf="isPlaying"></ion-icon>
+    </ion-button>
+  </div>
+  <div class="container" *ngIf="quote">
+    <ion-button class="top-margin" shape="round" fill="clear" (click)="showAnother()" *ngIf="isClickable && !isPlaying">
       Show another one
     </ion-button>
   </div>

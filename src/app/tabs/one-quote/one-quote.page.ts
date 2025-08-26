@@ -17,6 +17,7 @@ export class OneQuotePage {
   displayedQuote: string;
   displayedAuthor: string;
   isClickable: boolean;
+  isPlaying: boolean;
 
   constructor(private router: Router,
     private dataService: DataService,
@@ -70,6 +71,14 @@ export class OneQuotePage {
     }
   }
 
+  playPause() {
+    this.isPlaying = !this.isPlaying;
+
+    if (this.isPlaying && this.isClickable) {
+      this.showAnother();
+    }
+  }
+
   typeQuote(i: number = 0) {
     if (i < this.quote.quoteText.length) {
       this.displayedQuote += this.quote.quoteText.charAt(i);
@@ -86,5 +95,9 @@ export class OneQuotePage {
     }
 
     this.isClickable = true;
+
+    if (this.isPlaying) {
+      setTimeout(() => this.showAnother(), 3000);
+    }
   }
 }
