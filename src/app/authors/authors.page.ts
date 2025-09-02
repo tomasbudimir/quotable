@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../services/data.service';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { NameCount } from '../models/name-count';
 import { SortBy } from '../models/sort-by';
 
@@ -17,6 +17,7 @@ export class AuthorsPage {
   sortAscendingByCount = true;
 
   authors: Observable<NameCount[]>;
+  total: Observable<number>; 
 
   constructor(private router: Router,
     private dataService: DataService
@@ -42,6 +43,9 @@ export class AuthorsPage {
   sortByName() {
     this.sortBy = SortBy.Name;
     this.authors = this.dataService.getAuthors(this.sortBy, this.sortAscendingByName);
+    this.total = this.authors.pipe(
+      map(items => items.reduce((acc, item) => acc + item.count, 0))
+    );
   }
 
   sortByCountCommand() {

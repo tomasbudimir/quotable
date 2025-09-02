@@ -7,7 +7,7 @@
         Quoted By<ion-icon color="primary" [name]="sortByNameIcon"></ion-icon>
       </ion-button>
       <ion-button color="transparent" fill="clear" size="small" (click)="sortByCountCommand()">
-        Number of Quotes<ion-icon color="primary" [name]="sortByCountIcon"></ion-icon>
+        {{ total | async }} quotes<ion-icon color="primary" [name]="sortByCountIcon"></ion-icon>
       </ion-button>
     </div>
     <ion-list>
