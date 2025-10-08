@@ -17,7 +17,8 @@ export class AuthorsPage {
   sortAscendingByCount = true;
 
   authors: Observable<NameCount[]>;
-  total: Observable<number>; 
+  total: Observable<number>;
+  authorsTotal: Observable<number>; 
 
   constructor(private router: Router,
     private dataService: DataService
@@ -43,6 +44,11 @@ export class AuthorsPage {
   sortByName() {
     this.sortBy = SortBy.Name;
     this.authors = this.dataService.getAuthors(this.sortBy, this.sortAscendingByName);
+    
+    this.authorsTotal = this.authors.pipe(
+      map(items => items.length)
+    );
+    
     this.total = this.authors.pipe(
       map(items => items.reduce((acc, item) => acc + item.count, 0))
     );

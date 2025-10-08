@@ -4,7 +4,7 @@
   <div>
     <div class="flex-container">
       <ion-button color="transparent" fill="clear" size="small" (click)="sortByNameCommand()">
-        Quoted By<ion-icon color="primary" [name]="sortByNameIcon"></ion-icon>
+        {{ authorsTotal | async }} quoted persons<ion-icon color="primary" [name]="sortByNameIcon"></ion-icon>
       </ion-button>
       <ion-button color="transparent" fill="clear" size="small" (click)="sortByCountCommand()">
         {{ total | async }} quotes<ion-icon color="primary" [name]="sortByCountIcon"></ion-icon>
