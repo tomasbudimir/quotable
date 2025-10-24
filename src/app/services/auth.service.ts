@@ -54,6 +54,10 @@ export class AuthService {
     }
   }
 
+  get isAuthenticated() {
+    return this.currentUser != null;
+  }
+
   get user(): User {
     return this.currentUser;
   }

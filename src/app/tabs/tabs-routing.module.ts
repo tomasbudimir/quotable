@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { TabsPage } from './tabs.page';
+import { AuthGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -22,15 +23,18 @@ const routes: Routes = [
       },
       {
         path: 'quote',
-        loadChildren: () => import('./quote/quote.module').then(m => m.QuotePageModule)
+        loadChildren: () => import('./quote/quote.module').then(m => m.QuotePageModule),
+        canActivate: [AuthGuard]
       },
       {
         path: 'quote/:id',
-        loadChildren: () => import('./quote/quote.module').then(m => m.QuotePageModule)
+        loadChildren: () => import('./quote/quote.module').then(m => m.QuotePageModule),
+        canActivate: [AuthGuard]
       },
       {
         path: 'profile',
-        loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule)
+        loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule),
+        canActivate: [AuthGuard]
       },
     ]
   },
