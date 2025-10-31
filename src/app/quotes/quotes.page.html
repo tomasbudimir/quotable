@@ -1,0 +1,12 @@
+<app-header></app-header>
+
+<ion-content class="ion-padding">
+  <div>
+    <ion-searchbar placeholder="Search quotes" (ionInput)="filterItems($event)"></ion-searchbar>
+    <ion-list>
+      <ion-item class="link" *ngFor="let quote of filteredQuotes">
+        <div><span class="quote">{{ quote.quoteText }}</span> <span class="author"> --{{ quote.quotedBy }}</span></div>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

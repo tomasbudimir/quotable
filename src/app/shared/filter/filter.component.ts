@@ -73,4 +73,8 @@ export class FilterComponent {
   showAuthors() {
     this.router.navigateByUrl('/authors');
   }
+
+  showQuotes() {
+    this.router.navigateByUrl('/quotes');
+  }
 }
