@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { DataService } from '../services/data.service';
 import { QuoteRecord } from '../models/quote-record';
-import { firstValueFrom } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-quotes',
@@ -9,9 +9,10 @@ import { firstValueFrom } from 'rxjs';
   styleUrls: ['./quotes.page.scss'],
   standalone: false
 })
-export class QuotesPage {
+export class QuotesPage implements OnDestroy {
   quotes: QuoteRecord[];
   filteredQuotes: QuoteRecord[];
+  sub: Subscription;
 
   constructor(private dataService: DataService) { }
 
@@ -19,8 +20,12 @@ export class QuotesPage {
     this.loadQuotes();
   }
 
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
+  }
+
   loadQuotes() {
-    firstValueFrom(this.dataService.getQuotes()).then(res => {
+    this.sub = this.dataService.getQuotes().subscribe(res => {
       this.quotes = res;
       this.filteredQuotes = res;
     });
