@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 export class QuotesPage implements OnDestroy {
   quotes: QuoteRecord[];
   filteredQuotes: QuoteRecord[];
+  filteredQuotesCount: number;
   sub: Subscription;
 
   constructor(private dataService: DataService) { }
@@ -28,6 +29,7 @@ export class QuotesPage implements OnDestroy {
     this.sub = this.dataService.getQuotes().subscribe(res => {
       this.quotes = res;
       this.filteredQuotes = res;
+      this.filteredQuotesCount = res.length;
     });
   }
 
@@ -36,5 +38,6 @@ export class QuotesPage implements OnDestroy {
     this.filteredQuotes = this.quotes.filter(quote =>
       quote.quoteText.toLowerCase().includes(query)
     );
+    this.filteredQuotesCount = this.filteredQuotes.length;
   }
 }
