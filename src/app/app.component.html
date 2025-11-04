@@ -1,3 +1,34 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <!-- Global Side Menu -->
+  <ion-menu contentId="main-content" side="start" menuId="main-menu">
+    <ion-list>
+      <ion-menu-toggle autoHide="true">
+        <ion-item routerLink="/tabs/home" routerLinkActive="selected">
+          <ion-icon name="book-outline" slot="start"></ion-icon>
+          <ion-label>Home</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle autoHide="true">
+        <ion-item routerLink="/authors" routerLinkActive="selected">
+          <ion-icon name="accessibility-outline" slot="start"></ion-icon>
+          <ion-label>Authors</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle autoHide="true">
+        <ion-item routerLink="/quotes" routerLinkActive="selected">
+          <ion-icon name="book-outline" slot="start"></ion-icon>
+          <ion-label>Quotes</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle autoHide="true">
+        <ion-item (click)="share()" class="link">
+          <ion-icon name="share-social-outline" slot="start"></ion-icon>
+          <ion-label>Share this with friends</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-menu>
+
+  <!-- Main app content -->
+  <ion-router-outlet id="main-content"></ion-router-outlet>
 </ion-app>

@@ -5,8 +5,6 @@ import { AlertService } from './../../services/alert.service';
 
 import { Router } from '@angular/router';
 import { Component, Input } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { Share } from '@capacitor/share';
 
 @Component({
   selector: 'app-header',
@@ -68,14 +66,6 @@ export class HeaderComponent {
     } else {
       this.router.navigate(['/tabs', 'quote']);
     }
-  }
-
-  async share() {
-    await Share.share({
-      title: "Quotable",
-      text: "Wise sayings",
-      url: environment.siteUrl
-    });
   }
 
   getToProfile() {

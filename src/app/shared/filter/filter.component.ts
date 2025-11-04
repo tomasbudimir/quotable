@@ -69,12 +69,4 @@ export class FilterComponent {
   showPrivateQuotes() {
     this.router.navigate(['tabs', 'home', Number(CurrentQuery.PrivateQuotes)]);
   }
-
-  showAuthors() {
-    this.router.navigateByUrl('/authors');
-  }
-
-  showQuotes() {
-    this.router.navigateByUrl('/quotes');
-  }
 }

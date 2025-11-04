@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Share } from '@capacitor/share';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +10,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   constructor() {}
+
+  async share() {
+    await Share.share({
+      title: "Quotable",
+      text: "Wise sayings",
+      url: environment.siteUrl
+    });
+  }
 }

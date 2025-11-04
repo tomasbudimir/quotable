@@ -1,14 +1,14 @@
 <ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
-    <ion-icon name="book-outline" color="tertiary" size="large" slot="start" class="link left-margin"
-      (click)="navigateHome()"></ion-icon>
+    <ion-buttons slot="start">
+      <ion-menu-button color="secondary"></ion-menu-button>
+    </ion-buttons>
+    <!-- <ion-icon name="book-outline" color="tertiary" size="large" slot="start" class="link left-margin"
+      (click)="navigateHome()"></ion-icon> -->
     <ion-title (click)="navigateHome()" class="link">
       <span class="first"><i>qout</i></span>
       <span class="second"><i>able</i></span>
     </ion-title>
-    <ion-button (click)="share()" slot="end" fill="clear">
-      <ion-icon name="share-social-outline" slot="icon-only"></ion-icon>
-    </ion-button>
     <ion-button (click)="post()" slot="end" fill="clear" *ngIf="isPostQuoteDisplayed">
       <ion-icon name="add" slot="icon-only"></ion-icon>
     </ion-button>
