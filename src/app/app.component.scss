@@ -1,10 +1,13 @@
 ion-item.selected {
     font-weight: bold;
-    ion-icon {
-        color: black;
-    }
 }
 
 .link {
     cursor: pointer;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    margin: auto;
 }
