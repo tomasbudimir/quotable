@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { DataService } from '../services/data.service';
 import { QuoteRecord } from '../models/quote-record';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-quotes',
@@ -15,7 +16,9 @@ export class QuotesPage implements OnDestroy {
   filteredQuotesCount: number;
   sub: Subscription;
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService,
+    private router: Router) 
+  { }
 
   ionViewDidEnter() {
     this.loadQuotes();
@@ -39,5 +42,11 @@ export class QuotesPage implements OnDestroy {
       quote.quoteText.toLowerCase().includes(query)
     );
     this.filteredQuotesCount = this.filteredQuotes.length;
+  }
+
+  navigateByQuotedBy(person: string) {
+    this.router.navigate(['tabs', 'home'], {
+      queryParams: { quotedBy: person }
+    });
   }
 }

@@ -8,7 +8,7 @@
     </div>
     <ion-list>
       <ion-item class="link" *ngFor="let quote of filteredQuotes">
-        <div><span class="quote">{{ quote.quoteText }}</span> <span class="author"> --{{ quote.quotedBy }}</span></div>
+        <div><span class="quote">{{ quote.quoteText }}</span> <span class="author link" (click)="navigateByQuotedBy(quote.quotedBy)"> --{{ quote.quotedBy }}</span></div>
       </ion-item>
     </ion-list>
   </div>
