@@ -10,7 +10,7 @@ import { FontSizeService } from '../../services/font-size.service';
   styleUrls: ['./one-quote.page.scss'],
   standalone: false
 })
-export class OneQuotePage {
+export class OneQuotePage implements OnDestroy {
   @ViewChild('myCanvas', { static: false }) myCanvas!: ElementRef<HTMLCanvasElement>;
   quotes: QuoteRecord[] = [];
   quote: QuoteRecord = null;
@@ -37,7 +37,7 @@ export class OneQuotePage {
     });
   }
 
-  ionViewDidLeave() {
+  ngOnDestroy(): void {
     this.displayedQuote = '';
     this.displayedAuthor = '';
     this.quote = null;
