@@ -3,6 +3,7 @@ i {
   vertical-align: middle;
   font-size: 1.2em;
   text-transform: lowercase;
+  margin-top: -4px;
 }
 
 .first {
@@ -30,12 +31,12 @@ i {
 
 @media (max-width: 500px) {
   .near {
-    margin-left: -20px;
+    margin-left: -18px;
   }
 }
 
 .menu-icon {
-  margin-top: 4px;
+  margin-top: 1px;
 }
 
 
