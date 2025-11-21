@@ -27,7 +27,7 @@ export class DominantColorService {
         canvas.height = img.height;
         ctx.drawImage(img, 0, 0);
 
-        const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height / 2);
 
         let r = 0, g = 0, b = 0, count = 0;
 
