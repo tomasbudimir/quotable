@@ -52,6 +52,15 @@ export class DominantColorService {
   /** Returns black or white depending on contrast */
   getContrastingColor({ r, g, b }: RGB): string {
     const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-    return luminance > 0.7 ? '#000000' : '#FFFFFF';
+
+    if (luminance < 0.2) {
+      return '#FFFFFF';
+    } else if (luminance < 0.6) {
+      return '#EEEEFF';
+    } else if (luminance < 0.8) {
+      return '#0000FF';
+    }
+
+    return '#000000';
   }
 }
