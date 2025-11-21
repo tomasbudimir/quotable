@@ -12,5 +12,4 @@ export interface QuoteRecord {
     isPrivate: boolean;         // the quote attributed to me visible on the web site by me only
     likes: string[];            // list of uids of users who liked this quote
     likesCount: number;         // count of list of uids of users who liked this quote
-    fontColor: string;          // Font color of the quote
 }
