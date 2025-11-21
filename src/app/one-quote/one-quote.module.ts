@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { OneQuotePageRoutingModule } from './one-quote-routing.module';
 
 import { OneQuotePage } from './one-quote.page';
+import { ApplyContrastDirective } from '../directives/apply-contrast.directive';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { OneQuotePage } from './one-quote.page';
     FormsModule,
     IonicModule,
     OneQuotePageRoutingModule,
-    SharedModule
+    SharedModule,
+    ApplyContrastDirective
   ],
   declarations: [OneQuotePage]
 })

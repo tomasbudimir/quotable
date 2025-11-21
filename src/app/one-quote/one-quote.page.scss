@@ -8,7 +8,7 @@
   width: 640px;
   height: 427px;
   background-blend-mode: overlay;
-  background-color: rgba(0, 0, 0, 0.4);
+  //background-color: rgba(0, 0, 0, 0.4);
   background-size: cover;
   background-position: center;
   display: flex;
@@ -21,11 +21,11 @@
 
 .quote-text {
   margin: 100px 20px auto 20px;
-  color: white;
+  //color: white;
 }
 
 .quote-author {
-  color: gainsboro;
+  //color: gainsboro;
   align-self: flex-end;
   margin-right: 50px;
   margin-bottom: auto;
