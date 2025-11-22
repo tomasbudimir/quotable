@@ -49,4 +49,8 @@ export class QuotesPage implements OnDestroy {
       queryParams: { quotedBy: person }
     });
   }
+
+  navigateToOneQuote(id: string) {
+    this.router.navigate(['/one-quote', id]);
+  }
 }
