@@ -55,7 +55,7 @@ export class DominantColorService {
 
     if (luminance < 0.55) {
       return '#FFFFFF';
-    } else if (luminance < 0.99) {
+    } else if (luminance < 0.92) {
       return '#FF5F15';
     }
 
