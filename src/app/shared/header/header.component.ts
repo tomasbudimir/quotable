@@ -38,6 +38,10 @@ export class HeaderComponent {
     this.router.navigate(['/login']);
   }
 
+  goToQuotes() {
+    this.router.navigate(['/quotes']);
+  }  
+
   get displayName(): string {
     return this.authService.displayName;
   }
