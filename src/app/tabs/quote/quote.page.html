@@ -8,6 +8,7 @@
     <div class="container">
       <div class="quote" *ngFor="let item of imageItems" (click)="backgroundSelected(item)"
         [ngStyle]="{ 'background-image': 'url(' + item.url + ')',}">
+        <span class="invisible">{{item.url}}</span> 
       </div>
     </div>
   </div>
