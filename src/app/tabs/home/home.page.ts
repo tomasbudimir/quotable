@@ -132,7 +132,7 @@ export class HomePage {
 
   showHumorousQuotes() {
     this.currentQuery = CurrentQuery.Humorous;
-    this.sub = this.dataService.getQuotesByCategory(HUMOROUS).subscribe(res => {
+    this.sub = this.dataService.getQuotesByCategory(HUMOROUS, this.loadCount).subscribe(res => {
       this.quotes = res;
     });
   }

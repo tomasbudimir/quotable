@@ -131,10 +131,11 @@ export class DataService {
     );
   }
 
-  getQuotesByCategory(category: string): Observable<QuoteRecord[]> {
+  getQuotesByCategory(category: string, top: number): Observable<QuoteRecord[]> {
     const ref = collection(this.firestore, QUOTES);
     const q = query(ref, where('categories', 'array-contains', category),
-      orderBy('created', 'desc'));
+      orderBy('created', 'desc'),
+      limit(top));
     return collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>;
   }
 
