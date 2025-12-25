@@ -136,6 +136,13 @@ export class DataService {
     );
   }
 
+  getQuotesByCategory(category: string): Observable<QuoteRecord[]> {
+    const ref = collection(this.firestore, QUOTES);
+    const q = query(ref, where('categories', 'array-contains', category),
+      orderBy('created', 'desc'));
+    return collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>;
+  }
+
   getQuoteById(id: string): Observable<QuoteRecord> {
     const ref = doc(this.firestore, QUOTES, id);
     return docData(ref, { idField: 'id'}) as Observable<QuoteRecord>;
@@ -171,7 +178,7 @@ export class DataService {
     );
   }
 
-  async createQuote(quoteText: string, quotedBy: string, url: string, isPrivate: boolean) {
+  async createQuote(quoteText: string, quotedBy: string, url: string, isPrivate: boolean, categories: string[]) {
     const ref = collection(this.firestore, QUOTES);
 
     const isMyQuote = quotedBy == this.authService.displayName;
@@ -185,17 +192,18 @@ export class DataService {
       url,
       isMyQuote,
       isPrivate,
-      likesCount: 0
+      likesCount: 0,
+      categories
     } as QuoteRecord;
 
     await addDoc(ref, quote);
   }
 
-  async updateQuote(id: string, quoteText: string, quotedBy: string, url: string, isPrivate: boolean) {
+  async updateQuote(id: string, quoteText: string, quotedBy: string, url: string, isPrivate: boolean, categories: string[]) {
     const isMyQuote = quotedBy == this.authService.displayName;
 
     const ref = doc(this.firestore, QUOTES, id);
-    await setDoc(ref, { quoteText, quotedBy, url, isMyQuote, isPrivate }, { merge: true });
+    await setDoc(ref, { quoteText, quotedBy, url, isMyQuote, isPrivate, categories }, { merge: true });
 
     await this.updateLikesCount(ref);
   }

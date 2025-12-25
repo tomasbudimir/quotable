@@ -1,8 +1,7 @@
 export enum CurrentQuery {
-  Newest,
+  Humorous,
   TopLikes,
   TopLikesByMe,
   PostedByMe,
-  MyOwnQuotes,
-  PrivateQuotes
+  MyOwnQuotes
 }

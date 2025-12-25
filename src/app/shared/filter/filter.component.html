@@ -1,7 +1,8 @@
   <div class="queries">
-    <ion-button size="small" shape="round" [fill]="newestFill" color="secondary" class="thin-border"
-      (click)="showNewestQuotes()">
-      newest
+    <ion-button size="small" shape="round" [fill]="humorousFill" color="secondary" class="thin-border"
+      (click)="showHumorousQuotes()">
+      <ion-icon name="happy-outline" slot="start"></ion-icon>
+      funny
     </ion-button>
     <ion-button size="small" shape="round" [fill]="topLikesFill" color="secondary" class="thin-border"
       (click)="showTopQuotes()">
@@ -18,9 +19,5 @@
     <ion-button size="small" shape="round" [fill]="myOwnQuotesFill" color="secondary" class="thin-border"
       (click)="showMyOwnQuotes()" *ngIf="isLoggedIn">
       my own quotes
-    </ion-button>
-    <ion-button size="small" shape="round" [fill]="privateQuotesFill" color="secondary" class="thin-border"
-      (click)="showPrivateQuotes()" *ngIf="isLoggedIn">
-      my non-public quotes
     </ion-button>
   </div>

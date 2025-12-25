@@ -12,8 +12,8 @@ import { CurrentQuery } from 'src/app/models/current-query';
 export class FilterComponent {
   @Input() currentQuery: CurrentQuery;
 
-  get newestFill(): string {
-    return this.currentQuery == CurrentQuery.Newest ? 'outline' : 'fill';
+  get humorousFill(): string {
+    return this.currentQuery == CurrentQuery.Humorous ? 'outline' : 'fill';
   }
 
   get topLikesFill(): string {
@@ -32,22 +32,14 @@ export class FilterComponent {
     return this.currentQuery == CurrentQuery.MyOwnQuotes ? 'outline' : 'fill';
   }
 
-  get privateQuotesFill(): string {
-    return this.currentQuery == CurrentQuery.PrivateQuotes ? 'outline' : 'fill';
-  }
-
-  constructor(private router: Router,
-    private authService: AuthService
-  ) { 
-    this.currentQuery = CurrentQuery.Newest;
-  }
+  constructor(private router: Router, private authService: AuthService) {}
 
   get isLoggedIn(): boolean {
     return this.authService.user != null;
   }
 
-  showNewestQuotes() {
-    this.router.navigate(['tabs', 'home', Number(CurrentQuery.Newest)]);
+  showHumorousQuotes() {
+    this.router.navigate(['tabs', 'home', Number(CurrentQuery.Humorous)]);
   }
 
   showTopQuotes() {
@@ -64,9 +56,5 @@ export class FilterComponent {
 
   showMyOwnQuotes() {
     this.router.navigate(['tabs', 'home', Number(CurrentQuery.MyOwnQuotes)]);
-  }
-
-  showPrivateQuotes() {
-    this.router.navigate(['tabs', 'home', Number(CurrentQuery.PrivateQuotes)]);
   }
 }

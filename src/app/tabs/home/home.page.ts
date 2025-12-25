@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 import { Share } from '@capacitor/share';
 import { LikeService } from 'src/app/services/like.service';
 import { CurrentQuery } from 'src/app/models/current-query';
+import { HUMOROUS } from 'src/app/models/constants';
 
 @Component({
   selector: 'app-home',
@@ -50,8 +51,6 @@ export class HomePage {
   }
 
   async ionViewDidEnter() {
-    this.currentQuery = CurrentQuery.Newest;
-
     try {
       this.activatedRoute.queryParams.subscribe(params => {
         const quotedBy = params['quotedBy'];
@@ -63,7 +62,7 @@ export class HomePage {
         } else {
           const view = this.activatedRoute.snapshot.paramMap.get('view');
 
-          if (view && +view <= Number(CurrentQuery.PrivateQuotes)) {
+          if (view) {
             this.currentQuery = +view as CurrentQuery;
             this.showCurrent();
           } else {
@@ -112,8 +111,8 @@ export class HomePage {
     this.isScrollActive = false;
 
     switch (this.currentQuery) {
-      case CurrentQuery.Newest:
-        this.showNewestQuotes();
+      case CurrentQuery.Humorous:
+        this.showHumorousQuotes();
         break;
       case CurrentQuery.TopLikes:
         this.showTopQuotes();
@@ -127,15 +126,12 @@ export class HomePage {
       case CurrentQuery.MyOwnQuotes:
         this.showMyOwnQuotes();
         break;
-      case CurrentQuery.PrivateQuotes:
-        this.showPrivateQuotes();
-        break;
     }
   }
 
-  showNewestQuotes() {
-    this.currentQuery = CurrentQuery.Newest;
-    this.sub = this.dataService.getQuotes().subscribe(res => {
+  showHumorousQuotes() {
+    this.currentQuery = CurrentQuery.Humorous;
+    this.sub = this.dataService.getQuotesByCategory(HUMOROUS).subscribe(res => {
       this.quotes = res;
     });
     this.isShowMoreVisible = false;
@@ -157,8 +153,6 @@ export class HomePage {
         this.quotes = res;
       });
       this.isShowMoreVisible = false;
-    } else {
-      this.showNewestQuotes();
     }
   }
 
@@ -170,9 +164,7 @@ export class HomePage {
         this.quotes = res;
       });
       this.isShowMoreVisible = false;
-    } else {
-      this.showNewestQuotes();
-    }   
+    } 
   }
 
   showMyOwnQuotes() { 
@@ -183,22 +175,7 @@ export class HomePage {
         this.quotes = res;
       });
       this.isShowMoreVisible = false;
-    } else {
-      this.showNewestQuotes();
-    }   
-  }
-
-  showPrivateQuotes() {
-    this.currentQuery = CurrentQuery.PrivateQuotes;
-
-    if (this.authService?.user) {
-      this.sub = this.dataService.getPrivateQuotes().subscribe(res => {
-        this.quotes = res;
-      });
-      this.isShowMoreVisible = false;
-    } else {
-      this.showNewestQuotes();
-    }  
+    } 
   }
 
   navigateByQuotedBy(quotedBy: string) {
@@ -209,7 +186,6 @@ export class HomePage {
   }
 
   showQuotesByQuotedBy(quotedBy: string) {
-    this.currentQuery = CurrentQuery.Newest;
     this.sub= this.dataService.getQuotesByQuotedBy(quotedBy).subscribe(res => {
       this.quotes = res;
     });
