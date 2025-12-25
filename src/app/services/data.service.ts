@@ -84,45 +84,40 @@ export class DataService {
     return collectionData(q, { idField: 'id' }) as Observable<QuoteRecord[]>
   }
 
-  getQuotesSortedByLikes(): Observable<QuoteRecord[]> {
+  getQuotesSortedByLikes(top: number): Observable<QuoteRecord[]> {
     const ref = collection(this.firestore, QUOTES);
     const q = query(ref, where('isPrivate', '==',  false),
       orderBy('likesCount', 'desc'),
-      orderBy('created', 'desc'));
+      orderBy('created', 'desc'),
+      limit(top));
     return collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>;
   }
 
-  getQuotesILiked(): Observable<QuoteRecord[]> {
+  getQuotesILiked(top: number): Observable<QuoteRecord[]> {
     const ref = collection(this.firestore, QUOTES);
     const q = query(ref, where('likes', 'array-contains', this.authService.user.uid),
       orderBy('likesCount', 'desc'),
-      orderBy('created', 'desc'));
+      orderBy('created', 'desc'),
+      limit(top));
     return collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>;
   }
 
-  getQuotesPostedByMe(): Observable<QuoteRecord[]> {
+  getQuotesPostedByMe(top: number): Observable<QuoteRecord[]> {
     const ref = collection(this.firestore, QUOTES);
     const q = query(ref, 
       where('uid', '==',  this.authService.user.uid), 
-      orderBy('created', 'desc'));
+      orderBy('created', 'desc'),
+      limit(top));
     return collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>;
   }
 
-  getMyOwnQuotes(): Observable<QuoteRecord[]> {
+  getMyOwnQuotes(top: number): Observable<QuoteRecord[]> {
     const ref = collection(this.firestore, QUOTES);
     const q = query(ref, 
       where('uid', '==',  this.authService.user.uid), 
       where('isMyQuote', '==',  true),
-      orderBy('created', 'desc'));
-    return (collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>);
-  }
-  
-  getPrivateQuotes(): Observable<QuoteRecord[]> {
-    const ref = collection(this.firestore, QUOTES);
-    const q = query(ref, 
-      where('uid', '==',  this.authService.user.uid), 
-      where('isPrivate', '==',  true), 
-      orderBy('created', 'desc'));
+      orderBy('created', 'desc'),
+      limit(top));
     return (collectionData(q, { idField: 'id'}) as Observable<QuoteRecord[]>);
   }
 

@@ -24,7 +24,6 @@ import { HUMOROUS } from 'src/app/models/constants';
 export class HomePage {
   quotes: QuoteRecord[];
   currentQuery: CurrentQuery;
-  isShowMoreVisible: boolean;
   sub: Subscription;
   visibles: boolean[] = [];
   loadCount: number = 24;
@@ -82,7 +81,7 @@ export class HomePage {
   loadMore(event: any) {
     setTimeout(() => {
       this.loadCount += 24;
-      this.loadDefaultHome();
+      this.showCurrent();
       event.target.complete();
     }, 1000);
   }
@@ -103,12 +102,11 @@ export class HomePage {
 
     this.sub = this.dataService.getQuotes(this.loadCount).subscribe(res => {
       this.quotes = res;
-      this.isShowMoreVisible = true;
     });
   }
 
   async showCurrent() {
-    this.isScrollActive = false;
+    this.isScrollActive = true;
 
     switch (this.currentQuery) {
       case CurrentQuery.Humorous:
@@ -126,6 +124,9 @@ export class HomePage {
       case CurrentQuery.MyOwnQuotes:
         this.showMyOwnQuotes();
         break;
+      default:
+        this.loadDefaultHome();
+        break;
     }
   }
 
@@ -134,25 +135,22 @@ export class HomePage {
     this.sub = this.dataService.getQuotesByCategory(HUMOROUS).subscribe(res => {
       this.quotes = res;
     });
-    this.isShowMoreVisible = false;
   }
 
   showTopQuotes() {
     this.currentQuery = CurrentQuery.TopLikes;
-    this.sub = this.dataService.getQuotesSortedByLikes().subscribe(res => {
+    this.sub = this.dataService.getQuotesSortedByLikes(this.loadCount).subscribe(res => {
       this.quotes = res;
     });
-    this.isShowMoreVisible = false;
   }
 
   showTopQuotesILiked() {
     this.currentQuery = CurrentQuery.TopLikesByMe;
 
     if (this.authService?.user) {
-      this.sub = this.dataService.getQuotesILiked().subscribe(res => {
+      this.sub = this.dataService.getQuotesILiked(this.loadCount).subscribe(res => {
         this.quotes = res;
       });
-      this.isShowMoreVisible = false;
     }
   }
 
@@ -160,10 +158,10 @@ export class HomePage {
     this.currentQuery = CurrentQuery.PostedByMe;
 
     if (this.authService?.user) {
-      this.sub = this.dataService.getQuotesPostedByMe().subscribe(res => {
+      this.sub = this.dataService.getQuotesPostedByMe(this.loadCount).subscribe(res => {
         this.quotes = res;
+
       });
-      this.isShowMoreVisible = false;
     } 
   }
 
@@ -171,10 +169,9 @@ export class HomePage {
     this.currentQuery = CurrentQuery.MyOwnQuotes;
 
     if (this.authService?.user) {
-      this.sub = this.dataService.getMyOwnQuotes().subscribe(res => {
+      this.sub = this.dataService.getMyOwnQuotes(this.loadCount).subscribe(res => {
         this.quotes = res;
       });
-      this.isShowMoreVisible = false;
     } 
   }
 
@@ -189,7 +186,6 @@ export class HomePage {
     this.sub= this.dataService.getQuotesByQuotedBy(quotedBy).subscribe(res => {
       this.quotes = res;
     });
-    this.isShowMoreVisible = false;
   }
 
   getFontSize(quoteText: string): number {
