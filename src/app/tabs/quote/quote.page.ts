@@ -42,6 +42,7 @@ export class QuotePage {
   }
 
   ionViewDidEnter() {
+    this.isHumorous = false;
     this.quoteId = this.activatedRoute.snapshot.paramMap.get('id');
 
     if (this.quoteId) {
