@@ -130,6 +130,10 @@ export class HomePage {
     }
   }
 
+  isHumorous(quote: QuoteRecord) {
+    return quote.categories?.includes(HUMOROUS) ?? false;
+  }
+
   showHumorousQuotes() {
     this.currentQuery = CurrentQuery.Humorous;
     this.sub = this.dataService.getQuotesByCategory(HUMOROUS, this.loadCount).subscribe(res => {
