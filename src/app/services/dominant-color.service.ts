@@ -27,7 +27,8 @@ export class DominantColorService {
         canvas.height = img.height;
         ctx.drawImage(img, 0, 0);
 
-        const { data } = ctx.getImageData(0, 0, canvas.width, canvas.height / 2);
+        const { data } = ctx.getImageData(canvas.width / 10, canvas.height / 5, 
+          canvas.width - canvas.width / 10, canvas.height / 2);
 
         let r = 0, g = 0, b = 0, count = 0;
 
@@ -55,8 +56,8 @@ export class DominantColorService {
 
     if (luminance < 0.5) {
       return '#FFFFFF';
-    } else if (luminance < 0.9) {
-      return '#FF00FF';
+    } else if (luminance < 0.8) {
+      return '#4477AA';
     }
 
     return '#000000';
