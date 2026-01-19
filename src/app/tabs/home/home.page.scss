@@ -16,7 +16,7 @@
   flex-direction: column;     /* stack items vertically */
   justify-content: center;    /* center them vertically */
   align-items: center;        /* center them horizontally */
-  font-size: 1.4em;
+  font-size: 1.2em;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
@@ -28,8 +28,9 @@
 }
 
 .quote-text {
-  margin: 77px 20px 10px 20px;
+  margin: 75px 20px 10px 20px;
   color: gainsboro;
+  font-style: italic;
 }
 
 .quote-author {

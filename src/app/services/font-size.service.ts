@@ -19,7 +19,7 @@ export class FontSizeService {
     } else if (quote.length < 300) {
       return 16;
     } else if (quote.length < 400) {
-      return 15;
+      return 14;
     } else if (quote.length < 500) {
       return 13;
     } else if (quote.length < 600) {
