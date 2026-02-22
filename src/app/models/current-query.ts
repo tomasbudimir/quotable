@@ -1,7 +1,7 @@
 export enum CurrentQuery {
-  Humorous,
-  TopLikes,
-  TopLikesByMe,
-  PostedByMe,
-  MyOwnQuotes
+  humorous,
+  topLikes,
+  topLikesByMe,
+  postedByMe,
+  myOwnQuotes
 }

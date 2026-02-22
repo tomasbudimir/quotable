@@ -13,23 +13,23 @@ export class FilterComponent {
   @Input() currentQuery: CurrentQuery;
 
   get humorousFill(): string {
-    return this.currentQuery == CurrentQuery.Humorous ? 'outline' : 'fill';
+    return this.currentQuery == CurrentQuery.humorous ? 'outline' : 'fill';
   }
 
   get topLikesFill(): string {
-    return this.currentQuery == CurrentQuery.TopLikes ? 'outline' : 'fill';
+    return this.currentQuery == CurrentQuery.topLikes ? 'outline' : 'fill';
   }
 
   get topLikesByMeFill(): string {
-    return this.currentQuery == CurrentQuery.TopLikesByMe ? 'outline' : 'fill';
+    return this.currentQuery == CurrentQuery.topLikesByMe ? 'outline' : 'fill';
   }
 
   get postedByMeFill(): string {
-    return this.currentQuery == CurrentQuery.PostedByMe ? 'outline' : 'fill';
+    return this.currentQuery == CurrentQuery.postedByMe ? 'outline' : 'fill';
   }
 
   get myOwnQuotesFill(): string {
-    return this.currentQuery == CurrentQuery.MyOwnQuotes ? 'outline' : 'fill';
+    return this.currentQuery == CurrentQuery.myOwnQuotes ? 'outline' : 'fill';
   }
 
   constructor(private router: Router, private authService: AuthService) {}
@@ -39,22 +39,22 @@ export class FilterComponent {
   }
 
   showHumorousQuotes() {
-    this.router.navigate(['tabs', 'home', Number(CurrentQuery.Humorous)]);
+    this.router.navigate(['tabs', 'home', CurrentQuery[CurrentQuery.humorous]]);
   }
 
   showTopQuotes() {
-    this.router.navigate(['tabs', 'home', Number(CurrentQuery.TopLikes)]);
+    this.router.navigate(['tabs', 'home', CurrentQuery[CurrentQuery.topLikes]]);
   }
 
   showTopQuotesILiked() {
-    this.router.navigate(['tabs', 'home', Number(CurrentQuery.TopLikesByMe)]);
+    this.router.navigate(['tabs', 'home', CurrentQuery[CurrentQuery.topLikesByMe]]);
   }
 
   showQuotesPostedByMe() {
-    this.router.navigate(['tabs', 'home', Number(CurrentQuery.PostedByMe)]);
+    this.router.navigate(['tabs', 'home', CurrentQuery[CurrentQuery.postedByMe]]);
   }
 
   showMyOwnQuotes() {
-    this.router.navigate(['tabs', 'home', Number(CurrentQuery.MyOwnQuotes)]);
+    this.router.navigate(['tabs', 'home', CurrentQuery[CurrentQuery.myOwnQuotes]]);
   }
 }

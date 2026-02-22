@@ -13,7 +13,6 @@ import { Subscription } from 'rxjs';
 import { Share } from '@capacitor/share';
 import { LikeService } from 'src/app/services/like.service';
 import { CurrentQuery } from 'src/app/models/current-query';
-import { HUMOROUS } from 'src/app/models/constants';
 
 @Component({
   selector: 'app-home',
@@ -49,6 +48,13 @@ export class HomePage {
     return this.visibles[index];
   }
 
+  parseQuery(value: string): CurrentQuery | undefined {
+    if (value in CurrentQuery) {
+      return CurrentQuery[value as keyof typeof CurrentQuery];
+    }
+    return undefined;
+  }
+
   async ionViewDidEnter() {
     try {
       this.activatedRoute.queryParams.subscribe(params => {
@@ -60,9 +66,10 @@ export class HomePage {
           return;
         } else {
           const view = this.activatedRoute.snapshot.paramMap.get('view');
+          let query = this.parseQuery(view);
 
           if (view) {
-            this.currentQuery = +view as CurrentQuery;
+            this.currentQuery = query;
             this.showCurrent();
           } else {
             this.loadDefaultHome();
@@ -109,19 +116,19 @@ export class HomePage {
     this.isScrollActive = true;
 
     switch (this.currentQuery) {
-      case CurrentQuery.Humorous:
+      case CurrentQuery.humorous:
         this.showHumorousQuotes();
         break;
-      case CurrentQuery.TopLikes:
+      case CurrentQuery.topLikes:
         this.showTopQuotes();
         break;
-      case CurrentQuery.TopLikesByMe:
+      case CurrentQuery.topLikesByMe:
         this.showTopQuotesILiked();
         break;
-      case CurrentQuery.PostedByMe:
+      case CurrentQuery.postedByMe:
         this.showQuotesPostedByMe();
         break;
-      case CurrentQuery.MyOwnQuotes:
+      case CurrentQuery.myOwnQuotes:
         this.showMyOwnQuotes();
         break;
       default:
@@ -131,25 +138,25 @@ export class HomePage {
   }
 
   isHumorous(quote: QuoteRecord) {
-    return quote.categories?.includes(HUMOROUS) ?? false;
+    return quote.categories?.includes(CurrentQuery[CurrentQuery.humorous]) ?? false;
   }
 
   showHumorousQuotes() {
-    this.currentQuery = CurrentQuery.Humorous;
-    this.sub = this.dataService.getQuotesByCategory(HUMOROUS, this.loadCount).subscribe(res => {
+    this.currentQuery = CurrentQuery.humorous;
+    this.sub = this.dataService.getQuotesByCategory(CurrentQuery[CurrentQuery.humorous], this.loadCount).subscribe(res => {
       this.quotes = res;
     });
   }
 
   showTopQuotes() {
-    this.currentQuery = CurrentQuery.TopLikes;
+    this.currentQuery = CurrentQuery.topLikes;
     this.sub = this.dataService.getQuotesSortedByLikes(this.loadCount).subscribe(res => {
       this.quotes = res;
     });
   }
 
   showTopQuotesILiked() {
-    this.currentQuery = CurrentQuery.TopLikesByMe;
+    this.currentQuery = CurrentQuery.topLikesByMe;
 
     if (this.authService?.user) {
       this.sub = this.dataService.getQuotesILiked(this.loadCount).subscribe(res => {
@@ -159,7 +166,7 @@ export class HomePage {
   }
 
   showQuotesPostedByMe() {
-    this.currentQuery = CurrentQuery.PostedByMe;
+    this.currentQuery = CurrentQuery.postedByMe;
 
     if (this.authService?.user) {
       this.sub = this.dataService.getQuotesPostedByMe(this.loadCount).subscribe(res => {
@@ -170,7 +177,7 @@ export class HomePage {
   }
 
   showMyOwnQuotes() { 
-    this.currentQuery = CurrentQuery.MyOwnQuotes;
+    this.currentQuery = CurrentQuery.myOwnQuotes;
 
     if (this.authService?.user) {
       this.sub = this.dataService.getMyOwnQuotes(this.loadCount).subscribe(res => {

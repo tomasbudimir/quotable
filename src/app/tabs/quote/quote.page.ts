@@ -7,7 +7,7 @@ import { LoadingController } from '@ionic/angular';
 import { ImageItem } from '../../models/image-item';
 import { FileService } from '../../services/file.service';
 import { Component } from '@angular/core';
-import { HUMOROUS } from 'src/app/models/constants';
+import { CurrentQuery } from 'src/app/models/current-query';
 
 @Component({
   selector: 'app-quote',
@@ -52,7 +52,7 @@ export class QuotePage {
           this.quoteText = res.quoteText;
           this.quotedBy = res.quotedBy;
           this.isPrivate = res?.isPrivate ?? false;
-          this.isHumorous = res?.categories?.includes(HUMOROUS);
+          this.isHumorous = res?.categories?.includes(CurrentQuery[CurrentQuery.humorous]);
         } else {
           this.loadImages();
         }
@@ -131,7 +131,7 @@ export class QuotePage {
     let categories = [];
 
     if (this.isHumorous) {
-      categories.push(HUMOROUS);
+      categories.push(CurrentQuery[CurrentQuery.humorous]);
     }
 
     try {
