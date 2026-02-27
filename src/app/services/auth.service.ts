@@ -66,6 +66,10 @@ export class AuthService {
     return this.user?.displayName;
   }
 
+  get email(): string {
+    return this.user?.email;
+  }
+
   get photoURL(): string {
     if (this.user?.photoURL && this.user.photoURL.startsWith('http')) {
       return this.user.photoURL;

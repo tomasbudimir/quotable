@@ -4,7 +4,7 @@
   <div class="center-content">
     <input type="file" accept="image/*" #fileInput hidden (change)="onFileSelected($event)" />
     <ion-avatar class="center-content larger" (click)="fileInput.click()">
-      <img [src]="photoURL">
+      <img [src]="photoURL" [title]="email">
     </ion-avatar>
     <ion-item>
       <ion-input label="Display Name" labelPlacement="floating" placeholder="Display Name" [(ngModel)]="displayName"

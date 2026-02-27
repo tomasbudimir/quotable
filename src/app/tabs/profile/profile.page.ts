@@ -15,6 +15,7 @@ export class ProfilePage {
   imageFile: File | null = null;
   photoURL: string;
   displayName: string;
+  email: string;
   saveButtonEnabled: boolean;
 
   constructor(private imageUploadService: ImageUploadService,
@@ -27,6 +28,7 @@ export class ProfilePage {
     this.saveButtonEnabled = false;
     this.displayName = this.authService.displayName;
     this.photoURL = this.authService.photoURL;
+    this.email = this.authService.email;
   }
 
   userMadeChange() {
