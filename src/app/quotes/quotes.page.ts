@@ -39,7 +39,7 @@ export class QuotesPage implements OnDestroy {
   filterItems(event: any) {
     const query = event.target.value.toLowerCase();
     this.filteredQuotes = this.quotes.filter(quote =>
-      quote.quoteText.toLowerCase().includes(query)
+      quote.quoteText.toLowerCase().includes(query) || quote.quotedBy.toLowerCase().includes(query)
     );
     this.filteredQuotesCount = this.filteredQuotes.length;
   }
