@@ -19,7 +19,7 @@
     </ion-button>
   </div>
   <div class="container" *ngIf="quotes">
-    <ion-checkbox (ionChange)="onShowOnlyFunnyQuotesChange($event)">Show only funny quotes</ion-checkbox>
+    <ion-checkbox [(ngModel)]="isShowOnlyFunny" (ionChange)="onShowOnlyFunnyQuotesChange($event)">Show only funny quotes</ion-checkbox>
   </div>
   <div class="container">
     <ion-item>

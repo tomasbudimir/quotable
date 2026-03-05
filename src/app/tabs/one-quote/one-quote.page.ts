@@ -27,6 +27,7 @@ export class OneQuotePage implements OnDestroy {
   displayedAuthor: string;
   isClickable: boolean;
   isPlaying: boolean;
+  isShowOnlyFunny: boolean;
 
   constructor(private router: Router,
     private dataService: DataService,
@@ -114,6 +115,8 @@ export class OneQuotePage implements OnDestroy {
   }
 
   onShowOnlyFunnyQuotesChange(event: any) {
+    this.isShowOnlyFunny = event.detail.checked;
+
     if (event.detail.checked) {
       this.author = '';
       this.quotes = this.allQuotes.filter(quote => {
@@ -136,12 +139,14 @@ export class OneQuotePage implements OnDestroy {
       this.quotes = this.allQuotes;
     } else {
       this.filteredAuthors = this.authors.filter(author => author.toLowerCase().startsWith(input));
+      this.isShowOnlyFunny = false;
     }
   }
 
   selectAuthor(input: any) {
     this.author = input;
     this.filteredAuthors = [];
+    this.isShowOnlyFunny = false;
 
     this.quotes = this.allQuotes.filter(quote => quote.quotedBy == this.author);
   }
