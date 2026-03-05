@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { QuoteRecord } from '../../models/quote-record';
 import { FontSizeService } from '../../services/font-size.service';
+import { CurrentQuery } from 'src/app/models/current-query';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-one-quote',
@@ -12,7 +14,14 @@ import { FontSizeService } from '../../services/font-size.service';
 })
 export class OneQuotePage implements OnDestroy {
   @ViewChild('myCanvas', { static: false }) myCanvas!: ElementRef<HTMLCanvasElement>;
+  allQuotes: QuoteRecord[] = [];
   quotes: QuoteRecord[] = [];
+  authors: string[] = [];
+  filteredAuthors: string[] = [];
+  author: string;
+
+  sub: Subscription;
+
   quote: QuoteRecord = null;
   displayedQuote: string;
   displayedAuthor: string;
@@ -27,9 +36,11 @@ export class OneQuotePage implements OnDestroy {
   ionViewDidEnter() {    
     this.isClickable = true;
     let i = 0;
-    this.dataService.getUnsortedQuotes().subscribe(res => {
+    this.sub = this.dataService.getUnsortedQuotes().subscribe(res => {
       if (res) {
+        this.allQuotes = res;
         this.quotes = res;
+        this.authors = [...new Set(res.map(q => q.quotedBy))] as string[];
         this.showAnother();
       } else {
         this.router.navigate(['/tabs']);
@@ -41,6 +52,7 @@ export class OneQuotePage implements OnDestroy {
     this.displayedQuote = '';
     this.displayedAuthor = '';
     this.quote = null;
+    this.sub?.unsubscribe();
   }
 
   navigateByQuotedBy(quotedBy: string) {
@@ -99,5 +111,38 @@ export class OneQuotePage implements OnDestroy {
     if (this.isPlaying) {
       setTimeout(() => this.showAnother(), 3000);
     }
+  }
+
+  onShowOnlyFunnyQuotesChange(event: any) {
+    if (event.detail.checked) {
+      this.author = '';
+      this.quotes = this.allQuotes.filter(quote => {
+        if (quote.categories) {
+          return quote.categories.some(category => category == CurrentQuery[CurrentQuery.humorous]);
+        } else {
+          return false;
+        }
+      });
+    } else {
+      this.quotes = this.allQuotes;
+    }
+  }
+
+  filterAuthors(event: any) {
+    const input = event.target.value?.toLowerCase() || '';
+
+    if (!input) {
+      this.filteredAuthors = [];      
+      this.quotes = this.allQuotes;
+    } else {
+      this.filteredAuthors = this.authors.filter(author => author.toLowerCase().startsWith(input));
+    }
+  }
+
+  selectAuthor(input: any) {
+    this.author = input;
+    this.filteredAuthors = [];
+
+    this.quotes = this.allQuotes.filter(quote => quote.quotedBy == this.author);
   }
 }

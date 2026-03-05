@@ -18,4 +18,20 @@
       Show another one
     </ion-button>
   </div>
+  <div class="container" *ngIf="quotes">
+    <ion-checkbox (ionChange)="onShowOnlyFunnyQuotesChange($event)">Show only funny quotes</ion-checkbox>
+  </div>
+  <div class="container">
+    <ion-item>
+      <ion-input placeholder="Show only by this author" [(ngModel)]="author" (ionInput)="filterAuthors($event)">
+      </ion-input>
+    </ion-item>
+  </div>
+  <div class="container" *ngIf="filteredAuthors">
+    <ion-list *ngIf="filteredAuthors">
+      <ion-item button *ngFor="let author of filteredAuthors" (click)="selectAuthor(author)">
+        {{ author }}
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>
