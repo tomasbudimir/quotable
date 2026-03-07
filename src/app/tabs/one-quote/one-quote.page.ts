@@ -28,6 +28,8 @@ export class OneQuotePage implements OnDestroy {
   isClickable: boolean;
   isPlaying: boolean;
   isShowOnlyFunny: boolean;
+  isRandom: boolean = true;
+  index: number = 0;
 
   constructor(private router: Router,
     private dataService: DataService,
@@ -67,7 +69,11 @@ export class OneQuotePage implements OnDestroy {
   }
 
   getIndex(size: number): number {
-    return Math.floor(Math.random() * size);
+    if (this.isRandom) {
+      return Math.floor(Math.random() * size);
+    } else {
+      return this.index++ % this.quotes.length;
+    }
   }
 
   showAnother() {
@@ -126,8 +132,10 @@ export class OneQuotePage implements OnDestroy {
           return false;
         }
       });
+      this.unrandomize();
     } else {
       this.quotes = this.allQuotes;
+      this.randomize();
     }
   }
 
@@ -137,9 +145,11 @@ export class OneQuotePage implements OnDestroy {
     if (!input) {
       this.filteredAuthors = [];      
       this.quotes = this.allQuotes;
+      this.randomize();
     } else {
       this.filteredAuthors = this.authors.filter(author => author.toLowerCase().startsWith(input));
       this.isShowOnlyFunny = false;
+      this.unrandomize();
     }
   }
 
@@ -147,7 +157,17 @@ export class OneQuotePage implements OnDestroy {
     this.author = input;
     this.filteredAuthors = [];
     this.isShowOnlyFunny = false;
+    this.unrandomize();
 
     this.quotes = this.allQuotes.filter(quote => quote.quotedBy == this.author);
+  }
+
+  randomize(): void {
+    this.isRandom = true;
+  }
+  
+  unrandomize(): void {
+    this.index = 0;
+    this.isRandom = false;
   }
 }
