@@ -18,7 +18,7 @@
       Show another one
     </ion-button>
   </div>
-  <div class="container" *ngIf="quotes">
+  <div class="container" *ngIf="quote && quotes">
     <ion-checkbox [(ngModel)]="isShowOnlyFunny" (ionChange)="onShowOnlyFunnyQuotesChange($event)">Show only funny quotes</ion-checkbox>
   </div>
   <div class="container">
@@ -27,7 +27,7 @@
       </ion-input>
     </ion-item>
   </div>
-  <div class="container" *ngIf="filteredAuthors">
+  <div class="container" *ngIf="quote && filteredAuthors">
     <ion-list *ngIf="filteredAuthors">
       <ion-item button *ngFor="let author of filteredAuthors" (click)="selectAuthor(author)">
         {{ author }}

@@ -28,7 +28,7 @@ export class OneQuotePage implements OnDestroy {
   isClickable: boolean;
   isPlaying: boolean;
   isShowOnlyFunny: boolean;
-  isRandom: boolean = true;
+  isRandom: boolean;
   index: number = 0;
 
   constructor(private router: Router,
@@ -44,6 +44,9 @@ export class OneQuotePage implements OnDestroy {
         this.allQuotes = res;
         this.quotes = res;
         this.authors = [...new Set(res.map(q => q.quotedBy))] as string[];
+        this.author = '';
+        this.isShowOnlyFunny = false;
+        this.randomize();
         this.showAnother();
       } else {
         this.router.navigate(['/tabs']);
