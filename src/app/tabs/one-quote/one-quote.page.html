@@ -1,37 +1,42 @@
 <app-header></app-header>
 
 <ion-content [fullscreen]="true">
-  <div class="container" *ngIf="quote">
-    <div class="quote" [id]="quote.id" [ngStyle]="{ 'background-image': 'url(' + quote?.url + ')' }" (click)="showAnother()">
-      <p class="quote-text" [style.fontSize.px]="getFontSize(quote?.quoteText)">{{ displayedQuote }}</p>
-      <p class="quote-author link" (click)="navigateByQuotedBy(quote?.quotedBy)">{{ displayedAuthor }}</p>
+  <div *ngIf="quote">
+    <div class="container">
+      <div class="quote" [id]="quote.id" [ngStyle]="{ 'background-image': 'url(' + quote?.url + ')' }"
+        (click)="showAnother()">
+        <p class="quote-text" [style.fontSize.px]="getFontSize(quote?.quoteText)">{{ displayedQuote }}</p>
+        <p class="quote-author link" (click)="navigateByQuotedBy(quote?.quotedBy)">{{ displayedAuthor }}</p>
+      </div>
     </div>
-  </div>
-  <div class="container" *ngIf="quote">
-    <ion-button class="top-margin" fill="clear" (click)="playPause()">
-      <ion-icon name="play-circle-outline" color="medium" size="large" *ngIf="!isPlaying"></ion-icon>
-      <ion-icon name="pause-circle-outline" color="success" size="large" *ngIf="isPlaying"></ion-icon>
-    </ion-button>
-  </div>
-  <div class="container" *ngIf="quote">
-    <ion-button class="top-margin" shape="round" fill="clear" (click)="showAnother()" *ngIf="isClickable && !isPlaying">
-      Show another one
-    </ion-button>
-  </div>
-  <div class="container" *ngIf="quote && quotes">
-    <ion-checkbox [(ngModel)]="isShowOnlyFunny" (ionChange)="onShowOnlyFunnyQuotesChange($event)">Show only funny quotes</ion-checkbox>
-  </div>
-  <div class="container">
-    <ion-item>
-      <ion-input placeholder="Show only by this author" [(ngModel)]="author" (ionInput)="filterAuthors($event)">
-      </ion-input>
-    </ion-item>
-  </div>
-  <div class="container" *ngIf="quote && filteredAuthors">
-    <ion-list *ngIf="filteredAuthors">
-      <ion-item button *ngFor="let author of filteredAuthors" (click)="selectAuthor(author)">
-        {{ author }}
+    <div class="container">
+      <ion-button class="top-margin" fill="clear" (click)="playPause()">
+        <ion-icon name="play-circle-outline" color="medium" size="large" *ngIf="!isPlaying"></ion-icon>
+        <ion-icon name="pause-circle-outline" color="success" size="large" *ngIf="isPlaying"></ion-icon>
+      </ion-button>
+    </div>
+    <div class="container">
+      <ion-button class="top-margin" shape="round" fill="clear" (click)="showAnother()"
+        *ngIf="isClickable && !isPlaying">
+        Show another one
+      </ion-button>
+    </div>
+    <div class="container" *ngIf="quotes">
+      <ion-checkbox [(ngModel)]="isShowOnlyFunny" (ionChange)="onShowOnlyFunnyQuotesChange($event)">Show only funny
+        quotes</ion-checkbox>
+    </div>
+    <div class="container">
+      <ion-item>
+        <ion-input placeholder="Show only by this author" [(ngModel)]="author" (ionInput)="filterAuthors($event)">
+        </ion-input>
       </ion-item>
-    </ion-list>
+    </div>
+    <div class="container" *ngIf="filteredAuthors">
+      <ion-list *ngIf="filteredAuthors">
+        <ion-item button *ngFor="let author of filteredAuthors" (click)="selectAuthor(author)">
+          {{ author }}
+        </ion-item>
+      </ion-list>
+    </div>
   </div>
 </ion-content>
