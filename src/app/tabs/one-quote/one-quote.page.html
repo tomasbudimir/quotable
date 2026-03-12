@@ -14,8 +14,6 @@
         <ion-icon name="play-circle-outline" color="medium" size="large" *ngIf="!isPlaying"></ion-icon>
         <ion-icon name="pause-circle-outline" color="success" size="large" *ngIf="isPlaying"></ion-icon>
       </ion-button>
-    </div>
-    <div class="container">
       <ion-button class="top-margin" shape="round" fill="clear" (click)="showAnother()"
         *ngIf="isClickable && !isPlaying">
         Show another one
