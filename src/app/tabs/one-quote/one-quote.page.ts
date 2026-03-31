@@ -5,6 +5,7 @@ import { QuoteRecord } from '../../models/quote-record';
 import { FontSizeService } from '../../services/font-size.service';
 import { CurrentQuery } from 'src/app/models/current-query';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-one-quote',
@@ -33,6 +34,7 @@ export class OneQuotePage implements OnDestroy {
 
   constructor(private router: Router,
     private dataService: DataService,
+    private authService: AuthService,
     private fontSizeService: FontSizeService
   ) { }
 
@@ -65,6 +67,15 @@ export class OneQuotePage implements OnDestroy {
     this.router.navigate(['tabs', 'home'], {
       queryParams: { quotedBy }
     });
+  }
+
+  get isLoggedIn(): boolean {
+    return this.authService.user != null;
+  }
+
+  isMyPost(quote: QuoteRecord): boolean {
+    return this.isLoggedIn 
+      && this.authService.user?.uid == quote.uid;
   }
 
   getFontSize(quoteText: string): number {

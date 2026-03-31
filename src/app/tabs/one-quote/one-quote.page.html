@@ -10,6 +10,9 @@
       </div>
     </div>
     <div class="container">
+      <ion-button class="top-margin" fill="clear" *ngIf="isMyPost(quote)" [routerLink]="['/tabs', 'quote', quote.id]">
+        <ion-icon name="pencil" color="success" class="icon"></ion-icon>
+      </ion-button>
       <ion-button class="top-margin" fill="clear" (click)="playPause()">
         <ion-icon name="play-circle-outline" color="medium" size="large" *ngIf="!isPlaying"></ion-icon>
         <ion-icon name="pause-circle-outline" color="success" size="large" *ngIf="isPlaying"></ion-icon>

@@ -70,7 +70,7 @@ export class DataService {
     const ref = collection(this.firestore, QUOTES);
     let q = query(ref, where('isPrivate', '==', false));
 
-    return collectionData(q) as Observable<QuoteRecord[]>;
+    return collectionData(q, { idField: 'id' }) as Observable<QuoteRecord[]>;
   }
 
   getQuotes(top?: number): Observable<QuoteRecord[]> {
