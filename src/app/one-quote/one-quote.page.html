@@ -9,6 +9,9 @@
   </div>
   <div class="container" *ngIf="quote">
     <div class="button-row">
+      <ion-button color="light" size="small" class="button" shape="round" *ngIf="isMyPost(quote)" [routerLink]="['/tabs', 'quote', quote.id]">
+        <ion-icon name="pencil" color="success" class="icon"></ion-icon>
+      </ion-button>
       <ion-button color="light" size="small" class="button" shape="round" (click)="share(quote)">
         <ion-icon name="share-social-outline" color="tertiary" class="icon"></ion-icon>
       </ion-button>
