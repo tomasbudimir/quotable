@@ -115,10 +115,10 @@ export class OneQuotePage {
     if (!element) return;
 
     await html2canvas(element).then((canvas) => {
-      const image = canvas.toDataURL('image/png');
+      const image = canvas.toDataURL('image/jpeg');
       const link = document.createElement('a');
       link.href = image;
-      link.download = quote.quoteText.substring(0, 20) + '.png';
+      link.download = quote.quoteText.substring(0, 20) + '.jpg';
       link.click();
     });
   }
