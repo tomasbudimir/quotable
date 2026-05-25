@@ -59,6 +59,12 @@ div.quote:hover {
   font-family: cursive, 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+@media (hover: none) and (pointer: coarse) {
+  .quote {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+}
+
 @media (min-width: 1680px) {
   .preview-quote {
     width: 466px;

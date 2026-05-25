@@ -20,6 +20,12 @@
   font-family: cursive, 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+@media (hover: none) and (pointer: coarse) {
+  .quote {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+}
+
 @media (max-width: 1680px) {
   .quote {
     width: 490px;

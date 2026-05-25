@@ -19,6 +19,12 @@
   font-family: cursive, 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+@media (hover: none) and (pointer: coarse) {
+  .quote {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+}
+
 .quote-text {
   margin: 110px 20px auto 20px;
   //color: white;
