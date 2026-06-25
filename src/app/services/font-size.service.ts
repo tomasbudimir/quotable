@@ -14,19 +14,21 @@ export class FontSizeService {
       return 24;
     } else if (quote.length < 100) {
       return 21;
+    } else if (quote.length < 150) {
+      return 20;
+    } else if (quote.length < 180) {
+      return 18;
     } else if (quote.length < 200) {
-      return 19;
-    } else if (quote.length < 300) {
       return 15;
+    } else if (quote.length < 300) {
+      return 14;
     } else if (quote.length < 400) {
-      return 13;
-    } else if (quote.length < 500) {
       return 12;
-    } else if (quote.length < 600) {
+    } else if (quote.length < 500) {
       return 11;
-    } else if (quote.length < 700) {
+    } else if (quote.length < 600) {
       return 10;
-    } 
+    }
 
     return 9;
   }
