@@ -14,7 +14,7 @@ export class FontSizeService {
       return 24;
     } else if (quote.length < 100) {
       return 21;
-    } else if (quote.length < 150) {
+    } else if (quote.length < 120) {
       return 20;
     } else if (quote.length < 180) {
       return 18;
