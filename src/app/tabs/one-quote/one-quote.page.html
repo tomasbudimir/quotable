@@ -21,6 +21,10 @@
         *ngIf="isClickable && !isPlaying">
         Show another one
       </ion-button>
+      <ion-button class="top-margin" fill="clear" *ngIf="isMyPost(quote)"
+        (click)="delete(quote)">
+        <ion-icon name="trash-outline" color="danger" class="icon"></ion-icon>
+      </ion-button>
     </div>
     <div class="container" *ngIf="quotes">
       <ion-checkbox [(ngModel)]="isShowOnlyFunny" (ionChange)="onShowOnlyFunnyQuotesChange($event)">Show only funny

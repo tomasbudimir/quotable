@@ -6,6 +6,7 @@ import { FontSizeService } from '../../services/font-size.service';
 import { CurrentQuery } from 'src/app/models/current-query';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-one-quote',
@@ -35,6 +36,7 @@ export class OneQuotePage implements OnDestroy {
   constructor(private router: Router,
     private dataService: DataService,
     private authService: AuthService,
+    private alertService: AlertService,
     private fontSizeService: FontSizeService
   ) { }
 
@@ -183,5 +185,14 @@ export class OneQuotePage implements OnDestroy {
   unrandomize(): void {
     this.index = 0;
     this.isRandom = false;
+  }
+
+  async delete(quote: QuoteRecord) {
+    const result = await this.alertService.confirm('Confirm', 'Are you sure you want to delete it?');
+
+    if (result) {
+      await this.dataService.deleteQuote(quote.id);
+      this.alertService.showToast('Quote successfully deleted.', 'trash-outline', 'warning');
+    }
   }
 }
