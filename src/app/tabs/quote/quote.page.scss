@@ -61,12 +61,13 @@ div.quote:hover {
 
 @media (hover: none) and (pointer: coarse) {
   .quote {
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 }
 
 @media (min-width: 1680px) {
   .preview-quote {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     width: 466px;
     height: 311px;
   }
