@@ -34,6 +34,6 @@ export class FontSizeService {
   }
 
   getBiggerFontSize(quote: string): number {
-    return this.getFontSize(quote) + 4;
+    return this.getFontSize(quote) + 10;
   }
 }
