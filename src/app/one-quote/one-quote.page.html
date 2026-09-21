@@ -23,6 +23,10 @@
         <ion-icon [name]="getLikeIconName(quote)" color="tertiary" class="icon"></ion-icon>
         <ion-badge color="transaparent" slot="end">{{quote.likesCount}}</ion-badge>
       </ion-button>
+      <ion-button color="light" size="small" class="button" shape="round" *ngIf="isMyPost(quote)"
+        (click)="delete(quote)">
+        <ion-icon name="trash-outline" color="danger" class="icon"></ion-icon>
+      </ion-button>
     </div>
   </div>
   <div class="container" *ngIf="quote">

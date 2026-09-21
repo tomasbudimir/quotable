@@ -122,4 +122,13 @@ export class OneQuotePage {
       link.click();
     });
   }
+
+  async delete(quote: QuoteRecord) {
+    const result = await this.alertService.confirm('Confirm', 'Are you sure you want to delete it?');
+
+    if (result) {
+      await this.dataService.deleteQuote(quote.id);
+      this.alertService.showToast('Quote successfully deleted.', 'trash-outline', 'warning');
+    }
+  }
 }
