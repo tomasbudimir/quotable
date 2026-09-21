@@ -17,11 +17,11 @@ export class FontSizeService {
     } else if (quote.length < 120) {
       return 20;
     } else if (quote.length < 180) {
-      return 18;
+      return 17;
     } else if (quote.length < 200) {
       return 15;
     } else if (quote.length < 300) {
-      return 14;
+      return 13;
     } else if (quote.length < 400) {
       return 12;
     } else if (quote.length < 500) {
