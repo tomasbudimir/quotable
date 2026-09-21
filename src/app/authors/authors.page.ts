@@ -33,7 +33,7 @@ export class AuthorsPage {
   }
 
   ionViewDidEnter() {
-    this.sortByName();
+    this.sortByCount();
   }
 
   sortByNameCommand() {
@@ -61,7 +61,7 @@ export class AuthorsPage {
 
   sortByCount() {
     this.sortBy = SortBy.Count;
-    this.authors = this.dataService.getAuthors(this.sortBy, this.sortAscendingByCount);
+    this.authors = this.dataService.getAuthors(this.sortBy, !this.sortAscendingByCount);
   }
 
   navigateByQuotedBy(person: string) {
