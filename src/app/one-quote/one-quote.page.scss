@@ -5,8 +5,8 @@
 }
 
 .quote {
-  width: 721px;
-  height: 481px;
+  width: 820px;
+  height: 547px;
   background-blend-mode: overlay;
   //background-color: rgba(0, 0, 0, 0.4);
   background-size: cover;
@@ -21,7 +21,7 @@
 
 @media (hover: none) and (pointer: coarse) {
   .quote {
-    font-family: cursive, 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 }
 
