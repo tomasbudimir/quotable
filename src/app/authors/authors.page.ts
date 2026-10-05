@@ -34,6 +34,14 @@ export class AuthorsPage {
 
   ionViewDidEnter() {
     this.sortByCount();
+
+    this.authorsTotal = this.authors.pipe(
+      map(items => items.length)
+    );
+    
+    this.total = this.authors.pipe(
+      map(items => items.reduce((acc, item) => acc + item.count, 0))
+    );
   }
 
   sortByNameCommand() {
@@ -44,14 +52,6 @@ export class AuthorsPage {
   sortByName() {
     this.sortBy = SortBy.Name;
     this.authors = this.dataService.getAuthors(this.sortBy, this.sortAscendingByName);
-    
-    this.authorsTotal = this.authors.pipe(
-      map(items => items.length)
-    );
-    
-    this.total = this.authors.pipe(
-      map(items => items.reduce((acc, item) => acc + item.count, 0))
-    );
   }
 
   sortByCountCommand() {
