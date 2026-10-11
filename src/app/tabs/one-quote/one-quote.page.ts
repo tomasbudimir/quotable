@@ -195,4 +195,8 @@ export class OneQuotePage implements OnDestroy {
       this.alertService.showToast('Quote successfully deleted.', 'trash-outline', 'warning');
     }
   }
+
+  navigateToOneQuote(id: string) {
+    this.router.navigate(['/one-quote', id]);
+  }
 }
