@@ -6,13 +6,11 @@
     <div class="count-label">
       {{ filteredQuotesCount }} quotes
     </div>
-    <ion-list>
-      <ion-item class="link" *ngFor="let quote of filteredQuotes">
-        <div>
-          <span class="quote" (click)="navigateToOneQuote(quote.id)">{{ quote.quoteText }}</span>
-          <span class="author link" (click)="navigateByQuotedBy(quote.quotedBy)"> --{{ quote.quotedBy }}</span>
-        </div>
-      </ion-item>
-    </ion-list>
+    <div class="quote-container">
+      <div class="box" *ngFor="let quote of filteredQuotes">
+        <div class="quote link" (click)="navigateToOneQuote(quote.id)">{{ quote.quoteText }}</div>
+        <div class="author link" (click)="navigateByQuotedBy(quote.quotedBy)"> {{ quote.quotedBy }}</div>
+      </div>
+    </div>
   </div>
 </ion-content>
