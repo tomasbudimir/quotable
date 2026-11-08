@@ -16,10 +16,18 @@ export class FontSizeService {
       return 21;
     } else if (quote.length < 120) {
       return 20;
+    } else if (quote.length < 140) {
+      return 19;
+    } else if (quote.length < 160) {
+      return 18;
     } else if (quote.length < 180) {
       return 17;
     } else if (quote.length < 200) {
+      return 16;
+    } else if (quote.length < 230) {
       return 15;
+    } else if (quote.length < 260) {
+      return 14;
     } else if (quote.length < 300) {
       return 13;
     } else if (quote.length < 400) {
